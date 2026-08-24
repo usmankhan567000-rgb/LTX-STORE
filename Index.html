@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LTX Store</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #000;
+      color: #fff;
+    }
+
+    header {
+      padding: 22px 18px;
+      border-bottom: 1px solid #222;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 25px;
+      font-weight: 800;
+      letter-spacing: 2px;
+    }
+
+    .cart {
+      border: 1px solid #444;
+      padding: 9px 14px;
+      border-radius: 8px;
+      background: #fff;
+      color: #000;
+      font-weight: bold;
+    }
+
+    .hero {
+      padding: 55px 20px;
+      text-align: center;
+      background: linear-gradient(145deg, #111, #000);
+    }
+
+    .hero h1 {
+      font-size: 38px;
+      margin-bottom: 12px;
+    }
+
+    .hero p {
+      color: #aaa;
+      font-size: 16px;
+      margin-bottom: 25px;
+    }
+
+    .shop-btn {
+      display: inline-block;
+      background: #fff;
+      color: #000;
+      padding: 13px 25px;
+      border-radius: 8px;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .section {
+      padding: 30px 18px;
+    }
+
+    .section h2 {
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+
+    .categories {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 35px;
+    }
+
+    .category {
+      border: 1px solid #333;
+      border-radius: 12px;
+      padding: 20px 10px;
+      text-align: center;
+      background: #0d0d0d;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .product {
+      background: #111;
+      border: 1px solid #292929;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .product-img {
+      height: 170px;
+      background: #222;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #777;
+    }
+
+    .product-info {
+      padding: 12px;
+    }
+
+    .product-name {
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .price {
+      font-weight: bold;
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .add-btn {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 7px;
+      background: #fff;
+      color: #000;
+      font-weight: bold;
+    }
+
+    footer {
+      margin-top: 40px;
+      padding: 30px 20px;
+      text-align: center;
+      border-top: 1px solid #222;
+      color: #888;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="logo">LTX STORE</div>
+    <div class="cart">🛒 Cart (0)</div>
+  </header>
+
+  <section class="hero">
+    <h1>LTX STORE</h1>
+    <p>Premium Products. Affordable Prices.</p>
+    <a href="#products" class="shop-btn">Shop Now</a>
+  </section>
+
+  <section class="section">
+    <h2>Collections</h2>
+
+    <div class="categories">
+      <div class="category">🌸<br>Perfumes</div>
+      <div class="category">🎧<br>Headphones</div>
+      <div class="category">⌚<br>Watches</div>
+      <div class="category">🔑<br>Keychains</div>
+    </div>
+
+    <h2 id="products">Featured Products</h2>
+
+    <div class="products">
+
+      <div class="product">
+        <div class="product-img">Product Image</div>
+        <div class="product-info">
+          <div class="product-name">Zarar For Men by J.Dot</div>
+          <div class="price">Rs. 300</div>
+          <button class="add-btn">Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="product">
+        <div class="product-img">Product Image</div>
+        <div class="product-info">
+          <div class="product-name">Cute Bear Keychain</div>
+          <div class="price">Rs. 300</div>
+          <button class="add-btn">Add to Cart</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 LTX Store</p>
+    <p>All Pakistan Delivery • Khanpur Free Delivery</p>
+  </footer>
+
+</body>
+</html>
