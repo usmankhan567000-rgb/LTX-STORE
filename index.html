@@ -1066,4 +1066,283 @@ function renderAdminProducts(){
  </div>
 
  `).join("");
-  
+  function editProduct(id){
+
+ const product = products.find(p => p.id === id);
+
+ if(!product) return;
+
+ document.getElementById("formTitle").textContent = "Edit Product";
+ document.getElementById("editProductId").value = product.id;
+ document.getElementById("productName").value = product.name;
+ document.getElementById("productPrice").value = product.price;
+ document.getElementById("productCategory").value = product.category;
+ document.getElementById("productDescription").value = product.description || "";
+
+ selectedImage = product.image || "";
+
+ document.getElementById("imagePreview").innerHTML =
+   product.image
+   ? `<img src="${product.image}" alt="Preview">`
+   : "Image preview";
+}
+
+
+function deleteProduct(id){
+
+ const product = products.find(p => p.id === id);
+
+ if(!product) return;
+
+ if(!confirm('Delete "' + product.name + '"?')) return;
+
+ products = products.filter(p => p.id !== id);
+
+ localStorage.setItem(
+  "ltxProducts",
+  JSON.stringify(products)
+ );
+
+ renderProducts();
+ renderAdminProducts();
+}
+
+
+function exportProducts(){
+
+ const data = JSON.stringify(products, null, 2);
+
+ const blob = new Blob(
+  [data],
+  {type:"application/json"}
+ );
+
+ const url = URL.createObjectURL(blob);
+
+ const a = document.createElement("a");
+
+ a.href = url;
+ a.download = "LTX-STORE-products-backup.json";
+
+ a.click();
+
+ URL.revokeObjectURL(url);
+}
+
+
+function importProducts(event){
+
+ const file = event.target.files[0];
+
+ if(!file) return;
+
+ const reader = new FileReader();
+
+ reader.onload = function(e){
+
+  try{
+
+   const imported = JSON.parse(e.target.result);
+
+   if(!Array.isArray(imported)){
+    throw new Error();
+   }
+
+   products = imported;
+
+   localStorage.setItem(
+    "ltxProducts",
+    JSON.stringify(products)
+   );
+
+   renderProducts();
+   renderAdminProducts();
+
+   alert("Products imported successfully ✅");
+
+  }catch{
+
+   alert("Invalid backup file.");
+
+  }
+
+ };
+
+ reader.readAsText(file);
+
+ event.target.value = "";
+}
+
+
+function placeOrder(){
+
+ if(!cart.length){
+
+  alert("Please add a product to cart first.");
+  return;
+
+ }
+
+ const name =
+  document.getElementById("customerName").value.trim();
+
+ const phone =
+  document.getElementById("customerPhone").value.trim();
+
+ const address =
+  document.getElementById("customerAddress").value.trim();
+
+ const delivery =
+  document.getElementById("delivery").value;
+
+ if(!name || !phone || !address){
+
+  alert("Please fill all customer details.");
+  return;
+
+ }
+
+ const total =
+  cart.reduce(
+   (sum,item) => sum + item.price * item.qty,
+   0
+  );
+
+ const orderId =
+  "LTX-" + Date.now().toString().slice(-7);
+
+ const date =
+  new Date().toLocaleString("en-PK");
+
+
+ document.getElementById("slipId").textContent = orderId;
+
+ document.getElementById("slipDate").textContent = date;
+
+ document.getElementById("slipName").textContent = name;
+
+ document.getElementById("slipPhone").textContent = phone;
+
+ document.getElementById("slipAddress").textContent = address;
+
+ document.getElementById("slipDelivery").textContent = delivery;
+
+ document.getElementById("slipTotal").textContent =
+  total.toLocaleString();
+
+
+ document.getElementById("slipItems").innerHTML =
+  cart.map(item => `
+
+   <div class="slip-row">
+
+    <span>
+     ${escapeHtml(item.name)} × ${item.qty}
+    </span>
+
+    <span>
+     Rs. ${(item.price * item.qty).toLocaleString()}
+    </span>
+
+   </div>
+
+  `).join("");
+
+
+ let message =
+  "🛍️ *LTX STORE ORDER*%0A%0A";
+
+ message +=
+  "🆔 Order ID: " +
+  encodeURIComponent(orderId) +
+  "%0A";
+
+ message +=
+  "👤 Name: " +
+  encodeURIComponent(name) +
+  "%0A";
+
+ message +=
+  "📞 Phone: " +
+  encodeURIComponent(phone) +
+  "%0A";
+
+ message +=
+  "📍 Address: " +
+  encodeURIComponent(address) +
+  "%0A";
+
+ message +=
+  "🚚 Delivery: " +
+  encodeURIComponent(delivery) +
+  "%0A%0A";
+
+ message +=
+  "*ORDER ITEMS:*%0A";
+
+
+ cart.forEach(item => {
+
+  message +=
+   "• " +
+   encodeURIComponent(item.name) +
+   " x" +
+   item.qty +
+   " = Rs. " +
+   (item.price * item.qty).toLocaleString() +
+   "%0A";
+
+ });
+
+
+ message +=
+  "%0A💰 *TOTAL: Rs. " +
+  total.toLocaleString() +
+  "*";
+
+
+ const whatsappNumber =
+  "923184734012";
+
+
+ window.open(
+  "https://wa.me/" +
+  whatsappNumber +
+  "?text=" +
+  message,
+  "_blank"
+ );
+
+
+ document.getElementById("slipModal").style.display = "block";
+}
+
+
+function closeSlip(){
+
+ document.getElementById("slipModal").style.display = "none";
+
+}
+
+
+function escapeHtml(text){
+
+ return String(text)
+  .replace(/&/g,"&amp;")
+  .replace(/</g,"&lt;")
+  .replace(/>/g,"&gt;")
+  .replace(/"/g,"&quot;")
+  .replace(/'/g,"&#039;");
+
+}
+
+
+renderProducts();
+
+updateCart();
+
+</script>
+
+</body>
+
+</html>
