@@ -1,5 +1,3 @@
-LTX STORE — Complete "index.html"
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,200 +8,197 @@ LTX STORE — Complete "index.html"
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{
-  font-family:Arial,sans-serif;
-  background:#050505;
-  color:#fff;
-}
+body{font-family:Arial,sans-serif;background:#050505;color:#fff}
+button,input,textarea,select{font:inherit}
+
 header{
-  position:sticky;top:0;z-index:100;
-  padding:16px 18px;
-  border-bottom:1px solid #252525;
-  background:rgba(5,5,5,.94);
-  backdrop-filter:blur(12px);
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+ position:sticky;top:0;z-index:100;
+ padding:15px 18px;border-bottom:1px solid #252525;
+ background:rgba(5,5,5,.95);backdrop-filter:blur(12px);
+ display:flex;justify-content:space-between;align-items:center;
 }
 .logo{font-size:24px;font-weight:900;letter-spacing:2px}
-.cart{
-  border:1px solid #555;
-  padding:10px 14px;
-  border-radius:9px;
-  background:#fff;color:#000;
-  font-weight:bold;
-  cursor:pointer;
+.header-buttons{display:flex;gap:8px;align-items:center}
+.cart,.admin-btn{
+ border:1px solid #555;padding:10px 13px;border-radius:9px;
+ background:#fff;color:#000;font-weight:bold;cursor:pointer
 }
+.admin-btn{background:#111;color:#fff;border-color:#555}
+
 .hero{
-  padding:70px 20px;
-  text-align:center;
-  background:
-    radial-gradient(circle at 50% 0%,#333 0%,#111 28%,#050505 65%);
+ padding:70px 20px;text-align:center;
+ background:radial-gradient(circle at 50% 0%,#333 0%,#111 28%,#050505 65%)
 }
 .hero h1{font-size:44px;margin-bottom:12px}
 .hero p{color:#aaa;margin-bottom:25px}
 .shop-btn{
-  display:inline-block;
-  background:#fff;color:#000;
-  padding:14px 28px;
-  border-radius:9px;
-  font-weight:bold;
-  text-decoration:none;
+ display:inline-block;background:#fff;color:#000;
+ padding:14px 28px;border-radius:9px;font-weight:bold;text-decoration:none
 }
-.section{padding:35px 18px;max-width:1000px;margin:auto}
+
+.section{padding:35px 18px;max-width:1100px;margin:auto}
 .section h2{margin-bottom:20px;font-size:25px}
+
 .categories{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:12px;
-  margin-bottom:40px;
+ display:grid;grid-template-columns:repeat(4,1fr);
+ gap:12px;margin-bottom:40px
 }
 .category{
-  border:1px solid #333;
-  border-radius:13px;
-  padding:22px 10px;
-  text-align:center;
-  background:#0d0d0d;
-  cursor:pointer;
-  transition:.2s;
+ border:1px solid #333;border-radius:13px;padding:22px 10px;
+ text-align:center;background:#0d0d0d;cursor:pointer;transition:.2s
 }
 .category:hover{border-color:#fff;transform:translateY(-2px)}
+
 .products{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:16px;
+ display:grid;grid-template-columns:repeat(2,1fr);gap:16px
 }
 .product{
-  background:#111;
-  border:1px solid #292929;
-  border-radius:14px;
-  overflow:hidden;
-  transition:.2s;
+ background:#111;border:1px solid #292929;border-radius:14px;
+ overflow:hidden;transition:.2s
 }
 .product:hover{transform:translateY(-3px);border-color:#555}
 .product-img{
-  height:190px;
-  background:linear-gradient(135deg,#242424,#101010);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  color:#777;
-  font-size:14px;
+ width:100%;height:210px;background:#191919;
+ display:flex;justify-content:center;align-items:center;
+ color:#777;font-size:14px;text-align:center;overflow:hidden
 }
+.product-img img{width:100%;height:100%;object-fit:cover}
 .product-info{padding:15px}
-.product-name{font-weight:bold;margin-bottom:8px}
+.product-name{font-weight:bold;margin-bottom:7px}
+.product-desc{font-size:13px;color:#999;margin-bottom:8px;line-height:1.4}
 .price{font-size:19px;font-weight:bold;margin-bottom:12px}
-.add-btn{
-  width:100%;padding:11px;
-  border:0;border-radius:8px;
-  background:#fff;color:#000;
-  font-weight:bold;cursor:pointer;
+.add-btn,.order-btn,.save-btn{
+ width:100%;padding:11px;border:0;border-radius:8px;
+ background:#fff;color:#000;font-weight:bold;cursor:pointer
 }
 .add-btn:active{transform:scale(.97)}
 
 .overlay{
-  display:none;
-  position:fixed;inset:0;
-  background:rgba(0,0,0,.75);
-  z-index:200;
+ display:none;position:fixed;inset:0;background:rgba(0,0,0,.78);
+ z-index:200
 }
 .cart-box{
-  position:absolute;
-  right:0;top:0;
-  width:min(430px,100%);
-  height:100%;
-  background:#101010;
-  border-left:1px solid #333;
-  padding:22px;
-  overflow:auto;
+ position:absolute;right:0;top:0;width:min(450px,100%);
+ height:100%;background:#101010;border-left:1px solid #333;
+ padding:22px;overflow:auto
 }
-.cart-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:20px;
+.cart-head,.manager-head{
+ display:flex;justify-content:space-between;align-items:center;margin-bottom:20px
 }
 .close{
-  background:none;color:#fff;
-  border:1px solid #444;
-  border-radius:7px;
-  padding:7px 11px;
-  cursor:pointer;
+ background:none;color:#fff;border:1px solid #444;border-radius:7px;
+ padding:7px 11px;cursor:pointer
 }
 .cart-item{
-  border:1px solid #292929;
-  border-radius:10px;
-  padding:12px;
-  margin-bottom:10px;
+ border:1px solid #292929;border-radius:10px;padding:12px;margin-bottom:10px
 }
-.cart-item-top{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-}
-.qty{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  margin-top:10px;
-}
+.cart-item-top{display:flex;justify-content:space-between;gap:10px}
+.qty{display:flex;align-items:center;gap:10px;margin-top:10px}
 .qty button{
-  width:30px;height:30px;
-  border:0;border-radius:6px;
-  cursor:pointer;
-  font-weight:bold;
+ width:30px;height:30px;border:0;border-radius:6px;
+ cursor:pointer;font-weight:bold
 }
 .total{
-  border-top:1px solid #333;
-  margin-top:18px;
-  padding-top:18px;
-  font-size:21px;
-  font-weight:bold;
+ border-top:1px solid #333;margin-top:18px;padding-top:18px;
+ font-size:21px;font-weight:bold
 }
-.checkout{
-  margin-top:18px;
-}
-.checkout input,.checkout textarea,.checkout select{
-  width:100%;
-  margin-bottom:10px;
-  padding:12px;
-  border:1px solid #333;
-  border-radius:8px;
-  background:#080808;
-  color:#fff;
-  outline:none;
+.checkout{margin-top:18px}
+.checkout input,.checkout textarea,.checkout select,
+.manager input,.manager textarea,.manager select{
+ width:100%;margin-bottom:10px;padding:12px;
+ border:1px solid #333;border-radius:8px;
+ background:#080808;color:#fff;outline:none
 }
 .checkout textarea{height:80px;resize:none}
-.order-btn{
-  width:100%;
-  padding:13px;
-  border:0;border-radius:8px;
-  background:#fff;color:#000;
-  font-weight:bold;
-  cursor:pointer;
-}
-.empty{
-  color:#888;
-  text-align:center;
-  padding:35px 0;
-}
+.empty{color:#888;text-align:center;padding:35px 0}
+
 footer{
-  margin-top:40px;
-  padding:35px 20px;
-  text-align:center;
-  border-top:1px solid #222;
-  color:#888;
-  line-height:1.8;
+ margin-top:40px;padding:35px 20px;text-align:center;
+ border-top:1px solid #222;color:#888;line-height:1.8
+}
+
+/* Manager */
+#adminOverlay,#slipModal{
+ display:none;position:fixed;inset:0;z-index:300;
+ background:rgba(0,0,0,.85);padding:15px;overflow:auto
+}
+.manager{
+ max-width:700px;margin:15px auto;background:#101010;
+ border:1px solid #333;border-radius:14px;padding:20px
+}
+.manager h2{margin-bottom:6px}
+.manager-note{color:#999;font-size:13px;margin-bottom:18px;line-height:1.5}
+.manager-actions{
+ display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:18px
+}
+.manager-actions button{
+ padding:11px;border:1px solid #444;border-radius:8px;
+ background:#181818;color:#fff;cursor:pointer
+}
+.product-form{
+ border-top:1px solid #333;padding-top:18px;margin-top:10px
+}
+.product-form label{
+ display:block;font-size:13px;color:#aaa;margin:5px 0
+}
+.image-preview{
+ width:100%;height:180px;border:1px dashed #444;border-radius:10px;
+ display:flex;align-items:center;justify-content:center;
+ color:#777;margin-bottom:10px;overflow:hidden
+}
+.image-preview img{width:100%;height:100%;object-fit:contain}
+.admin-products{margin-top:25px}
+.admin-product{
+ display:flex;gap:10px;align-items:center;
+ padding:10px 0;border-bottom:1px solid #292929
+}
+.admin-product img{
+ width:55px;height:55px;object-fit:cover;border-radius:8px;background:#222
+}
+.admin-product-info{flex:1}
+.admin-product-info strong{display:block}
+.admin-product-info small{color:#999}
+.small-btn{
+ padding:7px 9px;border:1px solid #444;border-radius:7px;
+ background:#181818;color:#fff;cursor:pointer
+}
+.danger{border-color:#733;background:#351010}
+
+/* Slip */
+#slipModal{z-index:400}
+.slip{
+ max-width:430px;margin:20px auto;background:#fff;color:#111;
+ padding:22px;border-radius:8px;font-family:Arial,sans-serif
+}
+.slip h2{text-align:center;letter-spacing:2px;margin-bottom:5px}
+.slip-center{text-align:center;color:#555;font-size:13px;margin-bottom:15px}
+.slip hr{border:0;border-top:1px dashed #999;margin:12px 0}
+.slip-row{display:flex;justify-content:space-between;gap:10px;margin:7px 0;font-size:14px}
+.slip-items{margin-top:8px}
+.slip-total{font-size:18px;font-weight:bold}
+.slip-actions{display:flex;gap:8px;margin-top:15px}
+.slip-actions button{
+ flex:1;padding:11px;border:0;border-radius:8px;
+ background:#111;color:#fff;font-weight:bold;cursor:pointer
 }
 
 @media(max-width:600px){
-  .hero h1{font-size:35px}
-  .categories{grid-template-columns:repeat(2,1fr)}
-  .products{grid-template-columns:repeat(2,1fr);gap:10px}
-  .product-img{height:145px}
-  .product-info{padding:11px}
-  .product-name{font-size:14px}
-  .price{font-size:17px}
+ .hero h1{font-size:35px}
+ .categories{grid-template-columns:repeat(2,1fr)}
+ .products{grid-template-columns:repeat(2,1fr);gap:10px}
+ .product-img{height:150px}
+ .product-info{padding:11px}
+ .product-name{font-size:14px}
+ .price{font-size:17px}
+ .admin-product{align-items:flex-start}
+ .admin-product .small-btn{padding:6px}
+}
+
+@media print{
+ body>*{display:none!important}
+ #slipModal{display:block!important;position:static!important;background:#fff!important;padding:0!important}
+ .slip{margin:0 auto;box-shadow:none}
+ .slip-actions{display:none}
 }
 </style>
 </head>
@@ -211,14 +206,20 @@ footer{
 <body>
 
 <header>
-  <div class="logo">LTX STORE</div>
-  <button class="cart" onclick="openCart()">🛒 Cart (<span id="cartCount">0</span>)</button>
+ <div class="logo">LTX STORE</div>
+
+ <div class="header-buttons">
+  <button class="admin-btn" onclick="openAdmin()">⚙️ Manage</button>
+  <button class="cart" onclick="openCart()">
+   🛒 Cart (<span id="cartCount">0</span>)
+  </button>
+ </div>
 </header>
 
 <section class="hero">
-  <h1>LTX STORE</h1>
-  <p>Premium Products. Affordable Prices.</p>
-  <a href="#products" class="shop-btn">Shop Now</a>
+ <h1>LTX STORE</h1>
+ <p>Premium Products. Affordable Prices.</p>
+ <a href="#products" class="shop-btn">Shop Now</a>
 </section>
 
 <section class="section">
@@ -226,13 +227,13 @@ footer{
 <h2>Collections</h2>
 
 <div class="categories">
-  <div class="category" onclick="filterProducts('Perfumes')">🌸<br>Perfumes</div>
-  <div class="category" onclick="filterProducts('Headphones')">🎧<br>Headphones</div>
-  <div class="category" onclick="filterProducts('Watches')">⌚<br>Watches</div>
-  <div class="category" onclick="filterProducts('Keychains')">🔑<br>Keychains</div>
+ <div class="category" onclick="filterProducts('Perfumes')">🌸<br>Perfumes</div>
+ <div class="category" onclick="filterProducts('Headphones')">🎧<br>Headphones</div>
+ <div class="category" onclick="filterProducts('Watches')">⌚<br>Watches</div>
+ <div class="category" onclick="filterProducts('Keychains')">🔑<br>Keychains</div>
 </div>
 
-<h2 id="products">Featured Products</h2>
+<h2 id="products">Products</h2>
 
 <div class="products" id="productList"></div>
 
@@ -244,19 +245,22 @@ footer{
 <p>Order directly through WhatsApp</p>
 </footer>
 
+
 <!-- CART -->
+
 <div class="overlay" id="cartOverlay" onclick="closeOutside(event)">
+
 <div class="cart-box">
 
 <div class="cart-head">
-<h2>Your Cart</h2>
-<button class="close" onclick="closeCart()">✕</button>
+ <h2>Your Cart</h2>
+ <button class="close" onclick="closeCart()">✕</button>
 </div>
 
 <div id="cartItems"></div>
 
 <div class="total">
-Total: Rs. <span id="cartTotal">0</span>
+ Total: Rs. <span id="cartTotal">0</span>
 </div>
 
 <div class="checkout">
@@ -268,12 +272,12 @@ Total: Rs. <span id="cartTotal">0</span>
 <textarea id="customerAddress" placeholder="Complete Delivery Address"></textarea>
 
 <select id="delivery">
-<option value="Free">Khanpur — Free Delivery</option>
-<option value="Paid">Other City — Delivery Charges Apply</option>
+ <option value="Khanpur — Free Delivery">Khanpur — Free Delivery</option>
+ <option value="Other City — Delivery Charges Apply">Other City — Delivery Charges Apply</option>
 </select>
 
 <button class="order-btn" onclick="placeOrder()">
-📲 Order on WhatsApp
+ 📲 Order on WhatsApp
 </button>
 
 </div>
@@ -281,263 +285,785 @@ Total: Rs. <span id="cartTotal">0</span>
 </div>
 </div>
 
+
+<!-- ADMIN MANAGER -->
+
+<div id="adminOverlay">
+
+<div class="manager">
+
+<div class="manager-head">
+ <div>
+  <h2>⚙️ LTX Store Manager</h2>
+  <div class="manager-note">
+   Add, edit or remove products directly from your browser.
+  </div>
+ </div>
+ <button class="close" onclick="closeAdmin()">✕</button>
+</div>
+
+<div class="manager-actions">
+ <button onclick="newProduct()">➕ Add Product</button>
+ <button onclick="exportProducts()">📤 Export Backup</button>
+ <button onclick="document.getElementById('importFile').click()">📥 Import Backup</button>
+ <button onclick="changePin()">🔐 Change PIN</button>
+</div>
+
+<input
+ id="importFile"
+ type="file"
+ accept=".json"
+ style="display:none"
+ onchange="importProducts(event)"
+>
+
+<div class="product-form">
+
+<h3 id="formTitle">Add New Product</h3>
+
+<input type="hidden" id="editProductId">
+
+<label>Product Name</label>
+<input id="productName" placeholder="Example: Blue Perfume">
+
+<label>Price (PKR)</label>
+<input id="productPrice" type="number" placeholder="500">
+
+<label>Category</label>
+<select id="productCategory">
+ <option value="Perfumes">Perfumes</option>
+ <option value="Headphones">Headphones</option>
+ <option value="Watches">Watches</option>
+ <option value="Keychains">Keychains</option>
+ <option value="Other">Other</option>
+</select>
+
+<label>Description</label>
+<textarea
+ id="productDescription"
+ placeholder="Short product description"
+ style="height:75px;resize:none"
+></textarea>
+
+<label>Product Image</label>
+
+<div class="image-preview" id="imagePreview">
+ Image preview
+</div>
+
+<input
+ id="productImage"
+ type="file"
+ accept="image/*"
+ onchange="previewImage(event)"
+>
+
+<button
+ class="save-btn"
+ style="margin-top:10px"
+ onclick="saveProduct()"
+>
+💾 Save Product
+</button>
+
+</div>
+
+<div class="admin-products">
+
+<h3 style="margin-bottom:12px">Your Products</h3>
+
+<div id="adminProductList"></div>
+
+</div>
+
+</div>
+</div>
+
+
+<!-- ORDER SLIP -->
+
+<div id="slipModal">
+
+<div class="slip">
+
+<h2>LTX STORE</h2>
+
+<div class="slip-center">
+ CUSTOMER ORDER SLIP
+</div>
+
+<div class="slip-row">
+ <strong>Order ID</strong>
+ <span id="slipId"></span>
+</div>
+
+<div class="slip-row">
+ <strong>Date</strong>
+ <span id="slipDate"></span>
+</div>
+
+<hr>
+
+<div class="slip-row">
+ <strong>Name</strong>
+ <span id="slipName"></span>
+</div>
+
+<div class="slip-row">
+ <strong>Phone</strong>
+ <span id="slipPhone"></span>
+</div>
+
+<div class="slip-row">
+ <strong>Address</strong>
+ <span id="slipAddress"></span>
+</div>
+
+<div class="slip-row">
+ <strong>Delivery</strong>
+ <span id="slipDelivery"></span>
+</div>
+
+<hr>
+
+<strong>ORDER ITEMS</strong>
+
+<div class="slip-items" id="slipItems"></div>
+
+<hr>
+
+<div class="slip-row slip-total">
+ <span>TOTAL</span>
+ <span>Rs. <span id="slipTotal"></span></span>
+</div>
+
+<div class="slip-center" style="margin-top:16px;margin-bottom:0">
+ Thank you for shopping with LTX STORE
+</div>
+
+<div class="slip-actions">
+ <button onclick="window.print()">🖨️ Print / Save PDF</button>
+ <button onclick="closeSlip()">Close</button>
+</div>
+
+</div>
+</div>
+
+
 <script>
 
-const products = [
+/* =====================================================
+   PRODUCTS
+   ===================================================== */
+
+const defaultProducts = [
+
  {
   id:1,
   name:"Zarar For Men by J.Dot",
   price:300,
-  category:"Perfumes"
+  category:"Perfumes",
+  description:"Premium perfume for men.",
+  image:""
  },
+
  {
   id:2,
   name:"Cute Bear Keychain",
   price:300,
-  category:"Keychains"
+  category:"Keychains",
+  description:"Cute keychain for everyday use.",
+  image:""
  },
+
  {
   id:3,
   name:"Premium Wired Earphones",
   price:650,
-  category:"Headphones"
+  category:"Headphones",
+  description:"Clear sound wired earphones.",
+  image:""
  },
+
  {
   id:4,
   name:"Classic Watch",
   price:1200,
-  category:"Watches"
+  category:"Watches",
+  description:"Classic stylish watch.",
+  image:""
  }
+
 ];
 
-let cart = JSON.parse(localStorage.getItem("ltxCart")) || [];
+
+/* Load saved products */
+
+let products =
+ JSON.parse(localStorage.getItem("ltxProducts")) ||
+ defaultProducts;
+
+
+/* Cart */
+
+let cart =
+ JSON.parse(localStorage.getItem("ltxCart")) || [];
+
+
+/* Temporary image */
+
+let selectedImage = "";
+
+
+/* =====================================================
+   PRODUCT DISPLAY
+   ===================================================== */
 
 function renderProducts(list=products){
 
- const container=document.getElementById("productList");
+ const container =
+ document.getElementById("productList");
 
- container.innerHTML=list.map(p=>`
+ if(!list.length){
+
+  container.innerHTML =
+  '<div class="empty">No products found.</div>';
+
+  return;
+ }
+
+ container.innerHTML = list.map(p => `
+
  <div class="product">
 
-   <div class="product-img">
-     ${p.name}
+  <div class="product-img">
+
+   ${
+    p.image
+    ? `<img src="${p.image}" alt="${escapeHtml(p.name)}">`
+    : `<span>📦<br>No Image</span>`
+   }
+
+  </div>
+
+  <div class="product-info">
+
+   <div class="product-name">
+    ${escapeHtml(p.name)}
    </div>
 
-   <div class="product-info">
-
-     <div class="product-name">${p.name}</div>
-
-     <div class="price">Rs. ${p.price.toLocaleString()}</div>
-
-     <button class="add-btn" onclick="addToCart(${p.id})">
-       Add to Cart
-     </button>
-
+   <div class="product-desc">
+    ${escapeHtml(p.description || "")}
    </div>
+
+   <div class="price">
+    Rs. ${Number(p.price).toLocaleString()}
+   </div>
+
+   <button
+    class="add-btn"
+    onclick="addToCart(${p.id})"
+   >
+    Add to Cart
+   </button>
+
+  </div>
 
  </div>
+
  `).join("");
 }
 
+
+/* Category filter */
+
 function filterProducts(category){
 
- const filtered=products.filter(p=>p.category===category);
+ const filtered =
+ products.filter(p => p.category === category);
 
  renderProducts(filtered);
 
- document.getElementById("products")
+ document
+ .getElementById("products")
  .scrollIntoView({behavior:"smooth"});
 }
 
+
+/* =====================================================
+   CART
+   ===================================================== */
+
 function addToCart(id){
 
- const product=products.find(p=>p.id===id);
+ const product =
+ products.find(p => p.id === id);
 
- const existing=cart.find(item=>item.id===id);
+ if(!product) return;
+
+ const existing =
+ cart.find(item => item.id === id);
 
  if(existing){
-   existing.qty++;
+
+  existing.qty++;
+
  }else{
-   cart.push({...product,qty:1});
+
+  cart.push({
+   ...product,
+   qty:1
+  });
+
  }
 
  saveCart();
 
- alert(product.name+" added to cart 🛒");
+ alert(product.name + " added to cart 🛒");
 }
+
 
 function saveCart(){
 
- localStorage.setItem("ltxCart",JSON.stringify(cart));
+ localStorage.setItem(
+  "ltxCart",
+  JSON.stringify(cart)
+ );
 
  updateCart();
 }
+
 
 function updateCart(){
 
- const count=cart.reduce((sum,item)=>sum+item.qty,0);
+ const count =
+ cart.reduce(
+  (sum,item) => sum + item.qty,
+  0
+ );
 
- document.getElementById("cartCount").textContent=count;
+ document
+ .getElementById("cartCount")
+ .textContent = count;
 
- const items=document.getElementById("cartItems");
 
- if(cart.length===0){
+ const items =
+ document.getElementById("cartItems");
 
-   items.innerHTML='<div class="empty">Your cart is empty 🛒</div>';
+
+ if(!cart.length){
+
+  items.innerHTML =
+  '<div class="empty">Your cart is empty 🛒</div>';
 
  }else{
 
-   items.innerHTML=cart.map(item=>`
+  items.innerHTML = cart.map(item => `
 
-   <div class="cart-item">
+  <div class="cart-item">
 
-     <div class="cart-item-top">
+   <div class="cart-item-top">
 
-       <strong>${item.name}</strong>
+    <strong>
+     ${escapeHtml(item.name)}
+    </strong>
 
-       <span>Rs. ${(item.price*item.qty).toLocaleString()}</span>
-
-     </div>
-
-     <div class="qty">
-
-       <button onclick="changeQty(${item.id},-1)">−</button>
-
-       <span>${item.qty}</span>
-
-       <button onclick="changeQty(${item.id},1)">+</button>
-
-       <button
-         onclick="removeItem(${item.id})"
-         style="margin-left:auto;background:#222;color:#fff">
-         Remove
-       </button>
-
-     </div>
+    <span>
+     Rs. ${(item.price * item.qty).toLocaleString()}
+    </span>
 
    </div>
 
-   `).join("");
+   <div class="qty">
+
+    <button
+     onclick="changeQty(${item.id},-1)"
+    >−</button>
+
+    <span>${item.qty}</span>
+
+    <button
+     onclick="changeQty(${item.id},1)"
+    >+</button>
+
+    <button
+     onclick="removeItem(${item.id})"
+     style="margin-left:auto;background:#222;color:#fff"
+    >
+     Remove
+    </button>
+
+   </div>
+
+  </div>
+
+  `).join("");
+
  }
 
- const total=cart.reduce(
-   (sum,item)=>sum+(item.price*item.qty),0
+
+ const total =
+ cart.reduce(
+  (sum,item) =>
+  sum + item.price * item.qty,
+  0
  );
 
- document.getElementById("cartTotal").textContent=total.toLocaleString();
+ document
+ .getElementById("cartTotal")
+ .textContent =
+ total.toLocaleString();
 }
+
 
 function changeQty(id,amount){
 
- const item=cart.find(x=>x.id===id);
+ const item =
+ cart.find(x => x.id === id);
 
- if(!item)return;
+ if(!item) return;
 
- item.qty+=amount;
+ item.qty += amount;
 
- if(item.qty<=0){
-   cart=cart.filter(x=>x.id!==id);
+ if(item.qty <= 0){
+
+  cart =
+  cart.filter(x => x.id !== id);
+
  }
 
  saveCart();
 }
 
+
 function removeItem(id){
 
- cart=cart.filter(x=>x.id!==id);
+ cart =
+ cart.filter(x => x.id !== id);
 
  saveCart();
 }
 
+
 function openCart(){
 
- document.getElementById("cartOverlay").style.display="block";
+ document
+ .getElementById("cartOverlay")
+ .style.display = "block";
 
  updateCart();
 }
 
+
 function closeCart(){
 
- document.getElementById("cartOverlay").style.display="none";
+ document
+ .getElementById("cartOverlay")
+ .style.display = "none";
 }
+
 
 function closeOutside(e){
 
- if(e.target.id==="cartOverlay"){
-   closeCart();
+ if(e.target.id === "cartOverlay"){
+
+  closeCart();
+
  }
 }
 
-function placeOrder(){
 
- if(cart.length===0){
-   alert("Please add a product to cart first.");
-   return;
+/* =====================================================
+   ADMIN MANAGER
+   ===================================================== */
+
+function openAdmin(){
+
+ const savedPin =
+ localStorage.getItem("ltxAdminPin") || "1234";
+
+ const entered =
+ prompt("Enter LTX Store Manager PIN:");
+
+ if(entered !== savedPin){
+
+  if(entered !== null)
+   alert("Wrong PIN.");
+
+  return;
  }
 
- const name=document.getElementById("customerName").value.trim();
- const phone=document.getElementById("customerPhone").value.trim();
- const address=document.getElementById("customerAddress").value.trim();
- const delivery=document.getElementById("delivery").value;
+ document
+ .getElementById("adminOverlay")
+ .style.display = "block";
 
- if(!name || !phone || !address){
+ renderAdminProducts();
 
-   alert("Please fill all customer details.");
-   return;
+}
+
+
+function closeAdmin(){
+
+ document
+ .getElementById("adminOverlay")
+ .style.display = "none";
+}
+
+
+function changePin(){
+
+ const current =
+ localStorage.getItem("ltxAdminPin") || "1234";
+
+ const oldPin =
+ prompt("Enter current PIN:");
+
+ if(oldPin !== current){
+
+  alert("Wrong current PIN.");
+
+  return;
  }
 
- let message="🛍️ *LTX STORE ORDER*%0A%0A";
+ const newPin =
+ prompt("Enter new PIN:");
 
- message+="👤 Name: "+encodeURIComponent(name)+"%0A";
- message+="📞 Phone: "+encodeURIComponent(phone)+"%0A";
- message+="📍 Address: "+encodeURIComponent(address)+"%0A";
- message+="🚚 Delivery: "+encodeURIComponent(delivery)+"%0A%0A";
+ if(!newPin){
 
- message+="*ORDER ITEMS:*%0A";
+  alert("PIN not changed.");
 
- cart.forEach(item=>{
+  return;
+ }
 
-   message+=
-   "• "+encodeURIComponent(item.name)+
-   " x"+item.qty+
-   " = Rs. "+
-   (item.price*item.qty).toLocaleString()+
-   "%0A";
-
- });
-
- const total=cart.reduce(
-   (sum,item)=>sum+(item.price*item.qty),0
+ localStorage.setItem(
+  "ltxAdminPin",
+  newPin
  );
 
- message+="%0A💰 *TOTAL: Rs. "+
- total.toLocaleString()+"*";
+ alert("PIN changed successfully.");
+}
 
 
-/*
-   IMPORTANT:
-   Apna WhatsApp number yahan add karo.
-   Pakistan number format:
-   923XXXXXXXXX
-*/
+/* New product */
 
-const whatsappNumber = "923184734012";
+function newProduct(){
 
-if (whatsappNumber === "YOUR_NUMBER_HERE") {
-  alert("Please add your WhatsApp number in the code first.");
+ document
+ .getElementById("formTitle")
+ .textContent = "Add New Product";
+
+ document
+ .getElementById("editProductId")
+ .value = "";
+
+ document
+ .getElementById("productName")
+ .value = "";
+
+ document
+ .getElementById("productPrice")
+ .value = "";
+
+ document
+ .getElementById("productCategory")
+ .value = "Perfumes";
+
+ document
+ .getElementById("productDescription")
+ .value = "";
+
+ selectedImage = "";
+
+ document
+ .getElementById("productImage")
+ .value = "";
+
+ document
+ .getElementById("imagePreview")
+ .innerHTML = "Image preview";
+}
+
+
+/* Image preview */
+
+function previewImage(event){
+
+ const file =
+ event.target.files[0];
+
+ if(!file) return;
+
+ const reader =
+ new FileReader();
+
+ reader.onload = function(e){
+
+  selectedImage = e.target.result;
+
+  document
+  .getElementById("imagePreview")
+  .innerHTML =
+  `<img src="${selectedImage}" alt="Preview">`;
+
+ };
+
+ reader.readAsDataURL(file);
+}
+
+
+/* Save product */
+
+function saveProduct(){
+
+ const name =
+ document.getElementById("productName")
+ .value.trim();
+
+ const price =
+ Number(
+  document.getElementById("productPrice").value
+ );
+
+ const category =
+ document.getElementById("productCategory")
+ .value;
+
+ const description =
+ document.getElementById("productDescription")
+ .value.trim();
+
+ const editId =
+ document.getElementById("editProductId")
+ .value;
+
+
+ if(!name){
+
+  alert("Please enter product name.");
+
   return;
+ }
+
+
+ if(!price || price < 0){
+
+  alert("Please enter a valid price.");
+
+  return;
+ }
+
+
+ if(editId){
+
+  const product =
+  products.find(
+   p => String(p.id) === String(editId)
+  );
+
+  if(product){
+
+   product.name = name;
+   product.price = price;
+   product.category = category;
+   product.description = description;
+
+   if(selectedImage)
+    product.image = selectedImage;
+
+  }
+
+ }else{
+
+  products.push({
+
+   id:Date.now(),
+
+   name:name,
+
+   price:price,
+
+   category:category,
+
+   description:description,
+
+   image:selectedImage
+
+  });
+
+ }
+
+
+ localStorage.setItem(
+  "ltxProducts",
+  JSON.stringify(products)
+ );
+
+
+ renderProducts();
+
+ renderAdminProducts();
+
+ newProduct();
+
+ alert("Product saved successfully ✅");
 }
 
-window.open(
-  "https://wa.me/" + whatsappNumber + "?text=" + message,
-  "_blank"
-);
-}
 
-renderProducts();
-updateCart();
+/* Admin product list */
 
-</script>
+function renderAdminProducts(){
 
-</body>
-</html>
+ const box =
+ document.getElementById("adminProductList");
+
+ if(!products.length){
+
+  box.innerHTML =
+  '<div class="empty">No products.</div>';
+
+  return;
+ }
+
+
+ box.innerHTML =
+ products.map(p => `
+
+ <div class="admin-product">
+
+  ${
+   p.image
+   ? `<img src="${p.image}" alt="">`
+   : `<img src="" alt="">`
+  }
+
+  <div class="admin-product-info">
+
+   <strong>
+    ${escapeHtml(p.name)}
+   </strong>
+
+   <small>
+    Rs. ${Number(p.price).toLocaleString()}
+    • ${escapeHtml(p.category)}
+   </small>
+
+  </div>
+
+  <button
+   class="small-btn"
+   onclick="editProduct(${p.id})"
+  >
+   Edit
+  </button>
+
+  <button
+   class="small-btn danger"
+   onclick="deleteProduct(${p.id})"
+  >
+   Delete
+  </button>
+
+ </div>
+
+ `).join("");
+  
