@@ -513,27 +513,25 @@ function placeOrder(){
  message+="%0A💰 *TOTAL: Rs. "+
  total.toLocaleString()+"*";
 
- /*
+
+/*
    IMPORTANT:
    Apna WhatsApp number yahan add karo.
-   Example:
-   const whatsappNumber="923184734012";
- */
+   Pakistan number format:
+   923XXXXXXXXX
+*/
 
- const whatsappNumber="+923184734012";
+const whatsappNumber = "923184734012";
 
- if(whatsappNumber==="+923184734012"){
+if (whatsappNumber === "YOUR_NUMBER_HERE") {
+  alert("Please add your WhatsApp number in the code first.");
+  return;
+}
 
-   alert("Please add your WhatsApp number in the code first.");
-   return;
-
- }
-
- window.open(
-   "https://wa.me/"+923184734012+
-   "?text="+message,
-   "_blank"
- );
+window.open(
+  "https://wa.me/" + whatsappNumber + "?text=" + message,
+  "_blank"
+);
 }
 
 renderProducts();
