@@ -1,206 +1,545 @@
+LTX STORE — Complete "index.html"
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LTX Store</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LTX STORE | Premium Products</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:Arial,sans-serif;
+  background:#050505;
+  color:#fff;
+}
+header{
+  position:sticky;top:0;z-index:100;
+  padding:16px 18px;
+  border-bottom:1px solid #252525;
+  background:rgba(5,5,5,.94);
+  backdrop-filter:blur(12px);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.logo{font-size:24px;font-weight:900;letter-spacing:2px}
+.cart{
+  border:1px solid #555;
+  padding:10px 14px;
+  border-radius:9px;
+  background:#fff;color:#000;
+  font-weight:bold;
+  cursor:pointer;
+}
+.hero{
+  padding:70px 20px;
+  text-align:center;
+  background:
+    radial-gradient(circle at 50% 0%,#333 0%,#111 28%,#050505 65%);
+}
+.hero h1{font-size:44px;margin-bottom:12px}
+.hero p{color:#aaa;margin-bottom:25px}
+.shop-btn{
+  display:inline-block;
+  background:#fff;color:#000;
+  padding:14px 28px;
+  border-radius:9px;
+  font-weight:bold;
+  text-decoration:none;
+}
+.section{padding:35px 18px;max-width:1000px;margin:auto}
+.section h2{margin-bottom:20px;font-size:25px}
+.categories{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+  margin-bottom:40px;
+}
+.category{
+  border:1px solid #333;
+  border-radius:13px;
+  padding:22px 10px;
+  text-align:center;
+  background:#0d0d0d;
+  cursor:pointer;
+  transition:.2s;
+}
+.category:hover{border-color:#fff;transform:translateY(-2px)}
+.products{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:16px;
+}
+.product{
+  background:#111;
+  border:1px solid #292929;
+  border-radius:14px;
+  overflow:hidden;
+  transition:.2s;
+}
+.product:hover{transform:translateY(-3px);border-color:#555}
+.product-img{
+  height:190px;
+  background:linear-gradient(135deg,#242424,#101010);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:#777;
+  font-size:14px;
+}
+.product-info{padding:15px}
+.product-name{font-weight:bold;margin-bottom:8px}
+.price{font-size:19px;font-weight:bold;margin-bottom:12px}
+.add-btn{
+  width:100%;padding:11px;
+  border:0;border-radius:8px;
+  background:#fff;color:#000;
+  font-weight:bold;cursor:pointer;
+}
+.add-btn:active{transform:scale(.97)}
 
-    body {
-      font-family: Arial, sans-serif;
-      background: #000;
-      color: #fff;
-    }
+.overlay{
+  display:none;
+  position:fixed;inset:0;
+  background:rgba(0,0,0,.75);
+  z-index:200;
+}
+.cart-box{
+  position:absolute;
+  right:0;top:0;
+  width:min(430px,100%);
+  height:100%;
+  background:#101010;
+  border-left:1px solid #333;
+  padding:22px;
+  overflow:auto;
+}
+.cart-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+}
+.close{
+  background:none;color:#fff;
+  border:1px solid #444;
+  border-radius:7px;
+  padding:7px 11px;
+  cursor:pointer;
+}
+.cart-item{
+  border:1px solid #292929;
+  border-radius:10px;
+  padding:12px;
+  margin-bottom:10px;
+}
+.cart-item-top{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+}
+.qty{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-top:10px;
+}
+.qty button{
+  width:30px;height:30px;
+  border:0;border-radius:6px;
+  cursor:pointer;
+  font-weight:bold;
+}
+.total{
+  border-top:1px solid #333;
+  margin-top:18px;
+  padding-top:18px;
+  font-size:21px;
+  font-weight:bold;
+}
+.checkout{
+  margin-top:18px;
+}
+.checkout input,.checkout textarea,.checkout select{
+  width:100%;
+  margin-bottom:10px;
+  padding:12px;
+  border:1px solid #333;
+  border-radius:8px;
+  background:#080808;
+  color:#fff;
+  outline:none;
+}
+.checkout textarea{height:80px;resize:none}
+.order-btn{
+  width:100%;
+  padding:13px;
+  border:0;border-radius:8px;
+  background:#fff;color:#000;
+  font-weight:bold;
+  cursor:pointer;
+}
+.empty{
+  color:#888;
+  text-align:center;
+  padding:35px 0;
+}
+footer{
+  margin-top:40px;
+  padding:35px 20px;
+  text-align:center;
+  border-top:1px solid #222;
+  color:#888;
+  line-height:1.8;
+}
 
-    header {
-      padding: 22px 18px;
-      border-bottom: 1px solid #222;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .logo {
-      font-size: 25px;
-      font-weight: 800;
-      letter-spacing: 2px;
-    }
-
-    .cart {
-      border: 1px solid #444;
-      padding: 9px 14px;
-      border-radius: 8px;
-      background: #fff;
-      color: #000;
-      font-weight: bold;
-    }
-
-    .hero {
-      padding: 55px 20px;
-      text-align: center;
-      background: linear-gradient(145deg, #111, #000);
-    }
-
-    .hero h1 {
-      font-size: 38px;
-      margin-bottom: 12px;
-    }
-
-    .hero p {
-      color: #aaa;
-      font-size: 16px;
-      margin-bottom: 25px;
-    }
-
-    .shop-btn {
-      display: inline-block;
-      background: #fff;
-      color: #000;
-      padding: 13px 25px;
-      border-radius: 8px;
-      font-weight: bold;
-      text-decoration: none;
-    }
-
-    .section {
-      padding: 30px 18px;
-    }
-
-    .section h2 {
-      margin-bottom: 20px;
-      font-size: 24px;
-    }
-
-    .categories {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-      margin-bottom: 35px;
-    }
-
-    .category {
-      border: 1px solid #333;
-      border-radius: 12px;
-      padding: 20px 10px;
-      text-align: center;
-      background: #0d0d0d;
-    }
-
-    .products {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 14px;
-    }
-
-    .product {
-      background: #111;
-      border: 1px solid #292929;
-      border-radius: 12px;
-      overflow: hidden;
-    }
-
-    .product-img {
-      height: 170px;
-      background: #222;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: #777;
-    }
-
-    .product-info {
-      padding: 12px;
-    }
-
-    .product-name {
-      font-weight: bold;
-      margin-bottom: 8px;
-    }
-
-    .price {
-      font-weight: bold;
-      font-size: 18px;
-      margin-bottom: 10px;
-    }
-
-    .add-btn {
-      width: 100%;
-      padding: 10px;
-      border: none;
-      border-radius: 7px;
-      background: #fff;
-      color: #000;
-      font-weight: bold;
-    }
-
-    footer {
-      margin-top: 40px;
-      padding: 30px 20px;
-      text-align: center;
-      border-top: 1px solid #222;
-      color: #888;
-    }
-  </style>
+@media(max-width:600px){
+  .hero h1{font-size:35px}
+  .categories{grid-template-columns:repeat(2,1fr)}
+  .products{grid-template-columns:repeat(2,1fr);gap:10px}
+  .product-img{height:145px}
+  .product-info{padding:11px}
+  .product-name{font-size:14px}
+  .price{font-size:17px}
+}
+</style>
 </head>
 
 <body>
 
-  <header>
-    <div class="logo">LTX STORE</div>
-    <div class="cart">🛒 Cart (0)</div>
-  </header>
+<header>
+  <div class="logo">LTX STORE</div>
+  <button class="cart" onclick="openCart()">🛒 Cart (<span id="cartCount">0</span>)</button>
+</header>
 
-  <section class="hero">
-    <h1>LTX STORE</h1>
-    <p>Premium Products. Affordable Prices.</p>
-    <a href="#products" class="shop-btn">Shop Now</a>
-  </section>
+<section class="hero">
+  <h1>LTX STORE</h1>
+  <p>Premium Products. Affordable Prices.</p>
+  <a href="#products" class="shop-btn">Shop Now</a>
+</section>
 
-  <section class="section">
-    <h2>Collections</h2>
+<section class="section">
 
-    <div class="categories">
-      <div class="category">🌸<br>Perfumes</div>
-      <div class="category">🎧<br>Headphones</div>
-      <div class="category">⌚<br>Watches</div>
-      <div class="category">🔑<br>Keychains</div>
-    </div>
+<h2>Collections</h2>
 
-    <h2 id="products">Featured Products</h2>
+<div class="categories">
+  <div class="category" onclick="filterProducts('Perfumes')">🌸<br>Perfumes</div>
+  <div class="category" onclick="filterProducts('Headphones')">🎧<br>Headphones</div>
+  <div class="category" onclick="filterProducts('Watches')">⌚<br>Watches</div>
+  <div class="category" onclick="filterProducts('Keychains')">🔑<br>Keychains</div>
+</div>
 
-    <div class="products">
+<h2 id="products">Featured Products</h2>
 
-      <div class="product">
-        <div class="product-img">Product Image</div>
-        <div class="product-info">
-          <div class="product-name">Zarar For Men by J.Dot</div>
-          <div class="price">Rs. 300</div>
-          <button class="add-btn">Add to Cart</button>
-        </div>
-      </div>
+<div class="products" id="productList"></div>
 
-      <div class="product">
-        <div class="product-img">Product Image</div>
-        <div class="product-info">
-          <div class="product-name">Cute Bear Keychain</div>
-          <div class="price">Rs. 300</div>
-          <button class="add-btn">Add to Cart</button>
-        </div>
-      </div>
+</section>
 
-    </div>
-  </section>
+<footer>
+<p>© 2026 LTX STORE</p>
+<p>All Pakistan Delivery • Khanpur Free Delivery</p>
+<p>Order directly through WhatsApp</p>
+</footer>
 
-  <footer>
-    <p>© 2026 LTX Store</p>
-    <p>All Pakistan Delivery • Khanpur Free Delivery</p>
-  </footer>
+<!-- CART -->
+<div class="overlay" id="cartOverlay" onclick="closeOutside(event)">
+<div class="cart-box">
+
+<div class="cart-head">
+<h2>Your Cart</h2>
+<button class="close" onclick="closeCart()">✕</button>
+</div>
+
+<div id="cartItems"></div>
+
+<div class="total">
+Total: Rs. <span id="cartTotal">0</span>
+</div>
+
+<div class="checkout">
+
+<h3 style="margin:20px 0 12px">Customer Details</h3>
+
+<input id="customerName" placeholder="Your Name">
+<input id="customerPhone" placeholder="Phone Number">
+<textarea id="customerAddress" placeholder="Complete Delivery Address"></textarea>
+
+<select id="delivery">
+<option value="Free">Khanpur — Free Delivery</option>
+<option value="Paid">Other City — Delivery Charges Apply</option>
+</select>
+
+<button class="order-btn" onclick="placeOrder()">
+📲 Order on WhatsApp
+</button>
+
+</div>
+
+</div>
+</div>
+
+<script>
+
+const products = [
+ {
+  id:1,
+  name:"Zarar For Men by J.Dot",
+  price:300,
+  category:"Perfumes"
+ },
+ {
+  id:2,
+  name:"Cute Bear Keychain",
+  price:300,
+  category:"Keychains"
+ },
+ {
+  id:3,
+  name:"Premium Wired Earphones",
+  price:650,
+  category:"Headphones"
+ },
+ {
+  id:4,
+  name:"Classic Watch",
+  price:1200,
+  category:"Watches"
+ }
+];
+
+let cart = JSON.parse(localStorage.getItem("ltxCart")) || [];
+
+function renderProducts(list=products){
+
+ const container=document.getElementById("productList");
+
+ container.innerHTML=list.map(p=>`
+ <div class="product">
+
+   <div class="product-img">
+     ${p.name}
+   </div>
+
+   <div class="product-info">
+
+     <div class="product-name">${p.name}</div>
+
+     <div class="price">Rs. ${p.price.toLocaleString()}</div>
+
+     <button class="add-btn" onclick="addToCart(${p.id})">
+       Add to Cart
+     </button>
+
+   </div>
+
+ </div>
+ `).join("");
+}
+
+function filterProducts(category){
+
+ const filtered=products.filter(p=>p.category===category);
+
+ renderProducts(filtered);
+
+ document.getElementById("products")
+ .scrollIntoView({behavior:"smooth"});
+}
+
+function addToCart(id){
+
+ const product=products.find(p=>p.id===id);
+
+ const existing=cart.find(item=>item.id===id);
+
+ if(existing){
+   existing.qty++;
+ }else{
+   cart.push({...product,qty:1});
+ }
+
+ saveCart();
+
+ alert(product.name+" added to cart 🛒");
+}
+
+function saveCart(){
+
+ localStorage.setItem("ltxCart",JSON.stringify(cart));
+
+ updateCart();
+}
+
+function updateCart(){
+
+ const count=cart.reduce((sum,item)=>sum+item.qty,0);
+
+ document.getElementById("cartCount").textContent=count;
+
+ const items=document.getElementById("cartItems");
+
+ if(cart.length===0){
+
+   items.innerHTML='<div class="empty">Your cart is empty 🛒</div>';
+
+ }else{
+
+   items.innerHTML=cart.map(item=>`
+
+   <div class="cart-item">
+
+     <div class="cart-item-top">
+
+       <strong>${item.name}</strong>
+
+       <span>Rs. ${(item.price*item.qty).toLocaleString()}</span>
+
+     </div>
+
+     <div class="qty">
+
+       <button onclick="changeQty(${item.id},-1)">−</button>
+
+       <span>${item.qty}</span>
+
+       <button onclick="changeQty(${item.id},1)">+</button>
+
+       <button
+         onclick="removeItem(${item.id})"
+         style="margin-left:auto;background:#222;color:#fff">
+         Remove
+       </button>
+
+     </div>
+
+   </div>
+
+   `).join("");
+ }
+
+ const total=cart.reduce(
+   (sum,item)=>sum+(item.price*item.qty),0
+ );
+
+ document.getElementById("cartTotal").textContent=total.toLocaleString();
+}
+
+function changeQty(id,amount){
+
+ const item=cart.find(x=>x.id===id);
+
+ if(!item)return;
+
+ item.qty+=amount;
+
+ if(item.qty<=0){
+   cart=cart.filter(x=>x.id!==id);
+ }
+
+ saveCart();
+}
+
+function removeItem(id){
+
+ cart=cart.filter(x=>x.id!==id);
+
+ saveCart();
+}
+
+function openCart(){
+
+ document.getElementById("cartOverlay").style.display="block";
+
+ updateCart();
+}
+
+function closeCart(){
+
+ document.getElementById("cartOverlay").style.display="none";
+}
+
+function closeOutside(e){
+
+ if(e.target.id==="cartOverlay"){
+   closeCart();
+ }
+}
+
+function placeOrder(){
+
+ if(cart.length===0){
+   alert("Please add a product to cart first.");
+   return;
+ }
+
+ const name=document.getElementById("customerName").value.trim();
+ const phone=document.getElementById("customerPhone").value.trim();
+ const address=document.getElementById("customerAddress").value.trim();
+ const delivery=document.getElementById("delivery").value;
+
+ if(!name || !phone || !address){
+
+   alert("Please fill all customer details.");
+   return;
+ }
+
+ let message="🛍️ *LTX STORE ORDER*%0A%0A";
+
+ message+="👤 Name: "+encodeURIComponent(name)+"%0A";
+ message+="📞 Phone: "+encodeURIComponent(phone)+"%0A";
+ message+="📍 Address: "+encodeURIComponent(address)+"%0A";
+ message+="🚚 Delivery: "+encodeURIComponent(delivery)+"%0A%0A";
+
+ message+="*ORDER ITEMS:*%0A";
+
+ cart.forEach(item=>{
+
+   message+=
+   "• "+encodeURIComponent(item.name)+
+   " x"+item.qty+
+   " = Rs. "+
+   (item.price*item.qty).toLocaleString()+
+   "%0A";
+
+ });
+
+ const total=cart.reduce(
+   (sum,item)=>sum+(item.price*item.qty),0
+ );
+
+ message+="%0A💰 *TOTAL: Rs. "+
+ total.toLocaleString()+"*";
+
+ /*
+   IMPORTANT:
+   Apna WhatsApp number yahan add karo.
+   Example:
+   const whatsappNumber="923184734012";
+ */
+
+ const whatsappNumber="+923184734012";
+
+ if(whatsappNumber==="+923184734012"){
+
+   alert("Please add your WhatsApp number in the code first.");
+   return;
+
+ }
+
+ window.open(
+   "https://wa.me/"+923184734012+
+   "?text="+message,
+   "_blank"
+ );
+}
+
+renderProducts();
+updateCart();
+
+</script>
 
 </body>
 </html>
