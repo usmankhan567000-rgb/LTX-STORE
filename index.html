@@ -1658,7 +1658,7 @@ function importProducts(event){
    ORDER + SLIP
    ===================================================== */
 
-function placeOrder(){
+async function placeOrder(){
 
  if(!cart.length){
 
@@ -1696,116 +1696,206 @@ function placeOrder(){
  const date =
   new Date().toLocaleString("en-PK");
 
+ try {
 
- document.getElementById("slipId").textContent =
-  orderId;
+  /* CUSTOMER */
 
- document.getElementById("slipDate").textContent =
-  date;
+  const { data: customer, error: customerError } =
+   await supabaseClient
+    .from("customers")
+    .insert({
+     name: name,
+     phone: phone,
+     address: address
+    })
+    .select("id")
+    .single();
 
- document.getElementById("slipName").textContent =
-  name;
-
- document.getElementById("slipPhone").textContent =
-  phone;
-
- document.getElementById("slipAddress").textContent =
-  address;
-
- document.getElementById("slipDelivery").textContent =
-  delivery;
-
- document.getElementById("slipTotal").textContent =
-  total.toLocaleString();
+  if(customerError) throw customerError;
 
 
- document.getElementById("slipItems").innerHTML =
-  cart.map(item => `
+  /* ORDER */
 
-   <div class="slip-row">
+  const { data: order, error: orderError } =
+   await supabaseClient
+    .from("orders")
+    .insert({
+     order_number: orderId,
+     customer_id: customer.id,
+     status: "new"
+    })
+    .select("id")
+    .single();
 
-    <span>
-     ${escapeHtml(item.name)} × ${item.qty}
-    </span>
-
-    <span>
-     Rs. ${(Number(item.price) * item.qty).toLocaleString()}
-    </span>
-
-   </div>
-
-  `).join("");
+  if(orderError) throw orderError;
 
 
- let message =
-  "🛍️ *LTX STORE ORDER*%0A%0A";
+  /* ORDER ITEMS */
 
- message +=
-  "🆔 Order ID: " +
-  encodeURIComponent(orderId) +
-  "%0A";
+  for(const item of cart){
 
- message +=
-  "👤 Name: " +
-  encodeURIComponent(name) +
-  "%0A";
+   let { data: product, error: productError } =
+    await supabaseClient
+     .from("products")
+     .select("id")
+     .eq("name", item.name)
+     .maybeSingle();
 
- message +=
-  "📞 Phone: " +
-  encodeURIComponent(phone) +
-  "%0A";
-
- message +=
-  "📍 Address: " +
-  encodeURIComponent(address) +
-  "%0A";
-
- message +=
-  "🚚 Delivery: " +
-  encodeURIComponent(delivery) +
-  "%0A%0A";
-
- message +=
-  "*ORDER ITEMS:*%0A";
+   if(productError) throw productError;
 
 
- cart.forEach(item => {
+   if(!product){
+
+    const { data: newProduct, error: newProductError } =
+     await supabaseClient
+      .from("products")
+      .insert({
+       name: item.name,
+       description: item.description || "",
+       price: Number(item.price)
+      })
+      .select("id")
+      .single();
+
+    if(newProductError) throw newProductError;
+
+    product = newProduct;
+   }
+
+
+   const { error: itemError } =
+    await supabaseClient
+     .from("order_items")
+     .insert({
+      order_id: order.id,
+      product_id: product.id,
+      quantity: item.qty
+     });
+
+   if(itemError) throw itemError;
+  }
+
+
+  /* SLIP */
+
+  document.getElementById("slipId").textContent =
+   orderId;
+
+  document.getElementById("slipDate").textContent =
+   date;
+
+  document.getElementById("slipName").textContent =
+   name;
+
+  document.getElementById("slipPhone").textContent =
+   phone;
+
+  document.getElementById("slipAddress").textContent =
+   address;
+
+  document.getElementById("slipDelivery").textContent =
+   delivery;
+
+  document.getElementById("slipTotal").textContent =
+   total.toLocaleString();
+
+  document.getElementById("slipItems").innerHTML =
+   cart.map(item => `
+
+    <div class="slip-row">
+
+     <span>
+      ${escapeHtml(item.name)} × ${item.qty}
+     </span>
+
+     <span>
+      Rs. ${(Number(item.price) * item.qty).toLocaleString()}
+     </span>
+
+    </div>
+
+   `).join("");
+
+
+  /* WHATSAPP */
+
+  let message =
+   "🛍️ LTX STORE ORDER%0A%0A";
 
   message +=
-   "• " +
-   encodeURIComponent(item.name) +
-   " x" +
-   item.qty +
-   " = Rs. " +
-   (Number(item.price) * item.qty).toLocaleString() +
+   "🆔 Order ID: " +
+   encodeURIComponent(orderId) +
    "%0A";
 
- });
+  message +=
+   "👤 Name: " +
+   encodeURIComponent(name) +
+   "%0A";
+
+  message +=
+   "📞 Phone: " +
+   encodeURIComponent(phone) +
+   "%0A";
+
+  message +=
+   "📍 Address: " +
+   encodeURIComponent(address) +
+   "%0A";
+
+  message +=
+   "🚚 Delivery: " +
+   encodeURIComponent(delivery) +
+   "%0A%0A";
+
+  message +=
+   "ORDER ITEMS:%0A";
+
+  cart.forEach(item => {
+
+   message +=
+    "• " +
+    encodeURIComponent(item.name) +
+    " x" +
+    item.qty +
+    " = Rs. " +
+    (Number(item.price) * item.qty).toLocaleString() +
+    "%0A";
+
+  });
+
+  message +=
+   "%0A💰 TOTAL: Rs. " +
+   total.toLocaleString();
 
 
- message +=
-  "%0A💰 *TOTAL: Rs. " +
-  total.toLocaleString() +
-  "*";
+  const whatsappNumber =
+   "923184734012";
+
+  window.open(
+   "https://wa.me/" +
+   whatsappNumber +
+   "?text=" +
+   message,
+   "_blank"
+  );
 
 
- const whatsappNumber =
-  "923184734012";
+  /* SHOW SLIP */
+
+  document.getElementById("slipModal").style.display =
+   "block";
 
 
- window.open(
-  "https://wa.me/" +
-  whatsappNumber +
-  "?text=" +
-  message,
-  "_blank"
- );
+ } catch(error) {
 
+  console.error("Order Error:", error);
 
- document.getElementById("slipModal").style.display =
-  "block";
+  alert(
+   "Order save nahi ho saka. Supabase error check karo."
+  );
+
+ }
 }
-
 
 function closeSlip(){
 
