@@ -1786,11 +1786,10 @@ async function placeOrder(){
     .from("orders")
     .insert({
      customer_id: customer.id,
-     number: orderId,
-     total: total,
-     delivery: delivery
+     order_number: orderId,
+     status: "pending"
     })
-    .select("id")
+    .select("id, order_number")
     .single();
 
   if(orderError){
