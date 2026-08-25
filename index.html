@@ -1,18 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
-
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1.0"
->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#050505">
 
 <title>LTX STORE | Premium Products</title>
 
 <style>
-
 *{
   box-sizing:border-box;
   margin:0;
@@ -24,7 +19,7 @@ html{
 }
 
 body{
-  font-family:Arial,sans-serif;
+  font-family:Arial,Helvetica,sans-serif;
   background:#050505;
   color:#fff;
 }
@@ -36,6 +31,14 @@ select{
   font:inherit;
 }
 
+button{
+  cursor:pointer;
+}
+
+img{
+  max-width:100%;
+}
+
 /* =========================
    HEADER
 ========================= */
@@ -44,59 +47,55 @@ header{
   position:sticky;
   top:0;
   z-index:100;
-  padding:14px 18px;
-  border-bottom:1px solid #252525;
+  min-height:64px;
+  padding:10px 18px;
   background:rgba(5,5,5,.96);
+  border-bottom:1px solid #252525;
   backdrop-filter:blur(12px);
   display:flex;
-  justify-content:space-between;
   align-items:center;
+  justify-content:space-between;
+  gap:12px;
 }
 
 .logo{
   display:flex;
   align-items:center;
   gap:9px;
-  font-size:23px;
+  font-size:22px;
   font-weight:900;
   letter-spacing:2px;
+  white-space:nowrap;
 }
 
 .header-logo{
-  width:39px;
-  height:39px;
+  width:38px;
+  height:38px;
   object-fit:contain;
-  display:block;
-  filter:drop-shadow(0 0 8px rgba(255,255,255,.15));
 }
 
 .header-buttons{
   display:flex;
-  gap:8px;
   align-items:center;
+  gap:8px;
 }
 
-.cart,
-.admin-btn,
-.track-btn{
-  border:1px solid #555;
-  padding:10px 13px;
+.track-btn,
+.cart{
+  border:1px solid #444;
   border-radius:9px;
+  padding:10px 13px;
+  font-weight:bold;
+}
+
+.track-btn{
+  background:#111;
+  color:#fff;
+}
+
+.cart{
   background:#fff;
   color:#000;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-.admin-btn{
-  background:#111;
-  color:#fff;
-  border-color:#555;
-}
-
-.track-btn{
-  background:#111;
-  color:#fff;
 }
 
 /* =========================
@@ -106,12 +105,12 @@ header{
 .hero{
   position:relative;
   min-height:470px;
-  padding:65px 20px 75px;
-  text-align:center;
+  padding:60px 20px 70px;
   display:flex;
   flex-direction:column;
   justify-content:center;
   align-items:center;
+  text-align:center;
   overflow:hidden;
 
   background:
@@ -124,17 +123,17 @@ header{
     );
 }
 
-.hero::before{
+.hero:before{
   content:"";
   position:absolute;
   width:320px;
   height:320px;
-  border-radius:50%;
-  background:rgba(255,255,255,.045);
-  filter:blur(55px);
   top:-110px;
   left:50%;
   transform:translateX(-50%);
+  border-radius:50%;
+  background:rgba(255,255,255,.045);
+  filter:blur(55px);
 }
 
 .hero-logo-wrap{
@@ -142,17 +141,16 @@ header{
   z-index:2;
   width:155px;
   height:155px;
+  margin-bottom:18px;
   display:flex;
   align-items:center;
   justify-content:center;
-  margin-bottom:18px;
 }
 
 .hero-logo{
   width:145px;
   height:145px;
   object-fit:contain;
-  display:block;
   filter:
     drop-shadow(0 0 10px rgba(255,255,255,.12))
     drop-shadow(0 12px 25px rgba(0,0,0,.65));
@@ -179,10 +177,10 @@ header{
   position:relative;
   z-index:2;
   display:inline-block;
-  background:#fff;
-  color:#000;
   padding:14px 30px;
   border-radius:9px;
+  background:#fff;
+  color:#000;
   font-weight:bold;
   text-decoration:none;
   transition:.2s;
@@ -197,9 +195,9 @@ header{
 ========================= */
 
 .section{
-  padding:35px 18px;
   max-width:1100px;
   margin:auto;
+  padding:35px 18px;
 }
 
 .section h2{
@@ -213,23 +211,23 @@ header{
 
 .categories{
   display:grid;
-  grid-template-columns:
-    repeat(4,1fr);
+  grid-template-columns:repeat(4,1fr);
   gap:12px;
   margin-bottom:40px;
 }
 
 .category{
-  border:1px solid #333;
-  border-radius:13px;
   padding:22px 10px;
   text-align:center;
   background:#0d0d0d;
-  cursor:pointer;
+  border:1px solid #333;
+  border-radius:13px;
   transition:.2s;
+  user-select:none;
 }
 
-.category:hover{
+.category:hover,
+.category.active{
   border-color:#fff;
   transform:translateY(-2px);
 }
@@ -240,16 +238,15 @@ header{
 
 .products{
   display:grid;
-  grid-template-columns:
-    repeat(2,1fr);
+  grid-template-columns:repeat(2,1fr);
   gap:16px;
 }
 
 .product{
+  overflow:hidden;
   background:#111;
   border:1px solid #292929;
   border-radius:14px;
-  overflow:hidden;
   transition:.2s;
 }
 
@@ -261,20 +258,20 @@ header{
 .product-img{
   width:100%;
   height:210px;
-  background:#191919;
   display:flex;
-  justify-content:center;
   align-items:center;
-  color:#777;
-  font-size:14px;
-  text-align:center;
+  justify-content:center;
   overflow:hidden;
+  background:#191919;
+  color:#777;
+  text-align:center;
 }
 
 .product-img img{
   width:100%;
   height:100%;
   object-fit:cover;
+  display:block;
 }
 
 .product-info{
@@ -282,26 +279,25 @@ header{
 }
 
 .product-name{
-  font-weight:bold;
   margin-bottom:7px;
+  font-weight:bold;
 }
 
 .product-desc{
-  font-size:13px;
-  color:#999;
   margin-bottom:8px;
+  color:#999;
+  font-size:13px;
   line-height:1.4;
 }
 
 .price{
+  margin-bottom:12px;
   font-size:19px;
   font-weight:bold;
-  margin-bottom:12px;
 }
 
 .add-btn,
-.order-btn,
-.save-btn{
+.order-btn{
   width:100%;
   padding:11px;
   border:0;
@@ -309,7 +305,6 @@ header{
   background:#fff;
   color:#000;
   font-weight:bold;
-  cursor:pointer;
 }
 
 .add-btn:active,
@@ -317,58 +312,84 @@ header{
   transform:scale(.97);
 }
 
+.no-products{
+  grid-column:1/-1;
+  padding:40px 10px;
+  text-align:center;
+  color:#777;
+}
+
 /* =========================
-   CART
+   CART OVERLAY
 ========================= */
 
 .overlay{
   display:none;
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.78);
   z-index:200;
+  background:rgba(0,0,0,.78);
+}
+
+.overlay.show{
+  display:block;
 }
 
 .cart-box{
   position:absolute;
-  right:0;
   top:0;
+  right:0;
   width:min(450px,100%);
   height:100%;
-  background:#101010;
-  border-left:1px solid #333;
   padding:22px;
   overflow:auto;
+  background:#101010;
+  border-left:1px solid #333;
 }
 
-.cart-head,
-.manager-head{
+.cart-head{
   display:flex;
-  justify-content:space-between;
   align-items:center;
+  justify-content:space-between;
   margin-bottom:20px;
 }
 
 .close{
+  padding:7px 11px;
   background:none;
   color:#fff;
   border:1px solid #444;
   border-radius:7px;
-  padding:7px 11px;
-  cursor:pointer;
 }
 
 .cart-item{
-  border:1px solid #292929;
-  border-radius:10px;
   padding:12px;
   margin-bottom:10px;
+  border:1px solid #292929;
+  border-radius:10px;
 }
 
 .cart-item-top{
   display:flex;
   justify-content:space-between;
   gap:10px;
+}
+
+.cart-item-name{
+  font-weight:bold;
+}
+
+.cart-item-price{
+  color:#bbb;
+  font-size:13px;
+  margin-top:4px;
+}
+
+.remove-item{
+  border:0;
+  background:none;
+  color:#ff5c5c;
+  font-size:13px;
 }
 
 .qty{
@@ -383,14 +404,42 @@ header{
   height:30px;
   border:0;
   border-radius:6px;
-  cursor:pointer;
   font-weight:bold;
 }
 
-.total{
-  border-top:1px solid #333;
+.qty-value{
+  min-width:25px;
+  text-align:center;
+}
+
+.empty{
+  padding:35px 0;
+  color:#888;
+  text-align:center;
+}
+
+/* =========================
+   SUMMARY
+========================= */
+
+.order-summary{
+  padding-top:15px;
   margin-top:18px;
-  padding-top:18px;
+  border-top:1px solid #333;
+}
+
+.summary-row{
+  display:flex;
+  justify-content:space-between;
+  margin:8px 0;
+  color:#bbb;
+}
+
+.summary-row.grand-total{
+  padding-top:14px;
+  margin-top:14px;
+  border-top:1px solid #333;
+  color:#fff;
   font-size:21px;
   font-weight:bold;
 }
@@ -399,21 +448,22 @@ header{
   margin-top:18px;
 }
 
+.checkout h3{
+  margin:20px 0 12px;
+}
+
 .checkout input,
 .checkout textarea,
 .checkout select,
-.manager input,
-.manager textarea,
-.manager select,
 .track-box input{
   width:100%;
-  margin-bottom:10px;
   padding:12px;
+  margin-bottom:10px;
+  outline:none;
   border:1px solid #333;
   border-radius:8px;
   background:#080808;
   color:#fff;
-  outline:none;
 }
 
 .checkout textarea{
@@ -421,17 +471,33 @@ header{
   resize:none;
 }
 
-.empty{
-  color:#888;
-  text-align:center;
-  padding:35px 0;
+.checkout input:focus,
+.checkout textarea:focus,
+.checkout select:focus,
+.track-box input:focus{
+  border-color:#777;
+}
+
+.delivery-info{
+  padding:10px;
+  margin:4px 0 12px;
+  background:#151515;
+  border:1px solid #292929;
+  border-radius:9px;
+  color:#aaa;
+  font-size:13px;
+}
+
+.delivery-info strong{
+  color:#fff;
 }
 
 /* =========================
-   TRACK ORDER
+   TRACKING
 ========================= */
 
 #trackingSection{
+  max-width:none;
   border-top:1px solid #222;
   border-bottom:1px solid #222;
   background:
@@ -445,10 +511,10 @@ header{
 .track-box{
   max-width:720px;
   margin:auto;
+  padding:22px;
   background:#101010;
   border:1px solid #292929;
   border-radius:16px;
-  padding:22px;
 }
 
 .track-box h2{
@@ -456,9 +522,9 @@ header{
 }
 
 .track-note{
+  margin-bottom:18px;
   color:#888;
   font-size:13px;
-  margin-bottom:18px;
 }
 
 .track-search{
@@ -467,18 +533,17 @@ header{
 }
 
 .track-search input{
-  margin:0;
   flex:1;
+  margin:0;
 }
 
 .track-search button{
+  padding:0 18px;
   border:0;
   border-radius:8px;
-  padding:0 18px;
   background:#fff;
   color:#000;
   font-weight:bold;
-  cursor:pointer;
 }
 
 #trackingResult{
@@ -486,21 +551,19 @@ header{
 }
 
 .track-card{
-  border:1px solid #292929;
-  border-radius:14px;
   padding:18px;
   background:#080808;
+  border:1px solid #292929;
+  border-radius:14px;
 }
 
 .current-status{
   display:inline-block;
   padding:8px 13px;
+  margin:8px 0 18px;
   border-radius:8px;
   font-weight:bold;
-  margin:8px 0 18px;
 }
-
-/* STATUS COLORS */
 
 .status-pending{
   background:#ff9800;
@@ -522,6 +585,11 @@ header{
   color:#111;
 }
 
+.status-cancelled{
+  background:#555;
+  color:#fff;
+}
+
 .timeline{
   position:relative;
   margin-top:10px;
@@ -529,10 +597,9 @@ header{
 
 .timeline-item{
   position:relative;
-  padding:
-    12px 10px 18px 40px;
-  border-left:2px solid #333;
+  padding:12px 10px 18px 40px;
   margin-left:10px;
+  border-left:2px solid #333;
 }
 
 .timeline-item:last-child{
@@ -541,13 +608,13 @@ header{
 
 .timeline-dot{
   position:absolute;
-  left:-9px;
   top:13px;
+  left:-9px;
   width:16px;
   height:16px;
+  border:3px solid #080808;
   border-radius:50%;
   background:#333;
-  border:3px solid #080808;
 }
 
 .timeline-item.active .timeline-dot{
@@ -564,8 +631,8 @@ header{
 
 .timeline-item small{
   display:block;
-  color:#777;
   margin-top:4px;
+  color:#777;
 }
 
 /* =========================
@@ -573,141 +640,12 @@ header{
 ========================= */
 
 footer{
-  margin-top:40px;
   padding:35px 20px;
-  text-align:center;
+  margin-top:40px;
   border-top:1px solid #222;
   color:#888;
+  text-align:center;
   line-height:1.8;
-}
-
-/* =========================
-   PRODUCT MANAGER
-========================= */
-
-#adminOverlay{
-  display:none;
-  position:fixed;
-  inset:0;
-  z-index:300;
-  background:rgba(0,0,0,.9);
-  padding:15px;
-  overflow:auto;
-}
-
-.manager{
-  max-width:750px;
-  margin:15px auto;
-  background:#101010;
-  border:1px solid #333;
-  border-radius:14px;
-  padding:20px;
-}
-
-.manager h2{
-  margin-bottom:6px;
-}
-
-.manager-note{
-  color:#999;
-  font-size:13px;
-  margin-bottom:18px;
-  line-height:1.5;
-}
-
-.manager-actions{
-  display:grid;
-  grid-template-columns:
-    repeat(2,1fr);
-  gap:8px;
-  margin-bottom:18px;
-}
-
-.manager-actions button{
-  padding:11px;
-  border:1px solid #444;
-  border-radius:8px;
-  background:#181818;
-  color:#fff;
-  cursor:pointer;
-}
-
-.product-form{
-  border-top:1px solid #333;
-  padding-top:18px;
-  margin-top:10px;
-}
-
-.product-form label{
-  display:block;
-  font-size:13px;
-  color:#aaa;
-  margin:5px 0;
-}
-
-.image-preview{
-  width:100%;
-  height:180px;
-  border:1px dashed #444;
-  border-radius:10px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#777;
-  margin-bottom:10px;
-  overflow:hidden;
-}
-
-.image-preview img{
-  width:100%;
-  height:100%;
-  object-fit:contain;
-}
-
-.admin-products{
-  margin-top:25px;
-}
-
-.admin-product{
-  display:flex;
-  gap:10px;
-  align-items:center;
-  padding:10px 0;
-  border-bottom:1px solid #292929;
-}
-
-.admin-product img{
-  width:55px;
-  height:55px;
-  object-fit:cover;
-  border-radius:8px;
-  background:#222;
-}
-
-.admin-product-info{
-  flex:1;
-}
-
-.admin-product-info strong{
-  display:block;
-}
-
-.admin-product-info small{
-  color:#999;
-}
-
-.small-btn{
-  padding:7px 9px;
-  border:1px solid #444;
-  border-radius:7px;
-  background:#181818;
-  color:#fff;
-  cursor:pointer;
-}
-
-.danger{
-  border-color:#733;
-  background:#351010;
 }
 
 /* =========================
@@ -719,55 +657,59 @@ footer{
   position:fixed;
   inset:0;
   z-index:400;
-  background:rgba(0,0,0,.9);
   padding:15px;
   overflow:auto;
+  background:rgba(0,0,0,.9);
+}
+
+#slipModal.show{
+  display:block;
 }
 
 .slip{
   width:100%;
   max-width:430px;
   margin:20px auto;
+  padding:18px;
   background:#fff;
   color:#111;
-  padding:18px;
   border-radius:6px;
-  font-family:Arial,sans-serif;
+  font-family:Arial,Helvetica,sans-serif;
 }
 
 .slip-logo{
   width:78px;
   height:78px;
-  object-fit:contain;
   display:block;
   margin:0 auto 5px;
+  object-fit:contain;
 }
 
 .slip h2{
+  margin-bottom:4px;
   text-align:center;
   letter-spacing:2px;
-  margin-bottom:4px;
 }
 
 .slip-center{
-  text-align:center;
+  margin-bottom:10px;
   color:#555;
   font-size:12px;
-  margin-bottom:10px;
+  text-align:center;
 }
 
 .slip-section-title{
-  font-size:11px;
-  font-weight:bold;
-  background:#eee;
   padding:7px;
   margin:8px 0;
+  background:#eee;
+  font-size:11px;
+  font-weight:bold;
 }
 
 .slip hr{
+  margin:10px 0;
   border:0;
   border-top:1px dashed #777;
-  margin:10px 0;
 }
 
 .slip-row{
@@ -787,14 +729,22 @@ footer{
   margin-top:5px;
 }
 
+.slip-item{
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+  margin:5px 0;
+  font-size:12px;
+}
+
 .slip-total{
   font-size:17px;
   font-weight:bold;
 }
 
 .barcode-wrap{
-  text-align:center;
   margin:13px 0 5px;
+  text-align:center;
 }
 
 .barcode-wrap svg{
@@ -802,8 +752,8 @@ footer{
 }
 
 .qr-wrap{
-  text-align:center;
   margin:10px 0;
+  text-align:center;
 }
 
 #slipQR{
@@ -824,7 +774,32 @@ footer{
   background:#111;
   color:#fff;
   font-weight:bold;
-  cursor:pointer;
+}
+
+/* =========================
+   TOAST
+========================= */
+
+#toast{
+  position:fixed;
+  left:50%;
+  bottom:20px;
+  z-index:999;
+  max-width:90%;
+  padding:12px 18px;
+  border:1px solid #444;
+  border-radius:10px;
+  background:#111;
+  color:#fff;
+  opacity:0;
+  pointer-events:none;
+  transform:translate(-50%,20px);
+  transition:.25s;
+}
+
+#toast.show{
+  opacity:1;
+  transform:translate(-50%,0);
 }
 
 /* =========================
@@ -846,10 +821,6 @@ footer{
     height:32px;
   }
 
-  .admin-btn{
-    display:none;
-  }
-
   .track-btn,
   .cart{
     padding:9px 10px;
@@ -858,9 +829,7 @@ footer{
 
   .hero{
     min-height:430px;
-    padding:
-      55px 18px
-      65px;
+    padding:55px 18px 65px;
   }
 
   .hero-logo-wrap{
@@ -878,13 +847,11 @@ footer{
   }
 
   .categories{
-    grid-template-columns:
-      repeat(2,1fr);
+    grid-template-columns:repeat(2,1fr);
   }
 
   .products{
-    grid-template-columns:
-      repeat(2,1fr);
+    grid-template-columns:repeat(2,1fr);
     gap:10px;
   }
 
@@ -912,14 +879,6 @@ footer{
     padding:12px;
   }
 
-  .admin-product{
-    align-items:flex-start;
-  }
-
-  .admin-product .small-btn{
-    padding:6px;
-  }
-
 }
 
 @media print{
@@ -931,8 +890,8 @@ footer{
   #slipModal{
     display:block!important;
     position:static!important;
-    background:#fff!important;
     padding:0!important;
+    background:#fff!important;
   }
 
   .slip{
@@ -943,93 +902,66 @@ footer{
   .slip-actions{
     display:none;
   }
-
 }
-
 </style>
-
 </head>
 
 <body>
 
-
-<!-- =========================
+<!-- =========================================================
      HEADER
-========================= -->
+========================================================= -->
 
 <header>
 
   <div class="logo">
-
     <img
       class="header-logo"
       src="1787497847524.png"
-      alt="LTX"
+      alt="LTX Store Logo"
     >
-
     <span>LTX STORE</span>
-
   </div>
-
 
   <div class="header-buttons">
 
     <button
       class="track-btn"
-      onclick="
-        document
-          .getElementById('trackingSection')
-          .scrollIntoView({behavior:'smooth'})
-      "
+      type="button"
+      onclick="scrollToTracking()"
     >
       📦 Track
     </button>
 
-
-    <button
-      class="admin-btn"
-      onclick="openAdmin()"
-    >
-      ⚙️ Manage
-    </button>
-
-
     <button
       class="cart"
+      type="button"
       onclick="openCart()"
     >
-      🛒 Cart
-      (<span id="cartCount">0</span>)
+      🛒 Cart (<span id="cartCount">0</span>)
     </button>
 
   </div>
 
 </header>
 
-
-<!-- =========================
+<!-- =========================================================
      HERO
-========================= -->
+========================================================= -->
 
 <section class="hero">
 
   <div class="hero-logo-wrap">
-
     <img
       class="hero-logo"
       src="1787497847524.png"
       alt="LTX Store Logo"
     >
-
   </div>
-
 
   <h1>LTX STORE</h1>
 
-  <p>
-    Premium Products. Affordable Prices.
-  </p>
-
+  <p>Premium Products. Affordable Prices.</p>
 
   <a
     href="#products"
@@ -1040,20 +972,29 @@ footer{
 
 </section>
 
-
-<!-- =========================
-     COLLECTIONS
-========================= -->
+<!-- =========================================================
+     PRODUCTS
+========================================================= -->
 
 <section class="section">
 
   <h2>Collections</h2>
 
-
   <div class="categories">
 
     <div
+      class="category active"
+      data-category="All"
+      onclick="filterProducts('All')"
+    >
+      🛍️
+      <br>
+      All
+    </div>
+
+    <div
       class="category"
+      data-category="Perfumes"
       onclick="filterProducts('Perfumes')"
     >
       🌸
@@ -1061,9 +1002,9 @@ footer{
       Perfumes
     </div>
 
-
     <div
       class="category"
+      data-category="Headphones"
       onclick="filterProducts('Headphones')"
     >
       🎧
@@ -1071,9 +1012,9 @@ footer{
       Headphones
     </div>
 
-
     <div
       class="category"
+      data-category="Watches"
       onclick="filterProducts('Watches')"
     >
       ⌚
@@ -1081,9 +1022,9 @@ footer{
       Watches
     </div>
 
-
     <div
       class="category"
+      data-category="Keychains"
       onclick="filterProducts('Keychains')"
     >
       🔑
@@ -1093,11 +1034,7 @@ footer{
 
   </div>
 
-
-  <h2 id="products">
-    Products
-  </h2>
-
+  <h2 id="products">Products</h2>
 
   <div
     class="products"
@@ -1106,10 +1043,9 @@ footer{
 
 </section>
 
-
-<!-- =========================
-     CUSTOMER TRACKING
-========================= -->
+<!-- =========================================================
+     TRACKING
+========================================================= -->
 
 <section
   class="section"
@@ -1118,26 +1054,23 @@ footer{
 
   <div class="track-box">
 
-    <h2>
-      📦 Track Your Order
-    </h2>
-
+    <h2>📦 Track Your Order</h2>
 
     <div class="track-note">
-      Enter your LTX Order Number to see the
-      latest delivery status.
+      Enter your LTX Order Number to see the latest delivery status.
     </div>
-
 
     <div class="track-search">
 
       <input
         id="trackingNumber"
+        type="text"
         placeholder="Example: LTX-1234567"
+        autocomplete="off"
       >
 
-
       <button
+        type="button"
         onclick="trackOrder()"
       >
         Track Order
@@ -1145,38 +1078,29 @@ footer{
 
     </div>
 
-
     <div id="trackingResult"></div>
 
   </div>
 
 </section>
 
-
-<!-- =========================
+<!-- =========================================================
      FOOTER
-========================= -->
+========================================================= -->
 
 <footer>
 
-  <p>
-    © 2026 LTX STORE
-  </p>
+  <p>© 2026 LTX STORE</p>
 
-  <p>
-    All Pakistan Delivery • Khanpur Free Delivery
-  </p>
+  <p>All Pakistan Delivery • Khanpur Free Delivery</p>
 
-  <p>
-    Order directly through WhatsApp
-  </p>
+  <p>Order directly through WhatsApp</p>
 
 </footer>
 
-
-<!-- =========================
+<!-- =========================================================
      CART
-========================= -->
+========================================================= -->
 
 <div
   class="overlay"
@@ -1184,16 +1108,18 @@ footer{
   onclick="closeOutside(event)"
 >
 
-  <div class="cart-box">
+  <div
+    class="cart-box"
+    onclick="event.stopPropagation()"
+  >
 
     <div class="cart-head">
 
-      <h2>
-        Your Cart
-      </h2>
+      <h2>Your Cart</h2>
 
       <button
         class="close"
+        type="button"
         onclick="closeCart()"
       >
         ✕
@@ -1201,63 +1127,92 @@ footer{
 
     </div>
 
-
     <div id="cartItems"></div>
 
+    <div class="order-summary">
 
-    <div class="total">
+      <div class="summary-row">
+        <span>Subtotal</span>
+        <span>
+          Rs. <span id="cartSubtotal">0</span>
+        </span>
+      </div>
 
-      Total:
-      Rs.
-      <span id="cartTotal">
-        0
-      </span>
+      <div class="summary-row">
+        <span>Delivery</span>
+        <span>
+          Rs. <span id="cartDelivery">0</span>
+        </span>
+      </div>
+
+      <div class="summary-row grand-total">
+        <span>TOTAL</span>
+        <span>
+          Rs. <span id="cartTotal">0</span>
+        </span>
+      </div>
 
     </div>
 
-
     <div class="checkout">
 
-      <h3
-        style="margin:20px 0 12px"
-      >
-        Customer Details
-      </h3>
-
+      <h3>Customer Details</h3>
 
       <input
         id="customerName"
+        type="text"
         placeholder="Your Name"
+        autocomplete="name"
       >
-
 
       <input
         id="customerPhone"
+        type="tel"
         placeholder="Phone Number"
+        inputmode="tel"
+        autocomplete="tel"
       >
-
 
       <textarea
         id="customerAddress"
         placeholder="Complete Delivery Address"
+        autocomplete="street-address"
       ></textarea>
 
+      <input
+        id="customerCity"
+        type="text"
+        placeholder="City — e.g. Khanpur"
+        autocomplete="address-level2"
+        oninput="updateCartTotals()"
+      >
 
-      <select id="delivery">
+      <select
+        id="delivery"
+        onchange="updateCartTotals()"
+      >
 
-        <option value="Khanpur — Free Delivery">
+        <option value="Khanpur">
           Khanpur — Free Delivery
         </option>
 
-        <option value="Other City — Delivery Charges Apply">
-          Other City — Delivery Charges Apply
+        <option value="Other City">
+          Other City — Rs. 200 Delivery
         </option>
 
       </select>
 
+      <div
+        class="delivery-info"
+        id="deliveryInfo"
+      >
+        Khanpur delivery:
+        <strong>FREE</strong>
+      </div>
 
       <button
         class="order-btn"
+        type="button"
         onclick="placeOrder()"
       >
         📲 Order on WhatsApp
@@ -1269,225 +1224,9 @@ footer{
 
 </div>
 
-
-<!-- =========================
-     PRODUCT MANAGER
-     ADMIN.HTML ABHI HOLD HAI
-========================= -->
-
-<div id="adminOverlay">
-
-  <div class="manager">
-
-    <div class="manager-head">
-
-      <div>
-
-        <h2>
-          ⚙️ LTX STORE Manager
-        </h2>
-
-        <div class="manager-note">
-
-          Product management is available here.
-          Dedicated admin.html will be added later.
-
-        </div>
-
-      </div>
-
-
-      <button
-        class="close"
-        onclick="closeAdmin()"
-      >
-        ✕
-      </button>
-
-    </div>
-
-
-    <div class="manager-actions">
-
-      <button
-        onclick="newProduct()"
-      >
-        ➕ Add Product
-      </button>
-
-
-      <button
-        onclick="exportProducts()"
-      >
-        📤 Export Backup
-      </button>
-
-
-      <button
-        onclick="
-          document
-            .getElementById('importFile')
-            .click()
-        "
-      >
-        📥 Import Backup
-      </button>
-
-
-      <button
-        onclick="changePin()"
-      >
-        🔐 Change PIN
-      </button>
-
-    </div>
-
-
-    <input
-      id="importFile"
-      type="file"
-      accept=".json"
-      style="display:none"
-      onchange="importProducts(event)"
-    >
-
-
-    <div class="product-form">
-
-      <h3 id="formTitle">
-        Add New Product
-      </h3>
-
-
-      <input
-        type="hidden"
-        id="editProductId"
-      >
-
-
-      <label>
-        Product Name
-      </label>
-
-
-      <input
-        id="productName"
-        placeholder="Example: Blue Perfume"
-      >
-
-
-      <label>
-        Price (PKR)
-      </label>
-
-
-      <input
-        id="productPrice"
-        type="number"
-        placeholder="500"
-      >
-
-
-      <label>
-        Category
-      </label>
-
-
-      <select id="productCategory">
-
-        <option value="Perfumes">
-          Perfumes
-        </option>
-
-        <option value="Headphones">
-          Headphones
-        </option>
-
-        <option value="Watches">
-          Watches
-        </option>
-
-        <option value="Keychains">
-          Keychains
-        </option>
-
-        <option value="Other">
-          Other
-        </option>
-
-      </select>
-
-
-      <label>
-        Description
-      </label>
-
-
-      <textarea
-        id="productDescription"
-        placeholder="Short product description"
-        style="
-          height:75px;
-          resize:none
-        "
-      ></textarea>
-
-
-      <label>
-        Product Image
-      </label>
-
-
-      <div
-        class="image-preview"
-        id="imagePreview"
-      >
-        Image preview
-      </div>
-
-
-      <input
-        id="productImage"
-        type="file"
-        accept="image/*"
-        onchange="previewImage(event)"
-      >
-
-
-      <button
-        class="save-btn"
-        style="margin-top:10px"
-        onclick="saveProduct()"
-      >
-        💾 Save Product
-      </button>
-
-    </div>
-
-
-    <div class="admin-products">
-
-      <h3
-        style="margin-bottom:12px"
-      >
-        Your Products
-      </h3>
-
-
-      <div
-        id="adminProductList"
-      ></div>
-
-    </div>
-
-  </div>
-
-</div>
-
-
-<!-- =========================
-     LTX COURIER SLIP
-========================= -->
+<!-- =========================================================
+     SLIP MODAL
+========================================================= -->
 
 <div id="slipModal">
 
@@ -1499,204 +1238,128 @@ footer{
       alt="LTX Store"
     >
 
-
-    <h2>
-      LTX STORE
-    </h2>
-
+    <h2>LTX STORE</h2>
 
     <div class="slip-center">
       SHIPMENT / CONSIGNMENT INFORMATION
     </div>
 
-
     <div class="slip-section-title">
       ORDER INFORMATION
     </div>
 
-
     <div class="slip-row">
-
-      <strong>
-        Order No.
-      </strong>
-
+      <strong>Order No.</strong>
       <span id="slipId"></span>
-
     </div>
-
 
     <div class="slip-row">
-
-      <strong>
-        Date
-      </strong>
-
+      <strong>Date</strong>
       <span id="slipDate"></span>
-
     </div>
-
 
     <hr>
-
 
     <div class="slip-section-title">
       CUSTOMER INFORMATION
     </div>
 
-
     <div class="slip-row">
-
-      <strong>
-        Name
-      </strong>
-
+      <strong>Name</strong>
       <span id="slipName"></span>
-
     </div>
 
-
     <div class="slip-row">
-
-      <strong>
-        Contact
-      </strong>
-
+      <strong>Contact</strong>
       <span id="slipPhone"></span>
-
     </div>
 
-
     <div class="slip-row">
-
-      <strong>
-        Delivery
-      </strong>
-
-      <span id="slipDelivery"></span>
-
+      <strong>City</strong>
+      <span id="slipCity"></span>
     </div>
 
-
     <div class="slip-row">
-
-      <strong>
-        Address
-      </strong>
-
+      <strong>Address</strong>
       <span id="slipAddress"></span>
-
     </div>
-
 
     <hr>
-
 
     <div class="slip-section-title">
       SHIPPER INFORMATION
     </div>
 
-
     <div class="slip-row">
-
-      <strong>
-        Shipper
-      </strong>
-
-      <span>
-        LTX STORE
-      </span>
-
+      <strong>Shipper</strong>
+      <span>LTX STORE</span>
     </div>
 
-
     <div class="slip-row">
-
-      <strong>
-        Contact
-      </strong>
-
-      <span>
-        0318-4734012
-      </span>
-
+      <strong>Contact</strong>
+      <span>0318-4734012</span>
     </div>
-
 
     <hr>
-
 
     <div class="slip-section-title">
       ORDER ITEMS
     </div>
-
 
     <div
       class="slip-items"
       id="slipItems"
     ></div>
 
-
     <hr>
 
-
-    <div
-      class="slip-row slip-total"
-    >
-
+    <div class="slip-row">
+      <strong>SUBTOTAL</strong>
       <span>
-        TOTAL
+        Rs. <span id="slipSubtotal">0</span>
       </span>
-
-      <span>
-        Rs.
-        <span id="slipTotal"></span>
-      </span>
-
     </div>
 
+    <div class="slip-row">
+      <strong>DELIVERY</strong>
+      <span>
+        Rs. <span id="slipDeliveryCharge">0</span>
+      </span>
+    </div>
+
+    <div class="slip-row slip-total">
+      <span>TOTAL</span>
+      <span>
+        Rs. <span id="slipTotal">0</span>
+      </span>
+    </div>
 
     <div class="barcode-wrap">
-
       <svg id="barcode"></svg>
-
     </div>
-
 
     <div class="qr-wrap">
-
       <div id="slipQR"></div>
-
     </div>
 
-
     <div class="slip-center">
-
       Scan QR code to track your LTX order.
-
     </div>
-
-
-    <div class="slip-center">
-
-      Thank you for shopping with LTX STORE.
-
-    </div>
-
 
     <div class="slip-actions">
 
       <button
-        onclick="window.print()"
+        type="button"
+        onclick="printSlip()"
       >
-        🖨️ Print / Save PDF
+        🖨️ Print
       </button>
 
-
       <button
+        type="button"
         onclick="closeSlip()"
       >
-        Close
+        ✕ Close
       </button>
 
     </div>
@@ -1705,112 +1368,130 @@ footer{
 
 </div>
 
+<div id="toast"></div>
 
-<!-- =========================
-     LIBRARIES
-========================= -->
+<!-- =========================================================
+     EXTERNAL LIBRARIES
+========================================================= -->
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
 
-<script
-  src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"
-></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
-<script
-  src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"
-></script>
-
+<!-- =========================================================
+     MAIN JAVASCRIPT
+========================================================= -->
 
 <script>
 
-/* =========================
-   SUPABASE
-========================= */
+/* =========================================================
+   STORE SETTINGS
+========================================================= */
 
-const SUPABASE_URL =
-"https://zsutkpsiefziotuwgkwq.supabase.co";
+const WHATSAPP_NUMBER = "923184734012";
 
-const SUPABASE_KEY =
-"sb_publishable_KfkaZZnDim3BlRxVUXd2wQ_WN84Duhb";
+const KHANPUR_DELIVERY = 0;
+const OTHER_CITY_DELIVERY = 200;
 
-const supabaseClient =
-supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
-);
+const STORAGE_CART = "ltx_store_cart";
+const STORAGE_ORDERS = "ltx_store_orders";
 
+let cart = [];
+let currentCategory = "All";
 
-/* =========================
-   DEFAULT PRODUCTS
-========================= */
+/* =========================================================
+   PRODUCTS
+   NOTE:
+   Replace image filenames with your actual product images.
+========================================================= */
 
-const defaultProducts = [
+const products = [
 
   {
-    id:1,
-    name:"Zarar For Men by J.Dot",
-    price:300,
-    category:"Perfumes",
-    description:"Premium perfume for men.",
-    image:""
+    id: 1,
+    name: "Premium Perfume Tester",
+    category: "Perfumes",
+    price: 999,
+    description: "Premium fragrance tester.",
+    image: ""
   },
 
   {
-    id:2,
-    name:"Cute Bear Keychain",
-    price:300,
-    category:"Keychains",
-    description:"Cute keychain for everyday use.",
-    image:""
+    id: 2,
+    name: "Luxury Headphones",
+    category: "Headphones",
+    price: 1499,
+    description: "Comfortable wireless-style headphones.",
+    image: ""
   },
 
   {
-    id:3,
-    name:"Premium Wired Earphones",
-    price:650,
-    category:"Headphones",
-    description:"Clear sound wired earphones.",
-    image:""
+    id: 3,
+    name: "Premium Watch",
+    category: "Watches",
+    price: 1999,
+    description: "Stylish everyday wrist watch.",
+    image: ""
   },
 
   {
-    id:4,
-    name:"Classic Watch",
-    price:1200,
-    category:"Watches",
-    description:"Classic stylish watch.",
-    image:""
+    id: 4,
+    name: "Premium Keychain",
+    category: "Keychains",
+    price: 299,
+    description: "Compact premium keychain.",
+    image: ""
+  },
+
+  {
+    id: 5,
+    name: "Classic Perfume",
+    category: "Perfumes",
+    price: 1299,
+    description: "Long-lasting premium fragrance.",
+    image: ""
+  },
+
+  {
+    id: 6,
+    name: "Wireless Headphones",
+    category: "Headphones",
+    price: 1799,
+    description: "Modern headphones for everyday use.",
+    image: ""
+  },
+
+  {
+    id: 7,
+    name: "Classic Black Watch",
+    category: "Watches",
+    price: 1599,
+    description: "Minimal black design.",
+    image: ""
+  },
+
+  {
+    id: 8,
+    name: "Metal Keychain",
+    category: "Keychains",
+    price: 399,
+    description: "Durable metal keychain.",
+    image: ""
   }
 
 ];
 
-
-let products =
-JSON.parse(
-  localStorage.getItem(
-    "ltxProducts"
-  )
-) || defaultProducts;
-
-
-let cart =
-JSON.parse(
-  localStorage.getItem(
-    "ltxCart"
-  )
-) || [];
-
-
-let selectedImage = "";
-
-
-/* =========================
+/* =========================================================
    HELPERS
-========================= */
+========================================================= */
 
-function escapeHtml(text){
+function money(value){
+  return Number(value || 0).toLocaleString("en-PK");
+}
 
-  return String(text ?? "")
+function escapeHTML(value){
+
+  return String(value ?? "")
     .replace(/&/g,"&amp;")
     .replace(/</g,"&lt;")
     .replace(/>/g,"&gt;")
@@ -1819,1129 +1500,670 @@ function escapeHtml(text){
 
 }
 
+function showToast(message){
 
-/* =========================
-   PRODUCTS
-========================= */
+  const toast = document.getElementById("toast");
 
-function renderProducts(
-  list = products
-){
+  toast.textContent = message;
+  toast.classList.add("show");
+
+  clearTimeout(window.toastTimer);
+
+  window.toastTimer = setTimeout(function(){
+    toast.classList.remove("show");
+  },2500);
+
+}
+
+/* =========================================================
+   LOCAL STORAGE
+========================================================= */
+
+function loadCart(){
+
+  try{
+
+    const saved = localStorage.getItem(STORAGE_CART);
+
+    cart = saved ? JSON.parse(saved) : [];
+
+    if(!Array.isArray(cart)){
+      cart = [];
+    }
+
+  }catch(error){
+
+    console.error(error);
+
+    cart = [];
+
+  }
+
+}
+
+function saveCart(){
+
+  localStorage.setItem(
+    STORAGE_CART,
+    JSON.stringify(cart)
+  );
+
+}
+
+/* =========================================================
+   PRODUCT RENDER
+========================================================= */
+
+function renderProducts(){
 
   const container =
-    document.getElementById(
-      "productList"
-    );
+    document.getElementById("productList");
 
+  let list = products;
+
+  if(currentCategory !== "All"){
+
+    list = products.filter(function(product){
+
+      return product.category === currentCategory;
+
+    });
+
+  }
 
   if(!list.length){
 
-    container.innerHTML =
-      '<div class="empty">No products found.</div>';
+    container.innerHTML = `
+      <div class="no-products">
+        No products found.
+      </div>
+    `;
 
     return;
 
   }
 
+  container.innerHTML = list.map(function(product){
 
-  container.innerHTML =
-    list.map(
-      p => `
+    const imageHTML = product.image
+      ? `
+        <img
+          src="${escapeHTML(product.image)}"
+          alt="${escapeHTML(product.name)}"
+          loading="lazy"
+        >
+      `
+      : `
+        <span>
+          ${escapeHTML(product.name)}
+        </span>
+      `;
 
-        <div class="product">
+    return `
 
-          <div class="product-img">
+      <article class="product">
 
-            ${
-              p.image
-              ?
-              `
-                <img
-                  src="${p.image}"
-                  alt="${escapeHtml(p.name)}"
-                >
-              `
-              :
-              `
-                <span>
-                  📦
-                  <br>
-                  No Image
-                </span>
-              `
-            }
+        <div class="product-img">
+          ${imageHTML}
+        </div>
 
+        <div class="product-info">
+
+          <div class="product-name">
+            ${escapeHTML(product.name)}
           </div>
 
-
-          <div class="product-info">
-
-            <div class="product-name">
-              ${escapeHtml(p.name)}
-            </div>
-
-
-            <div class="product-desc">
-              ${escapeHtml(
-                p.description || ""
-              )}
-            </div>
-
-
-            <div class="price">
-              Rs.
-              ${Number(
-                p.price
-              ).toLocaleString()}
-            </div>
-
-
-            <button
-              class="add-btn"
-              onclick='addToCart(
-                ${JSON.stringify(p.id)}
-              )'
-            >
-              Add to Cart
-            </button>
-
+          <div class="product-desc">
+            ${escapeHTML(product.description)}
           </div>
+
+          <div class="price">
+            Rs. ${money(product.price)}
+          </div>
+
+          <button
+            class="add-btn"
+            type="button"
+            onclick="addToCart(${product.id})"
+          >
+            🛒 Add to Cart
+          </button>
 
         </div>
 
-      `
-    ).join("");
+      </article>
+
+    `;
+
+  }).join("");
 
 }
 
+/* =========================================================
+   CATEGORY FILTER
+========================================================= */
 
-function filterProducts(
-  category
-){
+function filterProducts(category){
 
-  renderProducts(
-    products.filter(
-      p =>
-        p.category ===
-        category
-    )
-  );
-
+  currentCategory = category;
 
   document
-    .getElementById(
-      "products"
-    )
+    .querySelectorAll(".category")
+    .forEach(function(element){
+
+      element.classList.toggle(
+        "active",
+        element.dataset.category === category
+      );
+
+    });
+
+  renderProducts();
+
+  document
+    .getElementById("products")
     .scrollIntoView({
-      behavior:"smooth"
+      behavior:"smooth",
+      block:"start"
     });
 
 }
 
-
-/* =========================
+/* =========================================================
    CART
-========================= */
+========================================================= */
 
-function addToCart(id){
+function addToCart(productId){
 
   const product =
-    products.find(
-      p =>
-        String(p.id) ===
-        String(id)
-    );
+    products.find(function(item){
+      return item.id === productId;
+    });
 
-
-  if(!product)
+  if(!product){
     return;
-
+  }
 
   const existing =
-    cart.find(
-      item =>
-        String(item.id) ===
-        String(id)
-    );
-
+    cart.find(function(item){
+      return item.id === productId;
+    });
 
   if(existing){
 
-    existing.qty++;
+    existing.qty += 1;
 
   }else{
 
     cart.push({
-      ...product,
+      id:product.id,
+      name:product.name,
+      price:product.price,
       qty:1
     });
 
   }
 
+  saveCart();
+  renderCart();
+
+  showToast(
+    product.name + " added to cart."
+  );
+
+}
+
+function removeFromCart(productId){
+
+  cart =
+    cart.filter(function(item){
+      return item.id !== productId;
+    });
 
   saveCart();
-
-
-  alert(
-    product.name +
-    " added to cart 🛒"
-  );
+  renderCart();
 
 }
 
+function changeQty(productId, amount){
 
-function saveCart(){
+  const item =
+    cart.find(function(product){
+      return product.id === productId;
+    });
 
-  localStorage.setItem(
-    "ltxCart",
-    JSON.stringify(cart)
-  );
+  if(!item){
+    return;
+  }
 
+  item.qty += amount;
 
-  updateCart();
+  if(item.qty <= 0){
+
+    removeFromCart(productId);
+
+    return;
+
+  }
+
+  saveCart();
+  renderCart();
 
 }
 
+function getSubtotal(){
 
-function updateCart(){
+  return cart.reduce(function(total,item){
+
+    return total + (item.price * item.qty);
+
+  },0);
+
+}
+
+function getDeliveryCharge(){
+
+  const delivery =
+    document.getElementById("delivery");
+
+  if(!delivery){
+    return 0;
+  }
+
+  return delivery.value === "Khanpur"
+    ? KHANPUR_DELIVERY
+    : OTHER_CITY_DELIVERY;
+
+}
+
+function getGrandTotal(){
+
+  return getSubtotal() + getDeliveryCharge();
+
+}
+
+/* =========================================================
+   CART RENDER
+========================================================= */
+
+function renderCart(){
+
+  const container =
+    document.getElementById("cartItems");
 
   const count =
-    cart.reduce(
-      (sum,item) =>
-        sum +
-        Number(
-          item.qty || 0
-        ),
-      0
-    );
+    cart.reduce(function(total,item){
+      return total + item.qty;
+    },0);
 
-
-  document.getElementById(
-    "cartCount"
-  ).textContent =
+  document.getElementById("cartCount").textContent =
     count;
-
-
-  const items =
-    document.getElementById(
-      "cartItems"
-    );
-
 
   if(!cart.length){
 
-    items.innerHTML =
-      '<div class="empty">Your cart is empty 🛒</div>';
+    container.innerHTML = `
+      <div class="empty">
+        Your cart is empty.
+        <br><br>
+        Add some products first.
+      </div>
+    `;
 
   }else{
 
-    items.innerHTML =
-      cart.map(
-        item => `
+    container.innerHTML =
+      cart.map(function(item){
+
+        return `
 
           <div class="cart-item">
 
             <div class="cart-item-top">
 
-              <strong>
-                ${escapeHtml(
-                  item.name
-                )}
-              </strong>
+              <div>
 
-              <span>
-                Rs.
-                ${
-                  (
-                    Number(item.price) *
-                    Number(item.qty)
-                  ).toLocaleString()
-                }
-              </span>
+                <div class="cart-item-name">
+                  ${escapeHTML(item.name)}
+                </div>
 
-            </div>
+                <div class="cart-item-price">
+                  Rs. ${money(item.price)} each
+                </div>
 
-
-            <div class="qty">
+              </div>
 
               <button
-                onclick='changeQty(
-                  ${JSON.stringify(item.id)},
-                  -1
-                )'
-              >
-                ➖
-              </button>
-
-
-              <span>
-                ${item.qty}
-              </span>
-
-
-              <button
-                onclick='changeQty(
-                  ${JSON.stringify(item.id)},
-                  1
-                )'
-              >
-                ➕
-              </button>
-
-
-              <button
-                onclick='removeItem(
-                  ${JSON.stringify(item.id)}
-                )'
-                style="
-                  margin-left:auto;
-                  background:#222;
-                  color:#fff
-                "
+                class="remove-item"
+                type="button"
+                onclick="removeFromCart(${item.id})"
               >
                 Remove
               </button>
 
             </div>
 
+            <div class="qty">
+
+              <button
+                type="button"
+                onclick="changeQty(${item.id},-1)"
+              >
+                −
+              </button>
+
+              <span class="qty-value">
+                ${item.qty}
+              </span>
+
+              <button
+                type="button"
+                onclick="changeQty(${item.id},1)"
+              >
+                +
+              </button>
+
+              <strong style="margin-left:auto">
+                Rs. ${money(item.price * item.qty)}
+              </strong>
+
+            </div>
+
           </div>
 
-        `
-      ).join("");
-
-  }
-
-
-  const total =
-    cart.reduce(
-      (sum,item) =>
-        sum +
-        Number(item.price) *
-        Number(item.qty),
-      0
-    );
-
-
-  document.getElementById(
-    "cartTotal"
-  ).textContent =
-    total.toLocaleString();
-
-}
-
-
-function changeQty(
-  id,
-  amount
-){
-
-  const item =
-    cart.find(
-      x =>
-        String(x.id) ===
-        String(id)
-    );
-
-
-  if(!item)
-    return;
-
-
-  item.qty += amount;
-
-
-  if(item.qty <= 0){
-
-    cart =
-      cart.filter(
-        x =>
-          String(x.id) !==
-          String(id)
-      );
-
-  }
-
-
-  saveCart();
-
-}
-
-
-function removeItem(id){
-
-  cart =
-    cart.filter(
-      x =>
-        String(x.id) !==
-        String(id)
-    );
-
-
-  saveCart();
-
-}
-
-
-function openCart(){
-
-  document.getElementById(
-    "cartOverlay"
-  ).style.display =
-    "block";
-
-
-  updateCart();
-
-}
-
-
-function closeCart(){
-
-  document.getElementById(
-    "cartOverlay"
-  ).style.display =
-    "none";
-
-}
-
-
-function closeOutside(e){
-
-  if(
-    e.target.id ===
-    "cartOverlay"
-  ){
-
-    closeCart();
-
-  }
-
-}
-
-
-/* =========================
-   PRODUCT MANAGER
-========================= */
-
-function openAdmin(){
-
-  const savedPin =
-    localStorage.getItem(
-      "ltxAdminPin"
-    ) || "1234";
-
-
-  const entered =
-    prompt(
-      "Enter LTX Store Manager PIN:"
-    );
-
-
-  if(
-    entered !==
-    savedPin
-  ){
-
-    if(
-      entered !==
-      null
-    ){
-
-      alert(
-        "Wrong PIN."
-      );
-
-    }
-
-    return;
-
-  }
-
-
-  document.getElementById(
-    "adminOverlay"
-  ).style.display =
-    "block";
-
-
-  renderAdminProducts();
-
-}
-
-
-function closeAdmin(){
-
-  document.getElementById(
-    "adminOverlay"
-  ).style.display =
-    "none";
-
-}
-
-
-function changePin(){
-
-  const current =
-    localStorage.getItem(
-      "ltxAdminPin"
-    ) || "1234";
-
-
-  const oldPin =
-    prompt(
-      "Enter current PIN:"
-    );
-
-
-  if(
-    oldPin !==
-    current
-  ){
-
-    alert(
-      "Wrong current PIN."
-    );
-
-    return;
-
-  }
-
-
-  const newPin =
-    prompt(
-      "Enter new PIN:"
-    );
-
-
-  if(!newPin){
-
-    alert(
-      "PIN not changed."
-    );
-
-    return;
-
-  }
-
-
-  localStorage.setItem(
-    "ltxAdminPin",
-    newPin
-  );
-
-
-  alert(
-    "PIN changed successfully."
-  );
-
-}
-
-
-function newProduct(){
-
-  document.getElementById(
-    "formTitle"
-  ).textContent =
-    "Add New Product";
-
-
-  document.getElementById(
-    "editProductId"
-  ).value =
-    "";
-
-
-  document.getElementById(
-    "productName"
-  ).value =
-    "";
-
-
-  document.getElementById(
-    "productPrice"
-  ).value =
-    "";
-
-
-  document.getElementById(
-    "productCategory"
-  ).value =
-    "Perfumes";
-
-
-  document.getElementById(
-    "productDescription"
-  ).value =
-    "";
-
-
-  document.getElementById(
-    "productImage"
-  ).value =
-    "";
-
-
-  selectedImage =
-    "";
-
-
-  document.getElementById(
-    "imagePreview"
-  ).innerHTML =
-    "Image preview";
-
-}
-
-
-function previewImage(event){
-
-  const file =
-    event.target.files[0];
-
-
-  if(!file)
-    return;
-
-
-  const reader =
-    new FileReader();
-
-
-  reader.onload =
-    e => {
-
-      selectedImage =
-        e.target.result;
-
-
-      document.getElementById(
-        "imagePreview"
-      ).innerHTML =
-        `
-          <img
-            src="${selectedImage}"
-            alt="Preview"
-          >
         `;
 
-    };
+      }).join("");
 
+  }
 
-  reader.readAsDataURL(file);
+  updateCartTotals();
 
 }
 
+/* =========================================================
+   TOTALS
+========================================================= */
 
-function saveProduct(){
+function updateCartTotals(){
 
-  const name =
-    document.getElementById(
-      "productName"
-    ).value.trim();
+  const subtotal = getSubtotal();
+  const delivery = getDeliveryCharge();
+  const total = subtotal + delivery;
 
+  document.getElementById("cartSubtotal").textContent =
+    money(subtotal);
 
-  const price =
-    Number(
-      document.getElementById(
-        "productPrice"
-      ).value
-    );
+  document.getElementById("cartDelivery").textContent =
+    money(delivery);
 
+  document.getElementById("cartTotal").textContent =
+    money(total);
 
-  const category =
-    document.getElementById(
-      "productCategory"
-    ).value;
+  const deliverySelect =
+    document.getElementById("delivery");
 
+  const info =
+    document.getElementById("deliveryInfo");
 
-  const description =
-    document.getElementById(
-      "productDescription"
-    ).value.trim();
+  if(deliverySelect.value === "Khanpur"){
 
-
-  const editId =
-    document.getElementById(
-      "editProductId"
-    ).value;
-
-
-  if(!name){
-
-    alert(
-      "Please enter product name."
-    );
-
-    return;
-
-  }
-
-
-  if(
-    !Number.isFinite(price) ||
-    price < 0
-  ){
-
-    alert(
-      "Please enter a valid price."
-    );
-
-    return;
-
-  }
-
-
-  if(editId){
-
-    const product =
-      products.find(
-        p =>
-          String(p.id) ===
-          String(editId)
-      );
-
-
-    if(product){
-
-      Object.assign(
-        product,
-        {
-          name,
-          price,
-          category,
-          description
-        }
-      );
-
-
-      if(selectedImage){
-
-        product.image =
-          selectedImage;
-
-      }
-
-    }
+    info.innerHTML =
+      "Khanpur delivery: <strong>FREE</strong>";
 
   }else{
 
-    products.push({
-
-      id:
-        crypto.randomUUID
-        ?
-        crypto.randomUUID()
-        :
-        Date.now(),
-
-      name,
-      price,
-      category,
-      description,
-
-      image:
-        selectedImage
-
-    });
+    info.innerHTML =
+      "Other city delivery: <strong>Rs. 200</strong>";
 
   }
 
+}
 
-  localStorage.setItem(
-    "ltxProducts",
-    JSON.stringify(products)
-  );
+/* =========================================================
+   CART OPEN/CLOSE
+========================================================= */
 
+function openCart(){
 
-  renderProducts();
+  document
+    .getElementById("cartOverlay")
+    .classList.add("show");
 
-  renderAdminProducts();
+  document.body.style.overflow = "hidden";
 
-  newProduct();
-
-
-  alert(
-    "Product saved successfully ✅"
-  );
+  renderCart();
 
 }
 
+function closeCart(){
 
-function renderAdminProducts(){
+  document
+    .getElementById("cartOverlay")
+    .classList.remove("show");
 
-  const box =
-    document.getElementById(
-      "adminProductList"
-    );
+  document.body.style.overflow = "";
 
+}
 
-  if(!products.length){
+function closeOutside(event){
 
-    box.innerHTML =
-      '<div class="empty">No products.</div>';
-
-    return;
-
+  if(event.target.id === "cartOverlay"){
+    closeCart();
   }
 
-
-  box.innerHTML =
-    products.map(
-      p => `
-
-        <div class="admin-product">
-
-          ${
-            p.image
-            ?
-            `
-              <img
-                src="${p.image}"
-                alt=""
-              >
-            `
-            :
-            `
-              <div
-                style="
-                  width:55px;
-                  height:55px;
-                  border-radius:8px;
-                  background:#222;
-                  display:flex;
-                  align-items:center;
-                  justify-content:center
-                "
-              >
-                📦
-              </div>
-            `
-          }
-
-
-          <div class="admin-product-info">
-
-            <strong>
-              ${escapeHtml(
-                p.name
-              )}
-            </strong>
-
-            <small>
-              Rs.
-              ${Number(
-                p.price
-              ).toLocaleString()}
-
-              •
-
-              ${escapeHtml(
-                p.category
-              )}
-            </small>
-
-          </div>
-
-
-          <button
-            class="small-btn"
-            onclick='editProduct(
-              ${JSON.stringify(p.id)}
-            )'
-          >
-            Edit
-          </button>
-
-
-          <button
-            class="small-btn danger"
-            onclick='deleteProduct(
-              ${JSON.stringify(p.id)}
-            )'
-          >
-            Delete
-          </button>
-
-        </div>
-
-      `
-    ).join("");
-
 }
 
+/* =========================================================
+   VALIDATION
+========================================================= */
 
-function editProduct(id){
+function validateCustomer(){
 
-  const product =
-    products.find(
-      p =>
-        String(p.id) ===
-        String(id)
-    );
+  const name =
+    document.getElementById("customerName").value.trim();
 
+  const phone =
+    document.getElementById("customerPhone").value.trim();
 
-  if(!product)
-    return;
+  const address =
+    document.getElementById("customerAddress").value.trim();
 
+  const city =
+    document.getElementById("customerCity").value.trim();
 
-  document.getElementById(
-    "formTitle"
-  ).textContent =
-    "Edit Product";
-
-
-  document.getElementById(
-    "editProductId"
-  ).value =
-    product.id;
-
-
-  document.getElementById(
-    "productName"
-  ).value =
-    product.name;
-
-
-  document.getElementById(
-    "productPrice"
-  ).value =
-    product.price;
-
-
-  document.getElementById(
-    "productCategory"
-  ).value =
-    product.category;
-
-
-  document.getElementById(
-    "productDescription"
-  ).value =
-    product.description || "";
-
-
-  document.getElementById(
-    "productImage"
-  ).value =
-    "";
-
-
-  selectedImage =
-    product.image || "";
-
-
-  document.getElementById(
-    "imagePreview"
-  ).innerHTML =
-    product.image
-    ?
-    `
-      <img
-        src="${product.image}"
-        alt="Preview"
-      >
-    `
-    :
-    "Image preview";
-
-}
-
-
-function deleteProduct(id){
-
-  const product =
-    products.find(
-      p =>
-        String(p.id) ===
-        String(id)
-    );
-
-
-  if(!product)
-    return;
-
-
-  if(
-    !confirm(
-      'Delete "' +
-      product.name +
-      '"?'
-    )
-  ){
-
-    return;
-
+  if(!name){
+    showToast("Please enter your name.");
+    return false;
   }
 
+  if(!phone){
+    showToast("Please enter your phone number.");
+    return false;
+  }
 
-  products =
-    products.filter(
-      p =>
-        String(p.id) !==
-        String(id)
-    );
+  if(phone.replace(/\D/g,"").length < 10){
+    showToast("Please enter a valid phone number.");
+    return false;
+  }
 
+  if(!address){
+    showToast("Please enter your complete address.");
+    return false;
+  }
 
-  localStorage.setItem(
-    "ltxProducts",
-    JSON.stringify(products)
-  );
+  if(!city){
+    showToast("Please enter your city.");
+    return false;
+  }
 
-
-  renderProducts();
-
-  renderAdminProducts();
-
-
-  alert(
-    "Product deleted successfully ✅"
-  );
+  return true;
 
 }
 
+/* =========================================================
+   ORDER ID
+========================================================= */
 
-function exportProducts(){
+function generateOrderId(){
 
-  const blob =
-    new Blob(
-      [
-        JSON.stringify(
-          products,
-          null,
-          2
-        )
-      ],
+  const random =
+    Math.floor(
+      1000000 +
+      Math.random() * 9000000
+    );
+
+  return "LTX-" + random;
+
+}
+
+/* =========================================================
+   CREATE ORDER
+========================================================= */
+
+function createOrder(){
+
+  const orderId =
+    generateOrderId();
+
+  const name =
+    document.getElementById("customerName").value.trim();
+
+  const phone =
+    document.getElementById("customerPhone").value.trim();
+
+  const address =
+    document.getElementById("customerAddress").value.trim();
+
+  const city =
+    document.getElementById("customerCity").value.trim();
+
+  const deliveryMethod =
+    document.getElementById("delivery").value;
+
+  const subtotal =
+    getSubtotal();
+
+  const delivery =
+    getDeliveryCharge();
+
+  const total =
+    subtotal + delivery;
+
+  const now =
+    new Date();
+
+  const order = {
+
+    id:orderId,
+
+    date:now.toISOString(),
+
+    customer:{
+      name:name,
+      phone:phone,
+      address:address,
+      city:city
+    },
+
+    delivery:{
+      type:deliveryMethod,
+      charge:delivery
+    },
+
+    items:cart.map(function(item){
+
+      return {
+        id:item.id,
+        name:item.name,
+        price:item.price,
+        qty:item.qty
+      };
+
+    }),
+
+    subtotal:subtotal,
+    deliveryCharge:delivery,
+    total:total,
+
+    status:"pending",
+
+    timeline:[
       {
-        type:
-          "application/json"
+        status:"pending",
+        title:"Order Placed",
+        date:now.toISOString()
       }
+    ]
+
+  };
+
+  const savedOrders =
+    JSON.parse(
+      localStorage.getItem(STORAGE_ORDERS) || "[]"
     );
 
+  savedOrders.push(order);
 
-  const url =
-    URL.createObjectURL(
-      blob
-    );
-
-
-  const a =
-    document.createElement(
-      "a"
-    );
-
-
-  a.href =
-    url;
-
-
-  a.download =
-    "LTX-STORE-products-backup.json";
-
-
-  document.body.appendChild(
-    a
+  localStorage.setItem(
+    STORAGE_ORDERS,
+    JSON.stringify(savedOrders)
   );
 
-
-  a.click();
-
-  a.remove();
-
-
-  URL.revokeObjectURL(
-    url
-  );
+  return order;
 
 }
 
+/* =========================================================
+   WHATSAPP MESSAGE
+========================================================= */
 
-function importProducts(event){
+function buildWhatsAppMessage(order){
 
-  const file =
-    event.target.files[0];
+  let message =
+`LTX STORE - NEW ORDER
 
+Order No: ${order.id}
 
-  if(!file)
-    return;
+Customer:
+Name: ${order.customer.name}
+Phone: ${order.customer.phone}
+City: ${order.customer.city}
+Address: ${order.customer.address}
 
+Items:
+`;
 
-  const reader =
-    new FileReader();
+  order.items.forEach(function(item){
 
+    message +=
+`• ${item.name} x${item.qty} = Rs. ${money(item.price * item.qty)}
+`;
 
-  reader.onload =
-    e => {
+  });
 
-      try{
+  message +=
+`
+Subtotal: Rs. ${money(order.subtotal)}
+Delivery: Rs. ${money(order.deliveryCharge)}
+TOTAL: Rs. ${money(order.total)}
 
-        const imported =
-          JSON.parse(
-            e.target.result
-          );
+Delivery: ${order.delivery.type}
 
+Please confirm my order.`;
 
-        if(
-          !Array.isArray(
-            imported
-          )
-        ){
-
-          throw new Error(
-            "Invalid"
-          );
-
-        }
-
-
-        products =
-          imported;
-
-
-        localStorage.setItem(
-          "ltxProducts",
-          JSON.stringify(
-            products
-          )
-        );
-
-
-        renderProducts();
-
-        renderAdminProducts();
-
-
-        alert(
-          "Products imported successfully ✅"
-        );
-
-      }catch(error){
-
-        alert(
-          "Invalid backup file ❌"
-        );
-
-      }
-
-    };
-
-
-  reader.readAsText(file);
-
-  event.target.value =
-    "";
+  return message;
 
 }
 
-
-/* =========================
+/* =========================================================
    PLACE ORDER
-========================= */
+========================================================= */
 
-async function placeOrder(){
+function placeOrder(){
 
   if(!cart.length){
 
-    alert(
+    showToast(
       "Please add a product to cart first."
     );
 
@@ -2949,845 +2171,348 @@ async function placeOrder(){
 
   }
 
-
-  const name =
-    document.getElementById(
-      "customerName"
-    ).value.trim();
-
-
-  const phone =
-    document.getElementById(
-      "customerPhone"
-    ).value.trim();
-
-
-  const address =
-    document.getElementById(
-      "customerAddress"
-    ).value.trim();
-
-
-  const delivery =
-    document.getElementById(
-      "delivery"
-    ).value;
-
-
-  if(
-    !name ||
-    !phone ||
-    !address
-  ){
-
-    alert(
-      "Please fill all customer details."
-    );
-
+  if(!validateCustomer()){
     return;
-
   }
 
+  const order =
+    createOrder();
 
-  const total =
-    cart.reduce(
-      (sum,item) =>
-        sum +
-        Number(item.price) *
-        Number(item.qty),
-      0
-    );
+  showSlip(order);
 
+  const message =
+    buildWhatsAppMessage(order);
 
-  const orderNumber =
-    "LTX-" +
-    Date.now()
-      .toString()
-      .slice(-7);
+  const whatsappURL =
+    "https://wa.me/" +
+    WHATSAPP_NUMBER +
+    "?text=" +
+    encodeURIComponent(message);
 
+  window.open(
+    whatsappURL,
+    "_blank",
+    "noopener,noreferrer"
+  );
 
-  const date =
-    new Date()
-      .toLocaleString(
-        "en-PK"
-      );
+  cart = [];
 
+  saveCart();
+  renderCart();
 
-  try{
-
-    /* CUSTOMER */
-
-    const {
-      data:customer,
-      error:customerError
-    } =
-      await supabaseClient
-        .from("customers")
-        .insert({
-          name,
-          phone,
-          address
-        })
-        .select("id")
-        .single();
-
-
-    if(customerError)
-      throw customerError;
-
-
-    /* ORDER */
-
-    const {
-      data:order,
-      error:orderError
-    } =
-      await supabaseClient
-        .from("orders")
-        .insert({
-
-          customer_id:
-            customer.id,
-
-          order_number:
-            orderNumber,
-
-          status:
-            "pending"
-
-        })
-        .select(
-          "id,order_number"
-        )
-        .single();
-
-
-    if(orderError)
-      throw orderError;
-
-
-    /* ORDER ITEMS */
-
-    for(
-      const item
-      of cart
-    ){
-
-      let {
-        data:product,
-        error:productError
-      } =
-        await supabaseClient
-          .from("products")
-          .select("id")
-          .eq(
-            "name",
-            item.name
-          )
-          .maybeSingle();
-
-
-      if(productError)
-        throw productError;
-
-
-      if(!product){
-
-        const {
-          data:newProduct,
-          error:newProductError
-        } =
-          await supabaseClient
-            .from("products")
-            .insert({
-
-              name:
-                item.name,
-
-              description:
-                item.description ||
-                "",
-
-              price:
-                Number(
-                  item.price
-                ),
-
-              stock:
-                0
-
-            })
-            .select("id")
-            .single();
-
-
-        if(newProductError)
-          throw newProductError;
-
-
-        product =
-          newProduct;
-
-      }
-
-
-      const {
-        error:itemError
-      } =
-        await supabaseClient
-          .from("order_items")
-          .insert({
-
-            order_id:
-              order.id,
-
-            product_id:
-              product.id,
-
-            quantity:
-              Number(
-                item.qty
-              ),
-
-            price:
-              Number(
-                item.price
-              )
-
-          });
-
-
-      if(itemError)
-        throw itemError;
-
-    }
-
-    /* WHATSAPP */
-
-    let message =
-      "🛍️ LTX STORE ORDER\n\n";
-
-
-    message +=
-      "📦 Order ID: " +
-      orderNumber +
-      "\n";
-
-
-    message +=
-      "👤 Name: " +
-      name +
-      "\n";
-
-
-    message +=
-      "☎️ Phone: " +
-      phone +
-      "\n";
-
-
-    message +=
-      "📍 Address: " +
-      address +
-      "\n";
-
-
-    message +=
-      "🚚 Delivery: " +
-      delivery +
-      "\n\n";
-
-
-    message +=
-      "ORDER ITEMS:\n";
-
-
-    cart.forEach(
-      item => {
-
-        message +=
-          "• " +
-          item.name +
-          " x" +
-          item.qty +
-          " = Rs. " +
-          (
-            Number(item.price) *
-            Number(item.qty)
-          ).toLocaleString() +
-          "\n";
-
-      }
-    );
-
-
-    message +=
-      "\n💰 TOTAL: Rs. " +
-      total.toLocaleString();
-
-
-    window.open(
-      "https://wa.me/923184734012?text=" +
-      encodeURIComponent(
-        message
-      ),
-      "_blank"
-    );
-
-
-    /* CLEAR CART */
-
-    cart =
-      [];
-
-
-    saveCart();
-
-
-    document.getElementById(
-      "customerName"
-    ).value =
-      "";
-
-
-    document.getElementById(
-      "customerPhone"
-    ).value =
-      "";
-
-
-    document.getElementById(
-      "customerAddress"
-    ).value =
-      "";
-
-
-    closeCart();
-
-
-    /* OPEN TRACKING */
-
-    document.getElementById(
-      "trackingNumber"
-    ).value =
-      orderNumber;
-
-
-    document.getElementById(
-      "trackingSection"
-    ).scrollIntoView({
-      behavior:"smooth"
-    });
-
-
-    trackOrder();
-
-
-  }catch(error){
-
-    console.error(
-      "ORDER SAVE ERROR:",
-      error
-    );
-
-
-    alert(
-      "Order save nahi ho saka.\n\n" +
-      (
-        error.message ||
-        "Unknown error"
-      )
-    );
-
-  }
-
-}
-
-
-/* =========================
-   TRACKING
-========================= */
-
-const STATUS_ORDER = [
-
-  "pending",
-
-  "packaging",
-
-  "on_the_way",
-
-  "delivered"
-
-];
-
-
-const STATUS_LABELS = {
-
-  pending:
-    "Order Received / Pending",
-
-  packaging:
-    "Packaging",
-
-  on_the_way:
-    "On the Way",
-
-  delivered:
-    "Delivered"
-
-};
-
-
-function statusClass(
-  status
-){
-
-  if(
-    status ===
-    "packaging"
-  ){
-
-    return "status-packaging";
-
-  }
-
-
-  if(
-    status ===
-    "on_the_way"
-  ){
-
-    return "status-on_the_way";
-
-  }
-
-
-  if(
-    status ===
-    "delivered"
-  ){
-
-    return "status-delivered";
-
-  }
-
-
-  return "status-pending";
-
-}
-
-
-function statusIndex(
-  status
-){
-
-  const index =
-    STATUS_ORDER.indexOf(
-      status
-    );
-
-
-  return index < 0
-    ? 0
-    : index;
-
-}
-
-
-async function trackOrder(){
-
-  const input =
-    document.getElementById(
-      "trackingNumber"
-    );
-
-
-  const result =
-    document.getElementById(
-      "trackingResult"
-    );
-
-
-  const orderNumber =
-    input.value.trim();
-
-
-  if(!orderNumber){
-
-    result.innerHTML =
-      `
-        <div class="track-card">
-          Please enter your LTX Order Number.
-        </div>
-      `;
-
-    return;
-
-  }
-
-
-  result.innerHTML =
-    `
-      <div class="track-card">
-        🔄 Loading order...
-      </div>
-    `;
-
-
-  const {
-    data:order,
-    error
-  } =
-    await supabaseClient
-      .from("orders")
-      .select(`
-
-        id,
-        order_number,
-        status,
-        created_at,
-
-        customers (
-          name,
-          phone,
-          address
-        ),
-
-        order_items (
-          quantity,
-          price,
-
-          products (
-            name
-          )
-
-        )
-
-      `)
-      .eq(
-        "order_number",
-        orderNumber
-      )
-      .maybeSingle();
-
-
-  if(error){
-
-    console.error(
-      "TRACK ERROR:",
-      error
-    );
-
-
-    result.innerHTML =
-      `
-        <div class="track-card">
-
-          ❌ Tracking could not be loaded.
-
-        </div>
-      `;
-
-    return;
-
-  }
-
-
-  if(!order){
-
-    result.innerHTML =
-      `
-        <div class="track-card">
-
-          ❌ Order not found.
-
-          <br><br>
-
-          Please check your LTX Order Number.
-
-        </div>
-      `;
-
-    return;
-
-  }
-
-
-  renderTracking(
-    order
+  showToast(
+    "Order created: " + order.id
   );
 
 }
 
+/* =========================================================
+   SLIP
+========================================================= */
 
-function renderTracking(
-  order
-){
+function showSlip(order){
+
+  document.getElementById("slipId").textContent =
+    order.id;
+
+  document.getElementById("slipDate").textContent =
+    new Date(order.date).toLocaleString("en-PK");
+
+  document.getElementById("slipName").textContent =
+    order.customer.name;
+
+  document.getElementById("slipPhone").textContent =
+    order.customer.phone;
+
+  document.getElementById("slipCity").textContent =
+    order.customer.city;
+
+  document.getElementById("slipAddress").textContent =
+    order.customer.address;
+
+  document.getElementById("slipSubtotal").textContent =
+    money(order.subtotal);
+
+  document.getElementById("slipDeliveryCharge").textContent =
+    money(order.deliveryCharge);
+
+  document.getElementById("slipTotal").textContent =
+    money(order.total);
+
+  document.getElementById("slipItems").innerHTML =
+    order.items.map(function(item){
+
+      return `
+        <div class="slip-item">
+          <span>
+            ${escapeHTML(item.name)} × ${item.qty}
+          </span>
+          <strong>
+            Rs. ${money(item.price * item.qty)}
+          </strong>
+        </div>
+      `;
+
+    }).join("");
+
+  generateBarcode(order.id);
+  generateQR(order.id);
+
+  document
+    .getElementById("slipModal")
+    .classList.add("show");
+
+  document.body.style.overflow = "hidden";
+
+}
+
+function closeSlip(){
+
+  document
+    .getElementById("slipModal")
+    .classList.remove("show");
+
+  document.body.style.overflow = "";
+
+}
+
+function printSlip(){
+
+  window.print();
+
+}
+
+/* =========================================================
+   BARCODE
+========================================================= */
+
+function generateBarcode(orderId){
+
+  const barcode =
+    document.getElementById("barcode");
+
+  barcode.innerHTML = "";
+
+  if(
+    typeof JsBarcode !== "undefined"
+  ){
+
+    try{
+
+      JsBarcode(
+        barcode,
+        orderId,
+        {
+          format:"CODE128",
+          width:2,
+          height:55,
+          displayValue:true,
+          fontSize:12,
+          margin:5
+        }
+      );
+
+    }catch(error){
+
+      console.error(
+        "Barcode error:",
+        error
+      );
+
+    }
+
+  }
+
+}
+
+/* =========================================================
+   QR CODE
+========================================================= */
+
+function generateQR(orderId){
+
+  const qr =
+    document.getElementById("slipQR");
+
+  qr.innerHTML = "";
+
+  if(
+    typeof QRCode !== "undefined"
+  ){
+
+    try{
+
+      const trackingURL =
+        window.location.href.split("#")[0] +
+        "#tracking=" +
+        encodeURIComponent(orderId);
+
+      new QRCode(
+        qr,
+        {
+          text:trackingURL,
+          width:120,
+          height:120
+        }
+      );
+
+    }catch(error){
+
+      console.error(
+        "QR error:",
+        error
+      );
+
+    }
+
+  }
+
+}
+
+/* =========================================================
+   TRACKING
+========================================================= */
+
+function getSavedOrder(orderId){
+
+  const orders =
+    JSON.parse(
+      localStorage.getItem(STORAGE_ORDERS) || "[]"
+    );
+
+  return orders.find(function(order){
+
+    return String(order.id).toUpperCase() ===
+      String(orderId).trim().toUpperCase();
+
+  });
+
+}
+
+function getStatusTitle(status){
+
+  const titles = {
+
+    pending:"Order Placed",
+
+    packaging:"Packaging",
+
+    on_the_way:"On The Way",
+
+    delivered:"Delivered",
+
+    cancelled:"Cancelled"
+
+  };
+
+  return titles[status] || "Order Status";
+
+}
+
+function getStatusClass(status){
+
+  return "status-" + status;
+
+}
+
+function trackOrder(){
+
+  const input =
+    document.getElementById("trackingNumber");
+
+  const orderId =
+    input.value.trim();
 
   const result =
-    document.getElementById(
-      "trackingResult"
-    );
+    document.getElementById("trackingResult");
 
+  if(!orderId){
 
-  const customer =
-    order.customers ||
-    {};
+    result.innerHTML = `
+      <div class="track-card">
+        Please enter your order number.
+      </div>
+    `;
 
+    return;
+
+  }
+
+  const order =
+    getSavedOrder(orderId);
+
+  if(!order){
+
+    result.innerHTML = `
+      <div class="track-card">
+        <strong>Order not found.</strong>
+        <br><br>
+        Please check your LTX Order Number.
+      </div>
+    `;
+
+    return;
+
+  }
+
+  renderTracking(order);
+
+}
+
+function renderTracking(order){
+
+  const result =
+    document.getElementById("trackingResult");
 
   const status =
-    order.status ||
-    "pending";
-
-
-  const currentIndex =
-    statusIndex(
-      status
-    );
-
-
-  const items =
-    order.order_items ||
-    [];
-
-
-  const total =
-    items.reduce(
-      (sum,item) =>
-        sum +
-        Number(
-          item.price ||
-          0
-        ) *
-        Number(
-          item.quantity ||
-          0
-        ),
-      0
-    );
-
+    order.status || "pending";
 
   const timeline =
-    STATUS_ORDER
-      .map(
-        (
-          currentStatus,
-          index
-        ) => {
-
-          const active =
-            index <=
-            currentIndex
-            ? "active"
-            : "";
-
-
-          return `
-
-            <div
-              class="
-                timeline-item
-                ${active}
-              "
-            >
-
-              <div
-                class="timeline-dot"
-              ></div>
-
-
-              <strong>
-
-                ${
-                  STATUS_LABELS[
-                    currentStatus
-                  ]
-                }
-
-              </strong>
-
-
-              ${
-                index ===
-                currentIndex
-                ?
-                `
-                  <small>
-                    Current status
-                  </small>
-                `
-                :
-                ""
-              }
-
-            </div>
-
-          `;
-
-        }
-      )
-      .join("");
-
-
-  const itemList =
-    items.length
-    ?
-    items
-      .map(
-        item => `
-
-          <div>
-
-            ${escapeHtml(
-              item.products?.name ||
-              "Product"
-            )}
-
-            ×
-
-            ${Number(
-              item.quantity ||
-              0
-            )}
-
-          </div>
-
-        `
-      )
-      .join("")
-    :
-    "No items";
-
+    Array.isArray(order.timeline)
+      ? order.timeline
+      : [];
 
   result.innerHTML = `
 
     <div class="track-card">
 
       <strong>
-
-        📦
-        ${escapeHtml(
-          order.order_number
-        )}
-
+        Order ${escapeHTML(order.id)}
       </strong>
-
 
       <br>
 
-
       <span
-        class="
-          current-status
-          ${statusClass(status)}
-        "
+        class="current-status ${getStatusClass(status)}"
       >
-
-        ${
-          STATUS_LABELS[
-            status
-          ] ||
-          status
-        }
-
+        ${escapeHTML(getStatusTitle(status))}
       </span>
-
-
-      <div
-        style="
-          color:#aaa;
-          line-height:1.7;
-          margin-bottom:12px
-        "
-      >
-
-        👤
-        ${escapeHtml(
-          customer.name ||
-          ""
-        )}
-
-        <br>
-
-        📞
-        ${escapeHtml(
-          customer.phone ||
-          ""
-        )}
-
-        <br>
-
-        📍
-        ${escapeHtml(
-          customer.address ||
-          ""
-        )}
-
-      </div>
-
 
       <div class="timeline">
 
-        ${timeline}
+        ${timeline.map(function(item){
 
-      </div>
+          return `
 
+            <div class="timeline-item active">
 
-      <div
-        style="
-          border-top:1px solid #292929;
-          margin-top:12px;
-          padding-top:12px;
-          color:#aaa;
-          font-size:13px
-        "
-      >
+              <span class="timeline-dot"></span>
 
-        <strong
-          style="color:#fff"
-        >
-          Order Items
-        </strong>
+              <strong>
+                ${escapeHTML(
+                  getStatusTitle(item.status)
+                )}
+              </strong>
 
+              <small>
+                ${new Date(item.date).toLocaleString("en-PK")}
+              </small>
 
-        <div
-          style="margin-top:7px"
-        >
+            </div>
 
-          ${itemList}
+          `;
 
-        </div>
-
-
-        <div
-          style="margin-top:8px"
-        >
-
-          Total:
-
-          <strong
-            style="color:#fff"
-          >
-
-            Rs.
-            ${total.toLocaleString()}
-
-          </strong>
-
-        </div>
-
-      </div>
-
-
-      <div
-        style="
-          margin-top:12px;
-          color:#666;
-          font-size:11px
-        "
-      >
-
-        Status updates automatically.
+        }).join("")}
 
       </div>
 
@@ -3797,281 +2522,89 @@ function renderTracking(
 
 }
 
+/* =========================================================
+   TRACKING SCROLL
+========================================================= */
 
-/* AUTO REFRESH */
+function scrollToTracking(){
 
-let trackingTimer =
-  setInterval(
-    () => {
-
-      const value =
-        document.getElementById(
-          "trackingNumber"
-        )?.value.trim();
-
-
-      if(value){
-
-        trackOrder();
-
-      }
-
-    },
-    8000
-  );
-
-
-/* =========================
-   SLIP
-========================= */
-
-function showSlip(
-  data
-){
-
-  document.getElementById(
-    "slipId"
-  ).textContent =
-    data.orderId ||
-    "";
-
-
-  document.getElementById(
-    "slipDate"
-  ).textContent =
-    data.date ||
-    "";
-
-
-  document.getElementById(
-    "slipName"
-  ).textContent =
-    data.name ||
-    "";
-
-
-  document.getElementById(
-    "slipPhone"
-  ).textContent =
-    data.phone ||
-    "";
-
-
-  document.getElementById(
-    "slipDelivery"
-  ).textContent =
-    data.delivery ||
-    "";
-
-
-  document.getElementById(
-    "slipAddress"
-  ).textContent =
-    data.address ||
-    "";
-
-
-  document.getElementById(
-    "slipTotal"
-  ).textContent =
-    Number(
-      data.total ||
-      0
-    ).toLocaleString();
-
-
-  document.getElementById(
-    "slipItems"
-  ).innerHTML =
-    (data.items || [])
-      .map(
-        item => `
-
-          <div class="slip-row">
-
-            <span>
-
-              ${escapeHtml(
-                item.name
-              )}
-
-              ×
-
-              ${Number(
-                item.qty
-              )}
-
-            </span>
-
-
-            <span>
-
-              Rs.
-
-              ${
-                (
-                  Number(
-                    item.price
-                  ) *
-                  Number(
-                    item.qty
-                  )
-                ).toLocaleString()
-              }
-
-            </span>
-
-          </div>
-
-        `
-      )
-      .join("");
-
-
-  /* BARCODE */
-
-  if(
-    window.JsBarcode
-  ){
-
-    JsBarcode(
-      "#barcode",
-      String(
-        data.orderId ||
-        ""
-      ),
-      {
-        format:"CODE128",
-        displayValue:true,
-        fontSize:13,
-        height:50,
-        margin:4
-      }
-    );
-
-  }
-
-
-  /* QR CODE */
-
-  const qr =
-    document.getElementById(
-      "slipQR"
-    );
-
-
-  qr.innerHTML =
-    "";
-
-
-  const trackingUrl =
-    window.location.origin +
-    window.location.pathname +
-    "?track=" +
-    encodeURIComponent(
-      data.orderId ||
-      ""
-    );
-
-
-  if(
-    window.QRCode
-  ){
-
-    new QRCode(
-      qr,
-      {
-        text:
-          trackingUrl,
-
-        width:
-          90,
-
-        height:
-          90
-
-      }
-    );
-
-  }
-
-
-  document.getElementById(
-    "slipModal"
-  ).style.display =
-    "block";
+  document
+    .getElementById("trackingSection")
+    .scrollIntoView({
+      behavior:"smooth"
+    });
 
 }
 
-
-function closeSlip(){
-
-  document.getElementById(
-    "slipModal"
-  ).style.display =
-    "none";
-
-}
-
-
-/* =========================
+/* =========================================================
    URL TRACKING
-========================= */
+========================================================= */
 
-function loadTrackingFromUrl(){
+function checkURLTracking(){
 
-  const params =
-    new URLSearchParams(
-      window.location.search
-    );
+  const hash =
+    window.location.hash;
 
-
-  const order =
-    params.get(
-      "track"
-    );
-
-
-  if(order){
-
-    document.getElementById(
-      "trackingNumber"
-    ).value =
-      order;
-
-
-    setTimeout(
-      () => {
-
-        document
-          .getElementById(
-            "trackingSection"
-          )
-          .scrollIntoView({
-            behavior:"smooth"
-          });
-
-
-        trackOrder();
-
-      },
-      500
-    );
-
+  if(!hash.startsWith("#tracking=")){
+    return;
   }
+
+  const orderId =
+    decodeURIComponent(
+      hash.replace("#tracking=","")
+    );
+
+  document
+    .getElementById("trackingNumber")
+    .value = orderId;
+
+  scrollToTracking();
+
+  trackOrder();
 
 }
 
+/* =========================================================
+   ESCAPE KEY
+========================================================= */
 
-/* =========================
-   START
-========================= */
+document.addEventListener(
+  "keydown",
+  function(event){
 
-renderProducts();
+    if(event.key === "Escape"){
 
-updateCart();
+      closeCart();
+      closeSlip();
 
-loadTrackingFromUrl();
+    }
+
+  }
+);
+
+/* =========================================================
+   INIT
+========================================================= */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function(){
+
+    loadCart();
+
+    renderProducts();
+
+    renderCart();
+
+    checkURLTracking();
+
+  }
+);
+
+window.addEventListener(
+  "hashchange",
+  checkURLTracking
+);
 
 </script>
 
