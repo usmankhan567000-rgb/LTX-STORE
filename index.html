@@ -1765,11 +1765,12 @@ async function placeOrder(){
    const { error: itemError } =
     await supabaseClient
      .from("order_items")
-     .insert({
-      order_id: order.id,
-      product_id: product.id,
-      quantity: item.qty
-     });
+    .insert({
+  order_id: order.id,
+  product_id: product.id,
+  quantity: item.qty,
+  price: Number(item.price)
+});
 
    if(itemError) throw itemError;
   }
