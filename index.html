@@ -114,7 +114,7 @@ footer{margin-top:40px;padding:35px 20px;text-align:center;border-top:1px solid 
 <div id="adminOverlay">
 <div class="manager">
 <div class="manager-head">
-<div><h2>⚙️ LTX Store Manager</h2><div class="manager-note">Add, edit or remove products directly from your browser.</div></div>
+<div><h2>⚙️ LTX STORE Admin Panel</h2><div class="manager-note">Add, edit or remove products directly from your browser.</div></div>
 <button class="close" onclick="closeAdmin()">✕</button>
 </div>
 <div class="manager-actions">
@@ -137,7 +137,7 @@ footer{margin-top:40px;padding:35px 20px;text-align:center;border-top:1px solid 
 <button class="save-btn" style="margin-top:10px" onclick="saveProduct()">💾 Save Product</button>
 </div>
 <div class="admin-products"><h3 style="margin-bottom:12px">Your Products</h3><div id="adminProductList"></div></div>
-<div class="admin-orders-section"><h3 style="margin-bottom:12px">📦 Customer Orders</h3><div id="adminOrdersList"></div></div>
+<div class="admin-orders-section"><h3 style="margin-bottom:12px">📦 Customer Orders & Status</h3><div id="adminOrdersList"></div></div>
 </div>
 </div>
 
@@ -535,6 +535,33 @@ TOTAL: Rs. ${total.toLocaleString()}
 </div>
 </div>`;
 }).join("");
+}
+
+async function updateOrderStatus(orderId, status){
+
+ const allowed = [
+  "pending",
+  "confirmed",
+  "dispatched",
+  "delivered",
+  "cancelled"
+ ];
+
+ if(!allowed.includes(status)) return;
+
+ const { error } =
+  await supabaseClient
+   .from("orders")
+   .update({ status: status })
+   .eq("id", orderId);
+
+ if(error){
+  console.error("Status Update Error:", error);
+  alert("Order status update nahi ho saka.");
+  return;
+ }
+
+ loadAdminOrders();
 }
 
 async function generateOrderSlip(orderId){
