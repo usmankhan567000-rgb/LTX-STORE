@@ -1,23 +1,15 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0">
-
-<title>LTX Store — Admin Panel</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LTX STORE — Admin Panel</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-
-*{
-    box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
     margin:0;
@@ -26,105 +18,9 @@ body{
     color:#fff;
 }
 
-button,
-select,
-input{
-    font:inherit;
-}
-
-button{
-    cursor:pointer;
-}
-
-.hidden{
-    display:none!important;
-}
-
-
-/* ================= LOGIN ================= */
-
-#loginScreen{
-    min-height:100vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:20px;
-}
-
-.loginBox{
-    width:100%;
-    max-width:400px;
-    background:#191c23;
-    border:1px solid #30343d;
-    border-radius:18px;
-    padding:30px;
-    box-shadow:0 15px 50px rgba(0,0,0,.4);
-}
-
-.logoTitle{
-    text-align:center;
-    font-size:30px;
-    font-weight:800;
-    margin-bottom:5px;
-}
-
-.loginSubtitle{
-    text-align:center;
-    color:#9da3ae;
-    margin-bottom:25px;
-}
-
-.inputGroup{
-    margin-bottom:15px;
-}
-
-.inputGroup label{
-    display:block;
-    margin-bottom:7px;
-    color:#cbd0d8;
-    font-size:14px;
-}
-
-.inputGroup input{
-    width:100%;
-    padding:13px;
-    border-radius:10px;
-    border:1px solid #343944;
-    background:#101218;
-    color:#fff;
-    outline:none;
-}
-
-.inputGroup input:focus{
-    border-color:#7c3aed;
-}
-
-.primaryBtn{
-    width:100%;
-    border:0;
-    padding:13px;
-    border-radius:10px;
-    background:#7c3aed;
-    color:white;
-    font-weight:700;
-}
-
-.primaryBtn:hover{
-    opacity:.9;
-}
-
-#errorMessage{
-    color:#ff6b6b;
-    text-align:center;
-    margin-top:15px;
-}
-
-
-/* ================= ADMIN ================= */
-
-#adminPanel{
-    min-height:100vh;
-}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.hidden{display:none!important}
 
 header{
     padding:18px 22px;
@@ -161,8 +57,100 @@ header{
     padding:22px;
 }
 
+/* LOGIN */
 
-/* ================= STATS ================= */
+#loginScreen{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.loginBox{
+    width:100%;
+    max-width:400px;
+    background:#191c23;
+    border:1px solid #30343d;
+    border-radius:18px;
+    padding:30px;
+    box-shadow:0 15px 50px rgba(0,0,0,.4);
+}
+
+.logoTitle{
+    text-align:center;
+    font-size:30px;
+    font-weight:800;
+}
+
+.loginSubtitle{
+    text-align:center;
+    color:#9da3ae;
+    margin:6px 0 25px;
+}
+
+.inputGroup{
+    margin-bottom:15px;
+}
+
+.inputGroup label{
+    display:block;
+    margin-bottom:7px;
+    color:#cbd0d8;
+    font-size:14px;
+}
+
+.inputGroup input,
+.inputGroup textarea,
+.inputGroup select{
+    width:100%;
+    padding:13px;
+    border-radius:10px;
+    border:1px solid #343944;
+    background:#101218;
+    color:#fff;
+    outline:none;
+}
+
+.primaryBtn{
+    width:100%;
+    border:0;
+    padding:13px;
+    border-radius:10px;
+    background:#7c3aed;
+    color:white;
+    font-weight:700;
+}
+
+#errorMessage{
+    color:#ff6b6b;
+    text-align:center;
+    margin-top:15px;
+}
+
+/* NAV */
+
+.tabs{
+    display:flex;
+    gap:10px;
+    margin-bottom:22px;
+    flex-wrap:wrap;
+}
+
+.tabBtn{
+    background:#191c23;
+    color:#fff;
+    border:1px solid #343944;
+    padding:11px 18px;
+    border-radius:10px;
+}
+
+.tabBtn.active{
+    background:#7c3aed;
+    border-color:#7c3aed;
+}
+
+/* STATS */
 
 .stats{
     display:grid;
@@ -189,8 +177,7 @@ header{
     margin-top:6px;
 }
 
-
-/* ================= TOOLBAR ================= */
+/* TOOLBAR */
 
 .toolbar{
     display:flex;
@@ -221,8 +208,12 @@ header{
     background:#242831;
 }
 
+.addBtn{
+    background:#7c3aed;
+    border-color:#7c3aed;
+}
 
-/* ================= ORDERS ================= */
+/* ORDERS */
 
 .orders{
     display:flex;
@@ -256,9 +247,6 @@ header{
     margin-top:4px;
 }
 
-
-/* ================= STATUS ================= */
-
 .statusBadge{
     padding:7px 11px;
     border-radius:20px;
@@ -286,9 +274,6 @@ header{
     color:#111;
 }
 
-
-/* ================= CUSTOMER ================= */
-
 .customerInfo{
     display:grid;
     grid-template-columns:repeat(2,1fr);
@@ -311,9 +296,6 @@ header{
 .infoValue{
     word-break:break-word;
 }
-
-
-/* ================= ITEMS ================= */
 
 .orderItems{
     background:#111319;
@@ -343,9 +325,6 @@ header{
     font-size:13px;
     margin-top:3px;
 }
-
-
-/* ================= BOTTOM ================= */
 
 .orderBottom{
     display:flex;
@@ -377,8 +356,83 @@ header{
     font-weight:700;
 }
 
-.slipBtn:hover{
-    opacity:.9;
+/* PRODUCTS */
+
+.productGrid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+}
+
+.productCard{
+    background:#191c23;
+    border:1px solid #2d3139;
+    border-radius:16px;
+    padding:18px;
+}
+
+.productName{
+    font-size:19px;
+    font-weight:800;
+    margin-bottom:7px;
+}
+
+.productDescription{
+    color:#969ca7;
+    font-size:13px;
+    line-height:1.5;
+    min-height:40px;
+}
+
+.productPrice{
+    font-size:22px;
+    font-weight:800;
+    margin-top:15px;
+}
+
+.stock{
+    display:inline-block;
+    margin-top:10px;
+    padding:7px 10px;
+    border-radius:20px;
+    background:#123f25;
+    color:#70e39a;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.lowStock{
+    background:#5b3500;
+    color:#ffc45c;
+}
+
+.outStock{
+    background:#5b1f25;
+    color:#ff858d;
+}
+
+.productActions{
+    display:flex;
+    gap:8px;
+    margin-top:15px;
+}
+
+.editBtn{
+    flex:1;
+    background:#272b33;
+    color:#fff;
+    border:1px solid #3b404a;
+    padding:10px;
+    border-radius:9px;
+}
+
+.deleteBtn{
+    flex:1;
+    background:#5b1f25;
+    color:#ff9da4;
+    border:1px solid #74313a;
+    padding:10px;
+    border-radius:9px;
 }
 
 .empty{
@@ -387,37 +441,88 @@ header{
     color:#858c98;
 }
 
-
-/* ================= ERROR ================= */
-
 .dbError{
     color:#ff8585;
     line-height:1.5;
 }
 
+/* MODAL */
 
-/* ================= MOBILE ================= */
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.75);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    z-index:1000;
+}
 
-@media(max-width:700px){
+.modalBox{
+    width:100%;
+    max-width:500px;
+    background:#191c23;
+    border:1px solid #343944;
+    border-radius:18px;
+    padding:22px;
+}
+
+.modalTitle{
+    font-size:22px;
+    font-weight:800;
+    margin-bottom:18px;
+}
+
+.modalActions{
+    display:flex;
+    gap:10px;
+    margin-top:18px;
+}
+
+.modalActions button{
+    flex:1;
+}
+
+.cancelBtn{
+    background:#272b33;
+    color:#fff;
+    border:1px solid #3b404a;
+    padding:12px;
+    border-radius:10px;
+}
+
+.saveBtn{
+    background:#7c3aed;
+    color:#fff;
+    border:0;
+    padding:12px;
+    border-radius:10px;
+    font-weight:bold;
+}
+
+/* MOBILE */
+
+@media(max-width:800px){
 
     .stats{
         grid-template-columns:repeat(2,1fr);
     }
 
+    .productGrid{
+        grid-template-columns:1fr;
+    }
+
+}
+
+@media(max-width:600px){
+
     .customerInfo{
         grid-template-columns:1fr;
     }
 
-    header{
-        align-items:flex-start;
-    }
-
     .orderTop{
         flex-direction:column;
-    }
-
-    .orderBottom{
-        align-items:stretch;
     }
 
     .statusSelect,
@@ -425,2755 +530,2123 @@ header{
         width:100%;
     }
 
+    .headerTitle{
+        font-size:18px;
+    }
+
 }
-
 </style>
-
 </head>
-
 
 <body>
 
-
-<!-- =====================================================
-     LOGIN
-     ===================================================== -->
+<!-- LOGIN -->
 
 <section id="loginScreen">
 
-    <div class="loginBox">
+<div class="loginBox">
 
-        <div class="logoTitle">
-            LTX STORE
-        </div>
+<div class="logoTitle">LTX STORE</div>
 
-        <div class="loginSubtitle">
-            Admin Panel
-        </div>
+<div class="loginSubtitle">
+Admin Panel
+</div>
 
+<form id="loginForm">
 
-        <form id="loginForm">
+<div class="inputGroup">
+<label>Email</label>
+<input id="adminEmail"
+type="email"
+autocomplete="username"
+required
+placeholder="Admin email">
+</div>
 
-            <div class="inputGroup">
+<div class="inputGroup">
+<label>Password</label>
+<input id="adminPassword"
+type="password"
+autocomplete="current-password"
+required
+placeholder="Password">
+</div>
 
-                <label>
-                    Email
-                </label>
+<button class="primaryBtn" type="submit">
+Login to Admin
+</button>
 
-                <input
-                    id="adminEmail"
-                    type="email"
-                    autocomplete="username"
-                    required
-                    placeholder="Admin email">
+<div id="errorMessage"></div>
 
-            </div>
+</form>
 
-
-            <div class="inputGroup">
-
-                <label>
-                    Password
-                </label>
-
-                <input
-                    id="adminPassword"
-                    type="password"
-                    autocomplete="current-password"
-                    required
-                    placeholder="Password">
-
-            </div>
-
-
-            <button
-                class="primaryBtn"
-                type="submit">
-
-                Login to Admin
-
-            </button>
-
-
-            <div id="errorMessage"></div>
-
-        </form>
-
-    </div>
-
+</div>
 </section>
 
 
+<!-- ADMIN -->
 
-<!-- =====================================================
-     ADMIN
-     ===================================================== -->
-
-<section
-    id="adminPanel"
-    class="hidden">
-
+<section id="adminPanel" class="hidden">
 
 <header>
 
-    <div>
+<div>
+<div class="headerTitle">
+LTX STORE — ADMIN
+</div>
 
-        <div class="headerTitle">
-            LTX STORE — ADMIN
-        </div>
+<div class="headerSub">
+Orders & Product Management
+</div>
+</div>
 
-        <div class="headerSub">
-            Customer Orders & Status
-        </div>
-
-    </div>
-
-
-    <button
-        id="logoutBtn"
-        class="logoutBtn">
-
-        Logout
-
-    </button>
+<button id="logoutBtn" class="logoutBtn">
+Logout
+</button>
 
 </header>
 
 
-
 <div class="container">
 
+<!-- TABS -->
 
-    <!-- ================= STATS ================= -->
+<div class="tabs">
 
-    <div class="stats">
+<button
+class="tabBtn active"
+id="ordersTab"
+onclick="showSection('orders')">
+📦 Orders
+</button>
 
-
-        <div class="stat">
-
-            <div class="statTitle">
-                Total Orders
-            </div>
-
-            <div
-                id="totalOrders"
-                class="statNumber">
-
-                0
-
-            </div>
-
-        </div>
-
-
-        <div class="stat">
-
-            <div class="statTitle">
-                Pending
-            </div>
-
-            <div
-                id="pendingOrders"
-                class="statNumber">
-
-                0
-
-            </div>
-
-        </div>
-
-
-        <div class="stat">
-
-            <div class="statTitle">
-                Packaging
-            </div>
-
-            <div
-                id="packagingOrders"
-                class="statNumber">
-
-                0
-
-            </div>
-
-        </div>
-
-
-        <div class="stat">
-
-            <div class="statTitle">
-                Delivered
-            </div>
-
-            <div
-                id="deliveredOrders"
-                class="statNumber">
-
-                0
-
-            </div>
-
-        </div>
-
-
-    </div>
-
-
-
-    <!-- ================= TOOLBAR ================= -->
-
-    <div class="toolbar">
-
-
-        <input
-            id="searchInput"
-            type="search"
-            placeholder="Search order, customer, phone...">
-
-
-        <button
-            id="refreshBtn"
-            class="actionBtn">
-
-            🔄 Refresh
-
-        </button>
-
-
-    </div>
-
-
-
-    <!-- ================= ORDERS ================= -->
-
-    <div
-        id="ordersContainer"
-        class="orders">
-
-        <div class="empty">
-            Loading orders...
-        </div>
-
-    </div>
-
+<button
+class="tabBtn"
+id="productsTab"
+onclick="showSection('products')">
+🛍️ Manage Products
+</button>
 
 </div>
 
+
+<!-- ORDERS SECTION -->
+
+<div id="ordersSection">
+
+<div class="stats">
+
+<div class="stat">
+<div class="statTitle">Total Orders</div>
+<div id="totalOrders" class="statNumber">0</div>
+</div>
+
+<div class="stat">
+<div class="statTitle">Pending</div>
+<div id="pendingOrders" class="statNumber">0</div>
+</div>
+
+<div class="stat">
+<div class="statTitle">Packaging</div>
+<div id="packagingOrders" class="statNumber">0</div>
+</div>
+
+<div class="stat">
+<div class="statTitle">Delivered</div>
+<div id="deliveredOrders" class="statNumber">0</div>
+</div>
+
+</div>
+
+
+<div class="toolbar">
+
+<input
+id="searchInput"
+type="search"
+placeholder="Search order, customer, phone...">
+
+<button
+id="refreshBtn"
+class="actionBtn">
+🔄 Refresh
+</button>
+
+</div>
+
+
+<div id="ordersContainer" class="orders">
+
+<div class="empty">
+Loading orders...
+</div>
+
+</div>
+
+</div>
+
+
+<!-- PRODUCTS SECTION -->
+
+<div id="productsSection" class="hidden">
+
+<div class="toolbar">
+
+<input
+id="productSearch"
+type="search"
+placeholder="Search products...">
+
+<button
+class="actionBtn addBtn"
+onclick="openProductModal()">
+➕ Add Product
+</button>
+
+<button
+class="actionBtn"
+onclick="loadProducts()">
+🔄 Refresh
+</button>
+
+</div>
+
+
+<div id="productsContainer" class="productGrid">
+
+<div class="empty">
+Loading products...
+</div>
+
+</div>
+
+</div>
+
+</div>
 </section>
 
+
+<!-- PRODUCT MODAL -->
+
+<div id="productModal" class="modal hidden">
+
+<div class="modalBox">
+
+<div id="modalTitle" class="modalTitle">
+Add Product
+</div>
+
+<input type="hidden" id="productId">
+
+<div class="inputGroup">
+
+<label>
+Product Name
+</label>
+
+<input
+id="productName"
+type="text"
+placeholder="Product name"
+required>
+
+</div>
+
+
+<div class="inputGroup">
+
+<label>
+Description
+</label>
+
+<textarea
+id="productDescription"
+rows="4"
+placeholder="Product description"></textarea>
+
+</div>
+
+
+<div class="inputGroup">
+
+<label>
+Price
+</label>
+
+<input
+id="productPrice"
+type="number"
+step="0.01"
+min="0"
+placeholder="0">
+
+</div>
+
+
+<div class="inputGroup">
+
+<label>
+Stock
+</label>
+
+<input
+id="productStock"
+type="number"
+step="1"
+min="0"
+placeholder="0">
+
+</div>
+
+
+<div class="modalActions">
+
+<button
+class="cancelBtn"
+onclick="closeProductModal()">
+Cancel
+</button>
+
+<button
+class="saveBtn"
+onclick="saveProduct()">
+Save Product
+</button>
+
+</div>
+
+</div>
+</div>
 
 
 <script>
 
-
 /* =====================================================
    SUPABASE
-   ===================================================== */
+===================================================== */
 
 const SUPABASE_URL =
-    "https://zsutkpsiefziotuwgkwq.supabase.co";
+"https://zsutkpsiefziotuwgkwq.supabase.co";
 
 const SUPABASE_ANON_KEY =
-    "sb_publishable_KfkaZZnDim3BlRxVUXd2wQ_WN84Duhb";
-
+"sb_publishable_KfkaZZnDim3BlRxVUXd2wQ_WN84Duhb";
 
 const supabaseClient =
-    window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_ANON_KEY
-    );
-
+window.supabase.createClient(
+SUPABASE_URL,
+SUPABASE_ANON_KEY
+);
 
 
 /* =====================================================
    ELEMENTS
-   ===================================================== */
+===================================================== */
 
 const loginScreen =
-    document.getElementById(
-        "loginScreen"
-    );
-
+document.getElementById("loginScreen");
 
 const adminPanel =
-    document.getElementById(
-        "adminPanel"
-    );
-
+document.getElementById("adminPanel");
 
 const loginForm =
-    document.getElementById(
-        "loginForm"
-    );
-
+document.getElementById("loginForm");
 
 const errorMessage =
-    document.getElementById(
-        "errorMessage"
-    );
-
+document.getElementById("errorMessage");
 
 const ordersContainer =
-    document.getElementById(
-        "ordersContainer"
-    );
-
+document.getElementById("ordersContainer");
 
 const searchInput =
-    document.getElementById(
-        "searchInput"
-    );
+document.getElementById("searchInput");
 
+const productsContainer =
+document.getElementById("productsContainer");
+
+const productSearch =
+document.getElementById("productSearch");
 
 
 /* =====================================================
    LOGIN
-   ===================================================== */
+===================================================== */
 
 loginForm.addEventListener(
-    "submit",
-    async function(e){
+"submit",
+async function(e){
 
-        e.preventDefault();
+e.preventDefault();
 
-        errorMessage.textContent = "";
+errorMessage.textContent="";
 
+const email =
+document.getElementById("adminEmail")
+.value.trim();
 
-        const email =
-            document
-                .getElementById(
-                    "adminEmail"
-                )
-                .value
-                .trim();
+const password =
+document.getElementById("adminPassword")
+.value;
 
+const {error} =
+await supabaseClient.auth.signInWithPassword({
+email,
+password
+});
 
-        const password =
-            document
-                .getElementById(
-                    "adminPassword"
-                )
-                .value;
+if(error){
 
+errorMessage.textContent =
+error.message || "Login failed.";
 
-        const {
-            error
-        } =
-            await supabaseClient
-                .auth
-                .signInWithPassword({
+return;
+}
 
-                    email,
-                    password
+showAdmin();
 
-                });
-
-
-        if(error){
-
-            errorMessage.textContent =
-                error.message ||
-                "Login failed.";
-
-            return;
-
-        }
-
-
-        showAdmin();
-
-    }
-);
-
+});
 
 
 /* =====================================================
-   CHECK SESSION
-   ===================================================== */
+   SESSION
+===================================================== */
 
 async function checkSession(){
 
-    const {
-        data,
-        error
-    } =
-        await supabaseClient
-            .auth
-            .getSession();
+const {data,error} =
+await supabaseClient.auth.getSession();
 
+if(error){
 
-    if(error){
-
-        showLogin();
-
-        return;
-
-    }
-
-
-    const session =
-        data.session;
-
-
-    if(session){
-
-        showAdmin();
-
-    }else{
-
-        showLogin();
-
-    }
+showLogin();
+return;
 
 }
 
+if(data.session){
+
+showAdmin();
+
+}else{
+
+showLogin();
+
+}
+
+}
 
 
 /* =====================================================
    SHOW LOGIN
-   ===================================================== */
+===================================================== */
 
 function showLogin(){
 
-    loginScreen
-        .classList
-        .remove("hidden");
-
-
-    adminPanel
-        .classList
-        .add("hidden");
+loginScreen.classList.remove("hidden");
+adminPanel.classList.add("hidden");
 
 }
-
 
 
 /* =====================================================
    SHOW ADMIN
-   ===================================================== */
+===================================================== */
 
 function showAdmin(){
 
-    loginScreen
-        .classList
-        .add("hidden");
+loginScreen.classList.add("hidden");
+adminPanel.classList.remove("hidden");
 
-
-    adminPanel
-        .classList
-        .remove("hidden");
-
-
-    loadOrders();
+loadOrders();
 
 }
-
 
 
 /* =====================================================
    LOGOUT
-   ===================================================== */
+===================================================== */
 
 document
-    .getElementById(
-        "logoutBtn"
-    )
-    .addEventListener(
-        "click",
-        async function(){
+.getElementById("logoutBtn")
+.addEventListener(
+"click",
+async function(){
 
-            await supabaseClient
-                .auth
-                .signOut();
+await supabaseClient.auth.signOut();
+
+showLogin();
+
+});
 
 
-            showLogin();
+/* =====================================================
+   SECTIONS
+===================================================== */
 
-        }
-    );
+function showSection(section){
 
+const ordersSection =
+document.getElementById("ordersSection");
+
+const productsSection =
+document.getElementById("productsSection");
+
+const ordersTab =
+document.getElementById("ordersTab");
+
+const productsTab =
+document.getElementById("productsTab");
+
+if(section==="orders"){
+
+ordersSection.classList.remove("hidden");
+productsSection.classList.add("hidden");
+
+ordersTab.classList.add("active");
+productsTab.classList.remove("active");
+
+loadOrders();
+
+}else{
+
+ordersSection.classList.add("hidden");
+productsSection.classList.remove("hidden");
+
+ordersTab.classList.remove("active");
+productsTab.classList.add("active");
+
+loadProducts();
+
+}
+
+}
 
 
 /* =====================================================
    LOAD ORDERS
-   ===================================================== */
+===================================================== */
 
 async function loadOrders(){
 
-    ordersContainer.innerHTML =
-        `
-        <div class="empty">
-            Loading orders...
-        </div>
-        `;
-
-
-    /*
-       STEP 1
-       Get orders.
-    */
-
-    const {
-        data:orders,
-        error:ordersError
-    } =
-        await supabaseClient
-            .from("orders")
-            .select("*")
-            .order(
-                "created_at",
-                {
-                    ascending:false
-                }
-            );
-
-
-    if(ordersError){
-
-        console.error(
-            "ORDERS ERROR:",
-            ordersError
-        );
-
-
-        ordersContainer.innerHTML =
-            `
-            <div class="empty dbError">
-
-                Unable to load orders.
-
-                <br><br>
-
-                ${escapeHtml(
-                    ordersError.message
-                )}
-
-            </div>
-            `;
-
-        return;
-
-    }
-
-
-    const safeOrders =
-        orders || [];
-
-
-    if(!safeOrders.length){
-
-        updateStats([]);
-
-        renderOrders([]);
-
-        return;
-
-    }
-
-
-    /*
-       STEP 2
-       Get customer IDs.
-    */
-
-    const customerIds =
-        [
-            ...new Set(
-                safeOrders
-                    .map(
-                        order =>
-                            order.customer_id
-                    )
-                    .filter(Boolean)
-            )
-        ];
-
-
-    /*
-       STEP 3
-       Get customers.
-    */
-
-    let customers = [];
-
-
-    if(customerIds.length){
-
-        const {
-            data,
-            error
-        } =
-            await supabaseClient
-                .from("customers")
-                .select(
-                    "id,name,phone,address"
-                )
-                .in(
-                    "id",
-                    customerIds
-                );
-
-
-        if(error){
-
-            console.error(
-                "CUSTOMERS ERROR:",
-                error
-            );
-
-        }else{
-
-            customers =
-                data || [];
-
-        }
-
-    }
-
-
-    /*
-       STEP 4
-       Map customers by ID.
-    */
-
-    const customerMap =
-        new Map();
-
-
-    customers.forEach(
-        customer => {
-
-            customerMap.set(
-                String(customer.id),
-                customer
-            );
-
-        }
-    );
-
-
-
-    /*
-       STEP 5
-       Get order IDs.
-    */
-
-    const orderIds =
-        safeOrders
-            .map(
-                order =>
-                    order.id
-            )
-            .filter(Boolean);
-
-
-
-    /*
-       STEP 6
-       Get order items.
-    */
-
-    let orderItems = [];
-
-
-    if(orderIds.length){
-
-        const {
-            data,
-            error
-        } =
-            await supabaseClient
-                .from("order_items")
-                .select(`
-                    id,
-                    order_id,
-                    product_id,
-                    quantity,
-                    price
-                `)
-                .in(
-                    "order_id",
-                    orderIds
-                );
-
-
-        if(error){
-
-            console.error(
-                "ORDER ITEMS ERROR:",
-                error
-            );
-
-        }else{
-
-            orderItems =
-                data || [];
-
-        }
-
-    }
-
-
-
-    /*
-       STEP 7
-       Get product IDs.
-    */
-
-    const productIds =
-        [
-            ...new Set(
-                orderItems
-                    .map(
-                        item =>
-                            item.product_id
-                    )
-                    .filter(Boolean)
-            )
-        ];
-
-
-
-    /*
-       STEP 8
-       Get products.
-    */
-
-    let products = [];
-
-
-    if(productIds.length){
-
-        const {
-            data,
-            error
-        } =
-            await supabaseClient
-                .from("products")
-                .select(
-                    "id,name,price"
-                )
-                .in(
-                    "id",
-                    productIds
-                );
-
-
-        if(error){
-
-            console.error(
-                "PRODUCTS ERROR:",
-                error
-            );
-
-        }else{
-
-            products =
-                data || [];
-
-        }
-
-    }
-
-
-
-    /*
-       STEP 9
-       Map products by ID.
-    */
-
-    const productMap =
-        new Map();
-
-
-    products.forEach(
-        product => {
-
-            productMap.set(
-                String(product.id),
-                product
-            );
-
-        }
-    );
-
-
-
-    /*
-       STEP 10
-       Attach customer + items
-       to every order.
-    */
-
-    const finalOrders =
-        safeOrders.map(
-            order => {
-
-                const customer =
-                    customerMap.get(
-                        String(
-                            order.customer_id
-                        )
-                    ) || null;
-
-
-                const items =
-                    orderItems
-                        .filter(
-                            item =>
-                                String(
-                                    item.order_id
-                                ) ===
-                                String(
-                                    order.id
-                                )
-                        )
-                        .map(
-                            item => {
-
-                                const product =
-                                    productMap.get(
-                                        String(
-                                            item.product_id
-                                        )
-                                    ) || null;
-
-
-                                return {
-
-                                    ...item,
-
-                                    product
-
-                                };
-
-                            }
-                        );
-
-
-                return {
-
-                    ...order,
-
-                    customer,
-
-                    items
-
-                };
-
-            }
-        );
-
-
-
-    updateStats(
-        finalOrders
-    );
-
-
-    renderOrders(
-        finalOrders
-    );
+ordersContainer.innerHTML =
+`<div class="empty">Loading orders...</div>`;
+
+const {
+data:orders,
+error:ordersError
+} =
+await supabaseClient
+.from("orders")
+.select("*")
+.order("created_at",{ascending:false});
+
+if(ordersError){
+
+ordersContainer.innerHTML =
+`
+<div class="empty dbError">
+Unable to load orders.<br><br>
+${escapeHtml(ordersError.message)}
+</div>
+`;
+
+return;
 
 }
 
+const safeOrders=orders||[];
+
+if(!safeOrders.length){
+
+updateStats([]);
+
+renderOrders([]);
+
+return;
+
+}
+
+
+/* CUSTOMERS */
+
+const customerIds=[
+...new Set(
+safeOrders
+.map(order=>order.customer_id)
+.filter(Boolean)
+)
+];
+
+let customers=[];
+
+if(customerIds.length){
+
+const {data,error} =
+await supabaseClient
+.from("customers")
+.select("id,name,phone,address")
+.in("id",customerIds);
+
+if(!error)
+customers=data||[];
+
+}
+
+const customerMap=new Map();
+
+customers.forEach(customer=>{
+customerMap.set(String(customer.id),customer);
+});
+
+
+/* ITEMS */
+
+const orderIds=
+safeOrders
+.map(order=>order.id)
+.filter(Boolean);
+
+let orderItems=[];
+
+if(orderIds.length){
+
+const {data,error} =
+await supabaseClient
+.from("order_items")
+.select(`
+id,
+order_id,
+product_id,
+quantity,
+price
+`)
+.in("order_id",orderIds);
+
+if(!error)
+orderItems=data||[];
+
+}
+
+
+/* PRODUCTS */
+
+const productIds=[
+...new Set(
+orderItems
+.map(item=>item.product_id)
+.filter(Boolean)
+)
+];
+
+let products=[];
+
+if(productIds.length){
+
+const {data,error} =
+await supabaseClient
+.from("products")
+.select("id,name,price")
+.in("id",productIds);
+
+if(!error)
+products=data||[];
+
+}
+
+const productMap=new Map();
+
+products.forEach(product=>{
+productMap.set(
+String(product.id),
+product
+);
+});
+
+
+/* FINAL */
+
+const finalOrders=
+safeOrders.map(order=>{
+
+const customer=
+customerMap.get(
+String(order.customer_id)
+)||null;
+
+const items=
+orderItems
+.filter(
+item =>
+String(item.order_id)===
+String(order.id)
+)
+.map(item=>({
+
+...item,
+
+product:
+productMap.get(
+String(item.product_id)
+)||null
+
+}));
+
+return {
+...order,
+customer,
+items
+};
+
+});
+
+
+updateStats(finalOrders);
+renderOrders(finalOrders);
+
+}
 
 
 /* =====================================================
    STATS
-   ===================================================== */
+===================================================== */
 
-function updateStats(
-    orders
-){
+function updateStats(orders){
 
-    document
-        .getElementById(
-            "totalOrders"
-        )
-        .textContent =
-            orders.length;
+document.getElementById("totalOrders")
+.textContent=orders.length;
 
+document.getElementById("pendingOrders")
+.textContent=
+orders.filter(
+order=>normalizeStatus(order.status)==="pending"
+).length;
 
-    document
-        .getElementById(
-            "pendingOrders"
-        )
-        .textContent =
-            orders.filter(
-                order =>
-                    normalizeStatus(
-                        order.status
-                    ) ===
-                    "pending"
-            ).length;
+document.getElementById("packagingOrders")
+.textContent=
+orders.filter(
+order=>normalizeStatus(order.status)==="packaging"
+).length;
 
-
-    document
-        .getElementById(
-            "packagingOrders"
-        )
-        .textContent =
-            orders.filter(
-                order =>
-                    normalizeStatus(
-                        order.status
-                    ) ===
-                    "packaging"
-            ).length;
-
-
-    document
-        .getElementById(
-            "deliveredOrders"
-        )
-        .textContent =
-            orders.filter(
-                order =>
-                    normalizeStatus(
-                        order.status
-                    ) ===
-                    "delivered"
-            ).length;
+document.getElementById("deliveredOrders")
+.textContent=
+orders.filter(
+order=>normalizeStatus(order.status)==="delivered"
+).length;
 
 }
-
 
 
 /* =====================================================
-   NORMALIZE STATUS
-   ===================================================== */
+   STATUS
+===================================================== */
 
-function normalizeStatus(
-    status
-){
+function normalizeStatus(status){
 
-    if(!status)
-        return "pending";
+if(!status)return"pending";
 
-
-    return String(status)
-        .toLowerCase()
-        .replace(
-            /\s+/g,
-            ""
-        )
-        .replace(
-            /_/g,
-            ""
-        );
+return String(status)
+.toLowerCase()
+.replace(/\s+/g,"")
+.replace(/_/g,"");
 
 }
 
 
+function statusClass(status){
 
-/* =====================================================
-   STATUS CLASS
-   ===================================================== */
+const s=normalizeStatus(status);
 
-function statusClass(
-    status
-){
+if(s==="packaging")return"packaging";
 
-    const s =
-        normalizeStatus(
-            status
-        );
+if(
+s==="ontheway"||
+s==="shipping"||
+s==="shipped"
+)return"ontheway";
 
+if(s==="delivered")return"delivered";
 
-    if(
-        s === "packaging"
-    )
-        return "packaging";
-
-
-    if(
-        s === "ontheway" ||
-        s === "shipping" ||
-        s === "shipped"
-    )
-        return "ontheway";
-
-
-    if(
-        s === "delivered"
-    )
-        return "delivered";
-
-
-    return "pending";
+return"pending";
 
 }
 
 
+function statusText(status){
 
-/* =====================================================
-   STATUS TEXT
-   ===================================================== */
+const s=normalizeStatus(status);
 
-function statusText(
-    status
-){
+if(s==="packaging")return"Packaging";
 
-    const s =
-        normalizeStatus(
-            status
-        );
+if(
+s==="ontheway"||
+s==="shipping"||
+s==="shipped"
+)return"On the Way";
 
+if(s==="delivered")return"Delivered";
 
-    if(
-        s === "packaging"
-    )
-        return "Packaging";
-
-
-    if(
-        s === "ontheway" ||
-        s === "shipping" ||
-        s === "shipped"
-    )
-        return "On the Way";
-
-
-    if(
-        s === "delivered"
-    )
-        return "Delivered";
-
-
-    return "Pending";
+return"Pending";
 
 }
-
 
 
 /* =====================================================
    RENDER ORDERS
-   ===================================================== */
+===================================================== */
 
-function renderOrders(
-    orders
-){
+function renderOrders(orders){
 
-    if(!orders.length){
+if(!orders.length){
 
-        ordersContainer.innerHTML =
-            `
-            <div class="empty">
-                No orders found.
-            </div>
-            `;
+ordersContainer.innerHTML=
+`<div class="empty">No orders found.</div>`;
 
-        return;
-
-    }
-
-
-    ordersContainer.innerHTML =
-        orders
-            .map(
-                order =>
-                    createOrderCard(
-                        order
-                    )
-            )
-            .join("");
+return;
 
 }
 
+ordersContainer.innerHTML=
+orders.map(createOrderCard).join("");
+
+}
 
 
 /* =====================================================
-   CREATE ORDER CARD
-   ===================================================== */
+   ORDER CARD
+===================================================== */
 
-function createOrderCard(
-    order
-){
+function createOrderCard(order){
 
-    const customer =
-        order.customer ||
-        {};
+const customer=order.customer||{};
 
+const orderNumber=
+order.order_number||
+order.orderNumber||
+order.id||
+"Unknown";
 
-    const orderNumber =
-        order.order_number ||
-        order.orderNumber ||
-        order.id ||
-        "Unknown";
+const customerName=
+customer.name||
+order.name||
+order.customer_name||
+"Not Provided";
 
+const phone=
+customer.phone||
+order.phone||
+order.customer_phone||
+"Not Provided";
 
-    const customerName =
-        customer.name ||
-        order.name ||
-        order.customer_name ||
-        order.customerName ||
-        "Not Provided";
+const address=
+customer.address||
+order.address||
+order.customer_address||
+"Not Provided";
 
+const delivery=
+order.delivery||
+order.delivery_method||
+"Not Saved";
 
-    const phone =
-        customer.phone ||
-        order.phone ||
-        order.customer_phone ||
-        "Not Provided";
+const status=
+order.status||"pending";
 
+const items=
+Array.isArray(order.items)?
+order.items:[];
 
-    const address =
-        customer.address ||
-        order.address ||
-        order.customer_address ||
-        "Not Provided";
+const total=
+calculateOrderTotal(order,items);
 
+const date=
+order.created_at
+?new Date(order.created_at)
+.toLocaleString("en-PK")
+:"Unknown";
 
-    /*
-       Current index.html does not save
-       delivery into orders/customers.
+const searchText=
+(
+orderNumber+" "+
+customerName+" "+
+phone+" "+
+address
+).toLowerCase();
 
-       Therefore we do NOT invent a value.
-    */
 
-    const delivery =
-        order.delivery ||
-        order.delivery_method ||
-        "Not Saved";
+return `
 
+<div
+class="orderCard"
+data-search="${escapeHtml(searchText)}">
 
-    const status =
-        order.status ||
-        "pending";
+<div class="orderTop">
 
+<div>
 
-    const items =
-        Array.isArray(
-            order.items
-        )
-        ? order.items
-        : [];
+<div class="orderNumber">
+📦 ${escapeHtml(orderNumber)}
+</div>
 
+<div class="orderDate">
+${escapeHtml(date)}
+</div>
 
-    const total =
-        calculateOrderTotal(
-            order,
-            items
-        );
+</div>
 
-
-    const date =
-        order.created_at
-        ? new Date(
-            order.created_at
-        ).toLocaleString(
-            "en-PK"
-        )
-        : "Unknown";
-
-
-    const searchText =
-        (
-            orderNumber +
-            " " +
-            customerName +
-            " " +
-            phone +
-            " " +
-            address
-        ).toLowerCase();
-
-
-
-    return `
-
-    <div
-        class="orderCard"
-        data-search="${escapeHtml(
-            searchText
-        )}">
-
-
-        <div class="orderTop">
-
-
-            <div>
-
-                <div class="orderNumber">
-
-                    📦
-                    ${escapeHtml(
-                        orderNumber
-                    )}
-
-                </div>
-
-
-                <div class="orderDate">
-
-                    ${escapeHtml(
-                        date
-                    )}
-
-                </div>
-
-            </div>
-
-
-            <div
-                class="statusBadge ${statusClass(
-                    status
-                )}">
-
-                ${statusText(
-                    status
-                )}
-
-            </div>
-
-
-        </div>
-
-
-
-        <!-- CUSTOMER -->
-
-        <div class="customerInfo">
-
-
-            <div class="infoBox">
-
-                <div class="infoLabel">
-                    CUSTOMER
-                </div>
-
-                <div class="infoValue">
-
-                    ${escapeHtml(
-                        customerName
-                    )}
-
-                </div>
-
-            </div>
-
-
-
-            <div class="infoBox">
-
-                <div class="infoLabel">
-                    CONTACT
-                </div>
-
-                <div class="infoValue">
-
-                    ${escapeHtml(
-                        phone
-                    )}
-
-                </div>
-
-            </div>
-
-
-
-            <div class="infoBox">
-
-                <div class="infoLabel">
-                    ADDRESS
-                </div>
-
-                <div class="infoValue">
-
-                    ${escapeHtml(
-                        address
-                    )}
-
-                </div>
-
-            </div>
-
-
-
-            <div class="infoBox">
-
-                <div class="infoLabel">
-                    DELIVERY
-                </div>
-
-                <div class="infoValue">
-
-                    ${escapeHtml(
-                        delivery
-                    )}
-
-                </div>
-
-            </div>
-
-
-        </div>
-
-
-
-        <!-- ITEMS -->
-
-        <div class="orderItems">
-
-
-            ${
-                items.length
-
-                ?
-
-                items
-                    .map(
-                        item => {
-
-                            const product =
-                                item.product ||
-                                {};
-
-
-                            const name =
-                                product.name ||
-                                item.name ||
-                                item.title ||
-                                "Product";
-
-
-                            const quantity =
-                                Number(
-                                    item.quantity ??
-                                    item.qty ??
-                                    1
-                                );
-
-
-                            const price =
-                                Number(
-                                    item.price ??
-                                    product.price ??
-                                    0
-                                );
-
-
-                            const lineTotal =
-                                price *
-                                quantity;
-
-
-                            return `
-
-                            <div
-                                class="itemRow">
-
-
-                                <div>
-
-                                    <div
-                                        class="itemName">
-
-                                        ${escapeHtml(
-                                            name
-                                        )}
-
-                                    </div>
-
-
-                                    <div
-                                        class="itemMeta">
-
-                                        Qty:
-                                        ${escapeHtml(
-                                            quantity
-                                        )}
-
-                                        ×
-
-                                        Rs.
-                                        ${escapeHtml(
-                                            formatMoney(
-                                                price
-                                            )
-                                        )}
-
-                                    </div>
-
-                                </div>
-
-
-                                <div>
-
-                                    Rs.
-                                    ${escapeHtml(
-                                        formatMoney(
-                                            lineTotal
-                                        )
-                                    )}
-
-                                </div>
-
-
-                            </div>
-
-                            `;
-
-                        }
-                    )
-                    .join("")
-
-                :
-
-                `
-
-                <div class="itemRow">
-
-                    <span>
-                        No item details available
-                    </span>
-
-                </div>
-
-                `
-
-            }
-
-
-        </div>
-
-
-
-        <!-- BOTTOM -->
-
-        <div class="orderBottom">
-
-
-            <div class="total">
-
-                Rs.
-                ${escapeHtml(
-                    formatMoney(
-                        total
-                    )
-                )}
-
-            </div>
-
-
-
-            <select
-                class="statusSelect"
-                onchange="changeStatus(
-                    '${escapeJs(
-                        order.id
-                    )}',
-                    this.value
-                )">
-
-
-                <option
-                    value="pending"
-                    ${
-                        normalizeStatus(
-                            status
-                        ) === "pending"
-                        ? "selected"
-                        : ""
-                    }>
-
-                    🟠 Pending
-
-                </option>
-
-
-                <option
-                    value="packaging"
-                    ${
-                        normalizeStatus(
-                            status
-                        ) === "packaging"
-                        ? "selected"
-                        : ""
-                    }>
-
-                    🔵 Packaging
-
-                </option>
-
-
-                <option
-                    value="on_the_way"
-                    ${
-                        [
-                            "ontheway",
-                            "shipping",
-                            "shipped"
-                        ].includes(
-                            normalizeStatus(
-                                status
-                            )
-                        )
-                        ? "selected"
-                        : ""
-                    }>
-
-                    🔴 On the Way
-
-                </option>
-
-
-                <option
-                    value="delivered"
-                    ${
-                        normalizeStatus(
-                            status
-                        ) === "delivered"
-                        ? "selected"
-                        : ""
-                    }>
-
-                    ⚪ Delivered
-
-                </option>
-
-
-            </select>
-
-
-
-            <button
-                class="slipBtn"
-                onclick="
-                    generateSlip(
-                        '${escapeJs(
-                            order.id
-                        )}'
-                    )
-                ">
-
-                🖨️ Generate Slip
-
-            </button>
-
-
-        </div>
-
-
-    </div>
-
-    `;
-
-}
-
-
-
-/* =====================================================
-   CALCULATE TOTAL
-   ===================================================== */
-
-function calculateOrderTotal(
-    order,
-    items
-){
-
-    const directTotal =
-        order.total ??
-        order.total_amount ??
-        order.amount;
-
-
-    if(
-        directTotal !==
-        undefined &&
-        directTotal !==
-        null &&
-        directTotal !== ""
-    ){
-
-        const number =
-            Number(
-                directTotal
-            );
-
-
-        if(
-            Number.isFinite(
-                number
-            )
-        )
-            return number;
-
-    }
-
-
-    return items.reduce(
-        (
-            sum,
-            item
-        ) => {
-
-            const price =
-                Number(
-                    item.price ??
-                    (
-                        item.product &&
-                        item.product.price
-                    ) ??
-                    0
-                );
-
-
-            const quantity =
-                Number(
-                    item.quantity ??
-                    item.qty ??
-                    1
-                );
-
-
-            return sum +
-                (
-                    price *
-                    quantity
-                );
-
-        },
-        0
-    );
-
-}
-
-
-
-/* =====================================================
-   CHANGE STATUS
-   ===================================================== */
-
-async function changeStatus(
-    id,
-    status
-){
-
-    if(!id)
-        return;
-
-
-    const {
-        error
-    } =
-        await supabaseClient
-            .from("orders")
-            .update({
-
-                status:status
-
-            })
-            .eq(
-                "id",
-                id
-            );
-
-
-    if(error){
-
-        alert(
-            "Status update failed:\n" +
-            error.message
-        );
-
-
-        await loadOrders();
-
-        return;
-
-    }
-
-
-    await loadOrders();
-
-}
-
-
-
-/* =====================================================
-   GENERATE SLIP
-   ===================================================== */
-
-async function generateSlip(
-    id
-){
-
-    if(!id)
-        return;
-
-
-    const {
-        data:orders,
-        error:orderError
-    } =
-        await supabaseClient
-            .from("orders")
-            .select("*")
-            .eq(
-                "id",
-                id
-            )
-            .single();
-
-
-    if(orderError){
-
-        alert(
-            "Unable to load order:\n" +
-            orderError.message
-        );
-
-        return;
-
-    }
-
-
-    const order =
-        orders;
-
-
-    /*
-       CUSTOMER
-    */
-
-    let customer = null;
-
-
-    if(
-        order.customer_id
-    ){
-
-        const {
-            data,
-            error
-        } =
-            await supabaseClient
-                .from("customers")
-                .select(
-                    "id,name,phone,address"
-                )
-                .eq(
-                    "id",
-                    order.customer_id
-                )
-                .maybeSingle();
-
-
-        if(!error)
-            customer = data;
-
-    }
-
-
-    /*
-       ORDER ITEMS
-    */
-
-    const {
-        data:orderItems,
-        error:itemsError
-    } =
-        await supabaseClient
-            .from("order_items")
-            .select(`
-                id,
-                order_id,
-                product_id,
-                quantity,
-                price
-            `)
-            .eq(
-                "order_id",
-                id
-            );
-
-
-    if(itemsError){
-
-        console.error(
-            "SLIP ITEMS ERROR:",
-            itemsError
-        );
-
-    }
-
-
-    const items =
-        orderItems || [];
-
-
-    /*
-       PRODUCTS
-    */
-
-    const productIds =
-        [
-            ...new Set(
-                items
-                    .map(
-                        item =>
-                            item.product_id
-                    )
-                    .filter(Boolean)
-            )
-        ];
-
-
-    let products = [];
-
-
-    if(productIds.length){
-
-        const {
-            data,
-            error
-        } =
-            await supabaseClient
-                .from("products")
-                .select(
-                    "id,name,price"
-                )
-                .in(
-                    "id",
-                    productIds
-                );
-
-
-        if(!error)
-            products = data || [];
-
-    }
-
-
-    const productMap =
-        new Map();
-
-
-    products.forEach(
-        product => {
-
-            productMap.set(
-                String(
-                    product.id
-                ),
-                product
-            );
-
-        }
-    );
-
-
-    const finalItems =
-        items.map(
-            item => ({
-
-                ...item,
-
-                product:
-                    productMap.get(
-                        String(
-                            item.product_id
-                        )
-                    ) || null
-
-            })
-        );
-
-
-    createSlip({
-
-        ...order,
-
-        customer,
-
-        items:
-            finalItems
-
-    });
-
-}
-
-
-
-/* =====================================================
-   CREATE SLIP
-   ===================================================== */
-
-function createSlip(
-    order
-){
-
-    const customer =
-        order.customer ||
-        {};
-
-
-    const orderNumber =
-        order.order_number ||
-        order.orderNumber ||
-        order.id ||
-        "LTX-ORDER";
-
-
-    const name =
-        customer.name ||
-        order.name ||
-        order.customer_name ||
-        "Customer";
-
-
-    const phone =
-        customer.phone ||
-        order.phone ||
-        order.customer_phone ||
-        "";
-
-
-    const address =
-        customer.address ||
-        order.address ||
-        order.customer_address ||
-        "";
-
-
-    const delivery =
-        order.delivery ||
-        order.delivery_method ||
-        "Not Saved";
-
-
-    const items =
-        Array.isArray(
-            order.items
-        )
-        ? order.items
-        : [];
-
-
-    const total =
-        calculateOrderTotal(
-            order,
-            items
-        );
-
-
-
-    const slipWindow =
-        window.open(
-            "",
-            "_blank",
-            "width=850,height=1000"
-        );
-
-
-    if(!slipWindow){
-
-        alert(
-            "Popup blocked. Please allow popups for this site."
-        );
-
-        return;
-
-    }
-
-
-
-    slipWindow.document.write(`
-
-<!DOCTYPE html>
-
-<html>
-
-<head>
-
-<meta charset="UTF-8">
-
-<title>
-LTX Shipment —
-${escapeHtml(
-    orderNumber
-)}
-</title>
-
-
-<style>
-
-body{
-
-    margin:0;
-
-    padding:30px;
-
-    background:#eee;
-
-    font-family:Arial,sans-serif;
-
-}
-
-
-.slip{
-
-    max-width:760px;
-
-    margin:auto;
-
-    background:#fff;
-
-    color:#111;
-
-    padding:30px;
-
-    border:2px solid #111;
-
-}
-
-
-.header{
-
-    text-align:center;
-
-    border-bottom:2px solid #111;
-
-    padding-bottom:18px;
-
-    margin-bottom:18px;
-
-}
-
-
-.store{
-
-    font-size:34px;
-
-    font-weight:900;
-
-}
-
-
-.subtitle{
-
-    font-size:13px;
-
-    margin-top:5px;
-
-}
-
-
-.section{
-
-    border:1px solid #222;
-
-    margin-top:15px;
-
-}
-
-
-.sectionTitle{
-
-    background:#111;
-
-    color:#fff;
-
-    padding:8px 12px;
-
-    font-weight:bold;
-
-}
-
-
-.row{
-
-    display:flex;
-
-    gap:15px;
-
-    padding:9px 12px;
-
-    border-bottom:1px solid #ddd;
-
-}
-
-
-.row:last-child{
-
-    border-bottom:0;
-
-}
-
-
-.label{
-
-    width:150px;
-
-    font-weight:bold;
-
-}
-
-
-.value{
-
-    flex:1;
-
-    word-break:break-word;
-
-}
-
-
-.items{
-
-    padding:12px;
-
-}
-
-
-.item{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    gap:15px;
-
-    padding:8px 0;
-
-    border-bottom:1px solid #ddd;
-
-}
-
-
-.total{
-
-    font-size:22px;
-
-    font-weight:bold;
-
-    text-align:right;
-
-    padding-top:15px;
-
-}
-
-
-.barcode{
-
-    text-align:center;
-
-    margin-top:25px;
-
-    font-family:"Courier New",monospace;
-
-    font-size:25px;
-
-    letter-spacing:4px;
-
-}
-
-
-.qr{
-
-    text-align:center;
-
-    margin-top:20px;
-
-}
-
-
-.footer{
-
-    text-align:center;
-
-    margin-top:25px;
-
-    font-size:12px;
-
-}
-
-
-.printBtn{
-
-    display:block;
-
-    margin:20px auto;
-
-    padding:12px 25px;
-
-    border:0;
-
-    background:#111;
-
-    color:#fff;
-
-    cursor:pointer;
-
-}
-
-
-@media print{
-
-    body{
-
-        background:#fff;
-
-        padding:0;
-
-    }
-
-
-    .slip{
-
-        border:0;
-
-        max-width:none;
-
-    }
-
-
-    .printBtn{
-
-        display:none;
-
-    }
-
-}
-
-</style>
-
-</head>
-
-
-<body>
-
-
-<button
-    class="printBtn"
-    onclick="window.print()">
-
-    🖨️ Print / Save PDF
-
-</button>
-
-
-
-<div class="slip">
-
-
-    <div class="header">
-
-
-        <div class="store">
-
-            LTX
-
-        </div>
-
-
-        <div class="subtitle">
-
-            SHIPMENT / CONSIGNMENT INFORMATION
-
-        </div>
-
-
-    </div>
-
-
-
-    <!-- CUSTOMER -->
-
-    <div class="section">
-
-
-        <div class="sectionTitle">
-
-            CUSTOMER INFORMATION
-
-        </div>
-
-
-        <div class="row">
-
-            <div class="label">
-                Name
-            </div>
-
-            <div class="value">
-
-                ${escapeHtml(
-                    name
-                )}
-
-            </div>
-
-        </div>
-
-
-        <div class="row">
-
-            <div class="label">
-                Contact
-            </div>
-
-            <div class="value">
-
-                ${escapeHtml(
-                    phone
-                )}
-
-            </div>
-
-        </div>
-
-
-        <div class="row">
-
-            <div class="label">
-                Address
-            </div>
-
-            <div class="value">
-
-                ${escapeHtml(
-                    address
-                )}
-
-            </div>
-
-        </div>
-
-
-        <div class="row">
-
-            <div class="label">
-                Delivery
-            </div>
-
-            <div class="value">
-
-                ${escapeHtml(
-                    delivery
-                )}
-
-            </div>
-
-        </div>
-
-
-    </div>
-
-
-
-    <!-- SHIPMENT -->
-
-    <div class="section">
-
-
-        <div class="sectionTitle">
-
-            SHIPMENT INFORMATION
-
-        </div>
-
-
-        <div class="row">
-
-            <div class="label">
-
-                Order / Consignment
-
-            </div>
-
-
-            <div class="value">
-
-                ${escapeHtml(
-                    orderNumber
-                )}
-
-            </div>
-
-        </div>
-
-
-        <div class="row">
-
-            <div class="label">
-
-                Shipper
-
-            </div>
-
-
-            <div class="value">
-
-                LTX STORE
-
-            </div>
-
-        </div>
-
-
-    </div>
-
-
-
-    <!-- ORDER -->
-
-    <div class="section">
-
-
-        <div class="sectionTitle">
-
-            ORDER INFORMATION
-
-        </div>
-
-
-        <div class="items">
-
-
-            ${
-                items.length
-
-                ?
-
-                items.map(
-                    item => {
-
-                        const product =
-                            item.product ||
-                            {};
-
-
-                        const productName =
-                            product.name ||
-                            item.name ||
-                            item.title ||
-                            "Product";
-
-
-                        const quantity =
-                            Number(
-                                item.quantity ??
-                                item.qty ??
-                                1
-                            );
-
-
-                        const price =
-                            Number(
-                                item.price ??
-                                product.price ??
-                                0
-                            );
-
-
-                        const lineTotal =
-                            price *
-                            quantity;
-
-
-                        return `
-
-                        <div class="item">
-
-                            <span>
-
-                                ${escapeHtml(
-                                    productName
-                                )}
-
-                                ×
-
-                                ${escapeHtml(
-                                    quantity
-                                )}
-
-                            </span>
-
-
-                            <span>
-
-                                Rs.
-                                ${escapeHtml(
-                                    formatMoney(
-                                        lineTotal
-                                    )
-                                )}
-
-                            </span>
-
-                        </div>
-
-                        `;
-
-                    }
-                ).join("")
-
-                :
-
-                `
-                <div>
-                    No item details available.
-                </div>
-                `
-
-            }
-
-
-            <div class="total">
-
-                TOTAL:
-                Rs.
-                ${escapeHtml(
-                    formatMoney(
-                        total
-                    )
-                )}
-
-            </div>
-
-
-        </div>
-
-
-    </div>
-
-
-
-    <div class="barcode">
-
-        *
-        ${escapeHtml(
-            orderNumber
-        )}
-        *
-
-    </div>
-
-
-
-    <div class="qr">
-
-        <div
-            style="
-                display:inline-block;
-                padding:15px;
-                border:3px solid #111;
-                font-weight:bold;
-            ">
-
-            QR
-
-            <br>
-
-            ${escapeHtml(
-                orderNumber
-            )}
-
-        </div>
-
-    </div>
-
-
-
-    <div class="footer">
-
-        LTX STORE
-
-        <br>
-
-        Thank you for your order.
-
-    </div>
-
+<div class="statusBadge ${statusClass(status)}">
+${statusText(status)}
+</div>
 
 </div>
 
 
-</body>
+<div class="customerInfo">
 
-</html>
+<div class="infoBox">
+<div class="infoLabel">CUSTOMER</div>
+<div class="infoValue">
+${escapeHtml(customerName)}
+</div>
+</div>
 
-    `);
+<div class="infoBox">
+<div class="infoLabel">CONTACT</div>
+<div class="infoValue">
+${escapeHtml(phone)}
+</div>
+</div>
+
+<div class="infoBox">
+<div class="infoLabel">ADDRESS</div>
+<div class="infoValue">
+${escapeHtml(address)}
+</div>
+</div>
+
+<div class="infoBox">
+<div class="infoLabel">DELIVERY</div>
+<div class="infoValue">
+${escapeHtml(delivery)}
+</div>
+</div>
+
+</div>
 
 
-    slipWindow.document.close();
+<div class="orderItems">
+
+${
+items.length
+
+?
+
+items.map(item=>{
+
+const product=item.product||{};
+
+const name=
+product.name||
+item.name||
+item.title||
+"Product";
+
+const quantity=
+Number(
+item.quantity??
+item.qty??
+1
+);
+
+const price=
+Number(
+item.price??
+product.price??
+0
+);
+
+const lineTotal=
+price*quantity;
+
+return `
+
+<div class="itemRow">
+
+<div>
+
+<div class="itemName">
+${escapeHtml(name)}
+</div>
+
+<div class="itemMeta">
+Qty: ${quantity}
+× Rs. ${formatMoney(price)}
+</div>
+
+</div>
+
+<div>
+Rs. ${formatMoney(lineTotal)}
+</div>
+
+</div>
+
+`;
+
+}).join("")
+
+:
+
+`
+<div class="itemRow">
+<span>No item details available</span>
+</div>
+`
+
+}
+
+</div>
+
+
+<div class="orderBottom">
+
+<div class="total">
+Rs. ${formatMoney(total)}
+</div>
+
+
+<select
+class="statusSelect"
+onchange="changeStatus(
+'${escapeJs(order.id)}',
+this.value
+)">
+
+<option value="pending"
+${normalizeStatus(status)==="pending"?"selected":""}>
+🟠 Pending
+</option>
+
+<option value="packaging"
+${normalizeStatus(status)==="packaging"?"selected":""}>
+🔵 Packaging
+</option>
+
+<option value="on_the_way"
+${
+[
+"ontheway",
+"shipping",
+"shipped"
+].includes(normalizeStatus(status))
+?"selected":""
+}>
+🔴 On the Way
+</option>
+
+<option value="delivered"
+${normalizeStatus(status)==="delivered"?"selected":""}>
+⚪ Delivered
+</option>
+
+</select>
+
+
+<button
+class="slipBtn"
+onclick="
+generateSlip('${escapeJs(order.id)}')
+">
+🖨️ Generate Slip
+</button>
+
+</div>
+
+</div>
+
+`;
 
 }
 
 
-
 /* =====================================================
-   SEARCH
-   ===================================================== */
+   TOTAL
+===================================================== */
 
-searchInput.addEventListener(
-    "input",
-    function(){
+function calculateOrderTotal(order,items){
 
-        const query =
-            this.value
-                .trim()
-                .toLowerCase();
+const directTotal=
+order.total??
+order.total_amount??
+order.amount;
 
+if(
+directTotal!==undefined&&
+directTotal!==null&&
+directTotal!==""
+){
 
-        document
-            .querySelectorAll(
-                ".orderCard"
-            )
-            .forEach(
-                card => {
+const number=Number(directTotal);
 
-                    const text =
-                        card.dataset.search ||
-                        "";
+if(Number.isFinite(number))
+return number;
 
+}
 
-                    card.style.display =
-                        !query ||
-                        text.includes(
-                            query
-                        )
-                        ? ""
-                        : "none";
+return items.reduce(
+(sum,item)=>{
 
-                }
-            );
-
-    }
+const price=
+Number(
+item.price??
+(
+item.product&&item.product.price
+)??
+0
 );
 
+const quantity=
+Number(
+item.quantity??
+item.qty??
+1
+);
+
+return sum+(price*quantity);
+
+},
+0
+);
+
+}
+
+
+/* =====================================================
+   CHANGE STATUS
+===================================================== */
+
+async function changeStatus(id,status){
+
+if(!id)return;
+
+const {error}=
+await supabaseClient
+.from("orders")
+.update({status})
+.eq("id",id);
+
+if(error){
+
+alert(
+"Status update failed:\n"+
+error.message
+);
+
+await loadOrders();
+
+return;
+
+}
+
+await loadOrders();
+
+}
+
+
+/* =====================================================
+   PRODUCTS
+===================================================== */
+
+async function loadProducts(){
+
+productsContainer.innerHTML=
+`<div class="empty">Loading products...</div>`;
+
+const {data,error}=
+await supabaseClient
+.from("products")
+.select("id,uid,name,description,price,stock")
+.order("name",{ascending:true});
+
+if(error){
+
+console.error(error);
+
+productsContainer.innerHTML=
+`
+<div class="empty dbError">
+Unable to load products.<br><br>
+${escapeHtml(error.message)}
+</div>
+`;
+
+return;
+
+}
+
+const products=data||[];
+
+if(!products.length){
+
+productsContainer.innerHTML=
+`
+<div class="empty">
+No products found.<br><br>
+Click "Add Product" to create your first product.
+</div>
+`;
+
+return;
+
+}
+
+productsContainer.innerHTML=
+products
+.map(createProductCard)
+.join("");
+
+applyProductSearch();
+
+}
+
+
+/* =====================================================
+   PRODUCT CARD
+===================================================== */
+
+function createProductCard(product){
+
+const stock=Number(product.stock||0);
+const price=Number(product.price||0);
+
+let stockClass="stock";
+let stockText=`Stock: ${stock}`;
+
+if(stock===0){
+
+stockClass+=" outStock";
+stockText="Out of Stock";
+
+}else if(stock<=5){
+
+stockClass+=" lowStock";
+stockText=`Low Stock: ${stock}`;
+
+}
+
+return `
+
+<div
+class="productCard"
+data-product-search="${escapeHtml(
+(
+product.name+" "+
+(product.description||"")
+).toLowerCase()
+)}">
+
+<div class="productName">
+${escapeHtml(product.name)}
+</div>
+
+<div class="productDescription">
+${escapeHtml(
+product.description||""
+)}
+</div>
+
+<div class="productPrice">
+Rs. ${formatMoney(price)}
+</div>
+
+<div class="${stockClass}">
+${stockText}
+</div>
+
+<div class="productActions">
+
+<button
+class="editBtn"
+onclick="editProduct('${escapeJs(product.id)}')">
+✏️ Edit
+</button>
+
+<button
+class="deleteBtn"
+onclick="deleteProduct('${escapeJs(product.id)}')">
+🗑️ Delete
+</button>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+
+/* =====================================================
+   OPEN PRODUCT MODAL
+===================================================== */
+
+function openProductModal(product=null){
+
+document
+.getElementById("productModal")
+.classList.remove("hidden");
+
+document.getElementById("modalTitle")
+.textContent=
+product
+?"Edit Product"
+:"Add Product";
+
+document.getElementById("productId")
+.value=
+product?.id||"";
+
+document.getElementById("productName")
+.value=
+product?.name||"";
+
+document.getElementById("productDescription")
+.value=
+product?.description||"";
+
+document.getElementById("productPrice")
+.value=
+product?.price??"";
+
+document.getElementById("productStock")
+.value=
+product?.stock??"";
+
+}
+
+
+/* =====================================================
+   CLOSE MODAL
+===================================================== */
+
+function closeProductModal(){
+
+document
+.getElementById("productModal")
+.classList.add("hidden");
+
+}
+
+
+/* =====================================================
+   SAVE PRODUCT
+===================================================== */
+
+async function saveProduct(){
+
+const id=
+document.getElementById("productId")
+.value.trim();
+
+const name=
+document.getElementById("productName")
+.value.trim();
+
+const description=
+document.getElementById("productDescription")
+.value.trim();
+
+const price=
+Number(
+document.getElementById("productPrice")
+.value
+);
+
+const stock=
+parseInt(
+document.getElementById("productStock")
+.value,
+10
+);
+
+if(!name){
+
+alert("Please enter product name.");
+return;
+
+}
+
+if(!Number.isFinite(price)||price<0){
+
+alert("Please enter a valid price.");
+return;
+
+}
+
+if(!Number.isInteger(stock)||stock<0){
+
+alert("Please enter a valid stock quantity.");
+return;
+
+}
+
+
+/* EDIT */
+
+if(id){
+
+const {error}=
+await supabaseClient
+.from("products")
+.update({
+
+name,
+description,
+price,
+stock
+
+})
+.eq("id",id);
+
+if(error){
+
+alert(
+"Product update failed:\n"+
+error.message
+);
+
+return;
+
+}
+
+alert("Product updated successfully.");
+
+}else{
+
+/* ADD */
+
+const {error}=
+await supabaseClient
+.from("products")
+.insert({
+
+name,
+description,
+price,
+stock
+
+});
+
+if(error){
+
+alert(
+"Product creation failed:\n"+
+error.message
+);
+
+return;
+
+}
+
+alert("Product added successfully.");
+
+}
+
+closeProductModal();
+await loadProducts();
+
+}
+
+
+/* =====================================================
+   EDIT PRODUCT
+===================================================== */
+
+async function editProduct(id){
+
+const {data,error}=
+await supabaseClient
+.from("products")
+.select("id,uid,name,description,price,stock")
+.eq("id",id)
+.single();
+
+if(error){
+
+alert(
+"Unable to load product:\n"+
+error.message
+);
+
+return;
+
+}
+
+openProductModal(data);
+
+}
+
+
+/* =====================================================
+   DELETE PRODUCT
+===================================================== */
+
+async function deleteProduct(id){
+
+if(!id)return;
+
+const confirmed=
+confirm(
+"Delete this product?\n\nThis action cannot be undone."
+);
+
+if(!confirmed)return;
+
+const {error}=
+await supabaseClient
+.from("products")
+.delete()
+.eq("id",id);
+
+if(error){
+
+alert(
+"Product deletion failed:\n"+
+error.message
+);
+
+return;
+
+}
+
+alert("Product deleted.");
+
+await loadProducts();
+
+}
+
+
+/* =====================================================
+   PRODUCT SEARCH
+===================================================== */
+
+productSearch.addEventListener(
+"input",
+applyProductSearch
+);
+
+function applyProductSearch(){
+
+const query=
+productSearch.value
+.trim()
+.toLowerCase();
+
+document
+.querySelectorAll(".productCard")
+.forEach(card=>{
+
+const text=
+card.dataset.productSearch||"";
+
+card.style.display=
+!query||
+text.includes(query)
+?""
+:"none";
+
+});
+
+}
+
+
+/* =====================================================
+   ORDER SEARCH
+===================================================== */
+
+searchInput.addEventListener(
+"input",
+function(){
+
+const query=
+this.value
+.trim()
+.toLowerCase();
+
+document
+.querySelectorAll(".orderCard")
+.forEach(card=>{
+
+const text=
+card.dataset.search||"";
+
+card.style.display=
+!query||
+text.includes(query)
+?""
+:"none";
+
+});
+
+});
 
 
 /* =====================================================
    REFRESH
-   ===================================================== */
+===================================================== */
 
 document
-    .getElementById(
-        "refreshBtn"
-    )
-    .addEventListener(
-        "click",
-        loadOrders
-    );
+.getElementById("refreshBtn")
+.addEventListener(
+"click",
+loadOrders
+);
 
+
+/* =====================================================
+   SLIP
+===================================================== */
+
+async function generateSlip(id){
+
+if(!id)return;
+
+const {
+data:order,
+error:orderError
+}=
+await supabaseClient
+.from("orders")
+.select("*")
+.eq("id",id)
+.single();
+
+if(orderError){
+
+alert(
+"Unable to load order:\n"+
+orderError.message
+);
+
+return;
+
+}
+
+let customer=null;
+
+if(order.customer_id){
+
+const {data,error}=
+await supabaseClient
+.from("customers")
+.select("id,name,phone,address")
+.eq("id",order.customer_id)
+.maybeSingle();
+
+if(!error)
+customer=data;
+
+}
+
+const {
+data:orderItems
+}=
+await supabaseClient
+.from("order_items")
+.select(`
+id,
+order_id,
+product_id,
+quantity,
+price
+`)
+.eq("order_id",id);
+
+const items=orderItems||[];
+
+const productIds=[
+...new Set(
+items
+.map(item=>item.product_id)
+.filter(Boolean)
+)
+];
+
+let products=[];
+
+if(productIds.length){
+
+const {data}=
+await supabaseClient
+.from("products")
+.select("id,name,price")
+.in("id",productIds);
+
+products=data||[];
+
+}
+
+const productMap=new Map();
+
+products.forEach(product=>{
+productMap.set(
+String(product.id),
+product
+);
+});
+
+const finalItems=
+items.map(item=>({
+
+...item,
+
+product:
+productMap.get(
+String(item.product_id)
+)||null
+
+}));
+
+createSlip({
+
+...order,
+
+customer,
+
+items:finalItems
+
+});
+
+}
+
+
+/* =====================================================
+   CREATE SLIP
+===================================================== */
+
+function createSlip(order){
+
+const customer=order.customer||{};
+
+const orderNumber=
+order.order_number||
+order.orderNumber||
+order.id||
+"LTX-ORDER";
+
+const name=
+customer.name||
+order.name||
+order.customer_name||
+"Customer";
+
+const phone=
+customer.phone||
+order.phone||
+order.customer_phone||
+"";
+
+const address=
+customer.address||
+order.address||
+order.customer_address||
+"";
+
+const delivery=
+order.delivery||
+order.delivery_method||
+"Not Saved";
+
+const items=
+Array.isArray(order.items)
+?order.items:[];
+
+const total=
+calculateOrderTotal(order,items);
+
+const slipWindow=
+window.open(
+"",
+"_blank",
+"width=850,height=1000"
+);
+
+if(!slipWindow){
+
+alert(
+"Popup blocked. Please allow popups for this site."
+);
+
+return;
+
+}
+
+slipWindow.document.write(`
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>LTX Shipment</title>
+
+<style>
+
+body{
+margin:0;
+padding:30px;
+background:#eee;
+font-family:Arial,sans-serif;
+}
+
+.slip{
+max-width:760px;
+margin:auto;
+background:#fff;
+color:#111;
+padding:30px;
+border:2px solid #111;
+}
+
+.header{
+text-align:center;
+border-bottom:2px solid #111;
+padding-bottom:18px;
+margin-bottom:18px;
+}
+
+.store{
+font-size:34px;
+font-weight:900;
+}
+
+.subtitle{
+font-size:13px;
+margin-top:5px;
+}
+
+.section{
+border:1px solid #222;
+margin-top:15px;
+}
+
+.sectionTitle{
+background:#111;
+color:#fff;
+padding:8px 12px;
+font-weight:bold;
+}
+
+.row{
+display:flex;
+gap:15px;
+padding:9px 12px;
+border-bottom:1px solid #ddd;
+}
+
+.row:last-child{
+border-bottom:0;
+}
+
+.label{
+width:150px;
+font-weight:bold;
+}
+
+.value{
+flex:1;
+word-break:break-word;
+}
+
+.items{
+padding:12px;
+}
+
+.item{
+display:flex;
+justify-content:space-between;
+gap:15px;
+padding:8px 0;
+border-bottom:1px solid #ddd;
+}
+
+.total{
+font-size:22px;
+font-weight:bold;
+text-align:right;
+padding-top:15px;
+}
+
+.barcode{
+text-align:center;
+margin-top:25px;
+font-family:"Courier New",monospace;
+font-size:25px;
+letter-spacing:4px;
+}
+
+.footer{
+text-align:center;
+margin-top:25px;
+font-size:12px;
+}
+
+.printBtn{
+display:block;
+margin:20px auto;
+padding:12px 25px;
+border:0;
+background:#111;
+color:#fff;
+cursor:pointer;
+}
+
+@media print{
+body{
+background:#fff;
+padding:0;
+}
+
+.slip{
+border:0;
+max-width:none;
+}
+
+.printBtn{
+display:none;
+}
+}
+
+</style>
+</head>
+
+<body>
+
+<button
+class="printBtn"
+onclick="window.print()">
+🖨️ Print / Save PDF
+</button>
+
+<div class="slip">
+
+<div class="header">
+
+<div class="store">
+LTX STORE
+</div>
+
+<div class="subtitle">
+SHIPMENT / CONSIGNMENT INFORMATION
+</div>
+
+</div>
+
+
+<div class="section">
+
+<div class="sectionTitle">
+CUSTOMER INFORMATION
+</div>
+
+<div class="row">
+<div class="label">Name</div>
+<div class="value">
+${escapeHtml(name)}
+</div>
+</div>
+
+<div class="row">
+<div class="label">Contact</div>
+<div class="value">
+${escapeHtml(phone)}
+</div>
+</div>
+
+<div class="row">
+<div class="label">Address</div>
+<div class="value">
+${escapeHtml(address)}
+</div>
+</div>
+
+<div class="row">
+<div class="label">Delivery</div>
+<div class="value">
+${escapeHtml(delivery)}
+</div>
+</div>
+
+</div>
+
+
+<div class="section">
+
+<div class="sectionTitle">
+SHIPMENT INFORMATION
+</div>
+
+<div class="row">
+
+<div class="label">
+Order / Consignment
+</div>
+
+<div class="value">
+${escapeHtml(orderNumber)}
+</div>
+
+</div>
+
+<div class="row">
+
+<div class="label">
+Shipper
+</div>
+
+<div class="value">
+LTX STORE
+</div>
+
+</div>
+
+</div>
+
+
+<div class="section">
+
+<div class="sectionTitle">
+ORDER INFORMATION
+</div>
+
+<div class="items">
+
+${
+items.length
+?
+items.map(item=>{
+
+const product=item.product||{};
+
+const productName=
+product.name||
+item.name||
+"Product";
+
+const quantity=
+Number(item.quantity??1);
+
+const price=
+Number(item.price??product.price??0);
+
+return `
+
+<div class="item">
+
+<span>
+${escapeHtml(productName)}
+× ${quantity}
+</span>
+
+<span>
+Rs. ${formatMoney(price*quantity)}
+</span>
+
+</div>
+
+`;
+
+}).join("")
+:
+`<div>No item details available.</div>`
+}
+
+<div class="total">
+TOTAL: Rs. ${formatMoney(total)}
+</div>
+
+</div>
+</div>
+
+
+<div class="barcode">
+* ${escapeHtml(orderNumber)} *
+</div>
+
+
+<div class="footer">
+
+LTX STORE
+<br>
+Thank you for your order.
+
+</div>
+
+</div>
+
+</body>
+</html>
+
+`);
+
+slipWindow.document.close();
+
+}
 
 
 /* =====================================================
    FORMAT MONEY
-   ===================================================== */
+===================================================== */
 
-function formatMoney(
-    value
-){
+function formatMoney(value){
 
-    const number =
-        Number(
-            value || 0
-        );
+const number=Number(value||0);
 
+if(!Number.isFinite(number))
+return "0";
 
-    if(
-        !Number.isFinite(
-            number
-        )
-    )
-        return "0";
-
-
-    return number.toLocaleString(
-        "en-PK"
-    );
+return number.toLocaleString("en-PK");
 
 }
-
 
 
 /* =====================================================
    ESCAPE HTML
-   ===================================================== */
+===================================================== */
 
-function escapeHtml(
-    value
-){
+function escapeHtml(value){
 
-    return String(
-        value ?? ""
-    )
-    .replace(
-        /&/g,
-        "&amp;"
-    )
-    .replace(
-        /</g,
-        "&lt;"
-    )
-    .replace(
-        />/g,
-        "&gt;"
-    )
-    .replace(
-        /"/g,
-        "&quot;"
-    )
-    .replace(
-        /'/g,
-        "&#039;"
-    );
+return String(value??"")
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
 
 }
-
 
 
 /* =====================================================
    ESCAPE JS
-   ===================================================== */
+===================================================== */
 
-function escapeJs(
-    value
-){
+function escapeJs(value){
 
-    return String(
-        value ?? ""
-    )
-    .replace(
-        /\\/g,
-        "\\\\"
-    )
-    .replace(
-        /'/g,
-        "\\'"
-    )
-    .replace(
-        /"/g,
-        '\\"'
-    )
-    .replace(
-        /\n/g,
-        "\\n"
-    )
-    .replace(
-        /\r/g,
-        "\\r"
-    );
+return String(value??"")
+.replace(/\\/g,"\\\\")
+.replace(/'/g,"\\'")
+.replace(/"/g,'\\"')
+.replace(/\n/g,"\\n")
+.replace(/\r/g,"\\r");
 
 }
 
 
-
 /* =====================================================
    START
-   ===================================================== */
+===================================================== */
 
 checkSession();
 
 </script>
 
-
 </body>
-
 </html>
+```
