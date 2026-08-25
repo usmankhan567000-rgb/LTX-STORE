@@ -3162,33 +3162,6 @@ async function placeOrder(){
 
     }
 
-
-    /* SHOW SLIP */
-
-    showSlip({
-
-      orderId:
-        order.order_number ||
-        orderNumber,
-
-      date,
-
-      name,
-
-      phone,
-
-      address,
-
-      delivery,
-
-      total,
-
-      items:
-        cart
-
-    });
-
-
     /* WHATSAPP */
 
     let message =
