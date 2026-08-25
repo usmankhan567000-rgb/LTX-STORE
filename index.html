@@ -4,2273 +4,594 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>LTX STORE | Premium Products</title>
-
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{
- font-family:Arial,sans-serif;
- background:#050505;
- color:#fff;
-}
+body{font-family:Arial,sans-serif;background:#050505;color:#fff}
 button,input,textarea,select{font:inherit}
-
-header{
- position:sticky;
- top:0;
- z-index:100;
- padding:15px 18px;
- border-bottom:1px solid #252525;
- background:rgba(5,5,5,.95);
- backdrop-filter:blur(12px);
- display:flex;
- justify-content:space-between;
- align-items:center;
-}
-
-.logo{
- font-size:24px;
- font-weight:900;
- letter-spacing:2px;
-}
-
-.header-buttons{
- display:flex;
- gap:8px;
- align-items:center;
-}
-
-.cart,.admin-btn{
- border:1px solid #555;
- padding:10px 13px;
- border-radius:9px;
- background:#fff;
- color:#000;
- font-weight:bold;
- cursor:pointer;
-}
-
-.admin-btn{
- background:#111;
- color:#fff;
- border-color:#555;
-}
-
-.hero{
- padding:70px 20px;
- text-align:center;
- background:radial-gradient(
-  circle at 50% 0%,
-  #333 0%,
-  #111 28%,
-  #050505 65%
- );
-}
-
-.hero h1{
- font-size:44px;
- margin-bottom:12px;
-}
-
-.hero p{
- color:#aaa;
- margin-bottom:25px;
-}
-
-.shop-btn{
- display:inline-block;
- background:#fff;
- color:#000;
- padding:14px 28px;
- border-radius:9px;
- font-weight:bold;
- text-decoration:none;
-}
-
-.section{
- padding:35px 18px;
- max-width:1100px;
- margin:auto;
-}
-
-.section h2{
- margin-bottom:20px;
- font-size:25px;
-}
-
-.categories{
- display:grid;
- grid-template-columns:repeat(4,1fr);
- gap:12px;
- margin-bottom:40px;
-}
-
-.category{
- border:1px solid #333;
- border-radius:13px;
- padding:22px 10px;
- text-align:center;
- background:#0d0d0d;
- cursor:pointer;
- transition:.2s;
-}
-
-.category:hover{
- border-color:#fff;
- transform:translateY(-2px);
-}
-
-.products{
- display:grid;
- grid-template-columns:repeat(2,1fr);
- gap:16px;
-}
-
-.product{
- background:#111;
- border:1px solid #292929;
- border-radius:14px;
- overflow:hidden;
- transition:.2s;
-}
-
-.product:hover{
- transform:translateY(-3px);
- border-color:#555;
-}
-
-.product-img{
- width:100%;
- height:210px;
- background:#191919;
- display:flex;
- justify-content:center;
- align-items:center;
- color:#777;
- font-size:14px;
- text-align:center;
- overflow:hidden;
-}
-
-.product-img img{
- width:100%;
- height:100%;
- object-fit:cover;
-}
-
-.product-info{
- padding:15px;
-}
-
-.product-name{
- font-weight:bold;
- margin-bottom:7px;
-}
-
-.product-desc{
- font-size:13px;
- color:#999;
- margin-bottom:8px;
- line-height:1.4;
-}
-
-.price{
- font-size:19px;
- font-weight:bold;
- margin-bottom:12px;
-}
-
-.add-btn,
-.order-btn,
-.save-btn{
- width:100%;
- padding:11px;
- border:0;
- border-radius:8px;
- background:#fff;
- color:#000;
- font-weight:bold;
- cursor:pointer;
-}
-
-.add-btn:active{
- transform:scale(.97);
-}
-
-.overlay{
- display:none;
- position:fixed;
- inset:0;
- background:rgba(0,0,0,.78);
- z-index:200;
-}
-
-.cart-box{
- position:absolute;
- right:0;
- top:0;
- width:min(450px,100%);
- height:100%;
- background:#101010;
- border-left:1px solid #333;
- padding:22px;
- overflow:auto;
-}
-
-.cart-head,
-.manager-head{
- display:flex;
- justify-content:space-between;
- align-items:center;
- margin-bottom:20px;
-}
-
-.close{
- background:none;
- color:#fff;
- border:1px solid #444;
- border-radius:7px;
- padding:7px 11px;
- cursor:pointer;
-}
-
-.cart-item{
- border:1px solid #292929;
- border-radius:10px;
- padding:12px;
- margin-bottom:10px;
-}
-
-.cart-item-top{
- display:flex;
- justify-content:space-between;
- gap:10px;
-}
-
-.qty{
- display:flex;
- align-items:center;
- gap:10px;
- margin-top:10px;
-}
-
-.qty button{
- width:30px;
- height:30px;
- border:0;
- border-radius:6px;
- cursor:pointer;
- font-weight:bold;
-}
-
-.total{
- border-top:1px solid #333;
- margin-top:18px;
- padding-top:18px;
- font-size:21px;
- font-weight:bold;
-}
-
-.checkout{
- margin-top:18px;
-}
-
-.checkout input,
-.checkout textarea,
-.checkout select,
-.manager input,
-.manager textarea,
-.manager select{
- width:100%;
- margin-bottom:10px;
- padding:12px;
- border:1px solid #333;
- border-radius:8px;
- background:#080808;
- color:#fff;
- outline:none;
-}
-
-.checkout textarea{
- height:80px;
- resize:none;
-}
-
-.empty{
- color:#888;
- text-align:center;
- padding:35px 0;
-}
-
-footer{
- margin-top:40px;
- padding:35px 20px;
- text-align:center;
- border-top:1px solid #222;
- color:#888;
- line-height:1.8;
-}
-
-/* ADMIN */
-#adminOverlay,
-#slipModal{
- display:none;
- position:fixed;
- inset:0;
- z-index:300;
- background:rgba(0,0,0,.85);
- padding:15px;
- overflow:auto;
-}
-
-.manager{
- max-width:700px;
- margin:15px auto;
- background:#101010;
- border:1px solid #333;
- border-radius:14px;
- padding:20px;
-}
-
-.manager h2{
- margin-bottom:6px;
-}
-
-.manager-note{
- color:#999;
- font-size:13px;
- margin-bottom:18px;
- line-height:1.5;
-}
-
-.manager-actions{
- display:grid;
- grid-template-columns:repeat(2,1fr);
- gap:8px;
- margin-bottom:18px;
-}
-
-.manager-actions button{
- padding:11px;
- border:1px solid #444;
- border-radius:8px;
- background:#181818;
- color:#fff;
- cursor:pointer;
-}
-
-.product-form{
- border-top:1px solid #333;
- padding-top:18px;
- margin-top:10px;
-}
-
-.product-form label{
- display:block;
- font-size:13px;
- color:#aaa;
- margin:5px 0;
-}
-
-.image-preview{
- width:100%;
- height:180px;
- border:1px dashed #444;
- border-radius:10px;
- display:flex;
- align-items:center;
- justify-content:center;
- color:#777;
- margin-bottom:10px;
- overflow:hidden;
-}
-
-.image-preview img{
- width:100%;
- height:100%;
- object-fit:contain;
-}
-
-.admin-products{
- margin-top:25px;
-}
-
-.admin-product{
- display:flex;
- gap:10px;
- align-items:center;
- padding:10px 0;
- border-bottom:1px solid #292929;
-}
-
-.admin-product img{
- width:55px;
- height:55px;
- object-fit:cover;
- border-radius:8px;
- background:#222;
-}
-
-.admin-product-info{
- flex:1;
-}
-
-.admin-product-info strong{
- display:block;
-}
-
-.admin-product-info small{
- color:#999;
-}
-
-.small-btn{
- padding:7px 9px;
- border:1px solid #444;
- border-radius:7px;
- background:#181818;
- color:#fff;
- cursor:pointer;
-}
-
-.danger{
- border-color:#733;
- background:#351010;
-}
-
-/* ADMIN ORDERS */
-.admin-orders-section{
- margin-top:30px;
- border-top:1px solid #333;
- padding-top:20px;
-}
-
-.admin-order-item{
- display:block;
- padding:15px;
- margin-bottom:12px;
- border:1px solid #292929;
- border-radius:10px;
- background:#0a0a0a;
-}
-
-.order-status{
- display:inline-block;
- padding:3px 8px;
- border-radius:4px;
- font-size:12px;
- background:#333;
- color:#fff;
- margin-left:10px;
-}
-
-.admin-order-info{
- margin-top:10px;
- font-size:14px;
- color:#ccc;
-}
-
-.admin-order-items-list{
- margin-top:8px;
- padding-top:8px;
- border-top:1px solid #292929;
- font-size:13px;
- color:#999;
-}
-
-.admin-order-actions{
- margin-top:12px;
- display:flex;
- gap:8px;
-}
-
-/* SLIP */
-#slipModal{
- z-index:400;
-}
-
-.slip{
- max-width:430px;
- margin:20px auto;
- background:#fff;
- color:#111;
- padding:22px;
- border-radius:8px;
- font-family:Arial,sans-serif;
-}
-
-.slip h2{
- text-align:center;
- letter-spacing:2px;
- margin-bottom:5px;
-}
-
-.slip-center{
- text-align:center;
- color:#555;
- font-size:13px;
- margin-bottom:15px;
-}
-
-.slip hr{
- border:0;
- border-top:1px dashed #999;
- margin:12px 0;
-}
-
-.slip-row{
- display:flex;
- justify-content:space-between;
- gap:10px;
- margin:7px 0;
- font-size:14px;
-}
-
-.slip-items{
- margin-top:8px;
-}
-
-.slip-total{
- font-size:18px;
- font-weight:bold;
-}
-
-.slip-actions{
- display:flex;
- gap:8px;
- margin-top:15px;
-}
-
-.slip-actions button{
- flex:1;
- padding:11px;
- border:0;
- border-radius:8px;
- background:#111;
- color:#fff;
- font-weight:bold;
- cursor:pointer;
-}
-
-@media(max-width:600px){
- .hero h1{font-size:35px}
- .categories{grid-template-columns:repeat(2,1fr)}
- .products{
-  grid-template-columns:repeat(2,1fr);
-  gap:10px;
- }
- .product-img{height:150px}
- .product-info{padding:11px}
- .product-name{font-size:14px}
- .price{font-size:17px}
- .admin-product{align-items:flex-start}
- .admin-product .small-btn{padding:6px}
-}
-
-@media print{
- body>*{display:none!important}
- #slipModal{
-  display:block!important;
-  position:static!important;
-  background:#fff!important;
-  padding:0!important;
- }
- .slip{
-  margin:0 auto;
-  box-shadow:none;
- }
- .slip-actions{
-  display:none;
- }
-}
+header{position:sticky;top:0;z-index:100;padding:15px 18px;border-bottom:1px solid #252525;background:rgba(5,5,5,.95);backdrop-filter:blur(12px);display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:24px;font-weight:900;letter-spacing:2px}
+.header-buttons{display:flex;gap:8px;align-items:center}
+.cart,.admin-btn{border:1px solid #555;padding:10px 13px;border-radius:9px;background:#fff;color:#000;font-weight:bold;cursor:pointer}
+.admin-btn{background:#111;color:#fff;border-color:#555}
+.hero{padding:70px 20px;text-align:center;background:radial-gradient(circle at 50% 0%,#333 0%,#111 28%,#050505 65%)}
+.hero h1{font-size:44px;margin-bottom:12px}.hero p{color:#aaa;margin-bottom:25px}
+.shop-btn{display:inline-block;background:#fff;color:#000;padding:14px 28px;border-radius:9px;font-weight:bold;text-decoration:none}
+.section{padding:35px 18px;max-width:1100px;margin:auto}.section h2{margin-bottom:20px;font-size:25px}
+.categories{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:40px}
+.category{border:1px solid #333;border-radius:13px;padding:22px 10px;text-align:center;background:#0d0d0d;cursor:pointer;transition:.2s}
+.category:hover{border-color:#fff;transform:translateY(-2px)}
+.products{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.product{background:#111;border:1px solid #292929;border-radius:14px;overflow:hidden;transition:.2s}.product:hover{transform:translateY(-3px);border-color:#555}
+.product-img{width:100%;height:210px;background:#191919;display:flex;justify-content:center;align-items:center;color:#777;font-size:14px;text-align:center;overflow:hidden}
+.product-img img{width:100%;height:100%;object-fit:cover}.product-info{padding:15px}
+.product-name{font-weight:bold;margin-bottom:7px}.product-desc{font-size:13px;color:#999;margin-bottom:8px;line-height:1.4}
+.price{font-size:19px;font-weight:bold;margin-bottom:12px}
+.add-btn,.order-btn,.save-btn{width:100%;padding:11px;border:0;border-radius:8px;background:#fff;color:#000;font-weight:bold;cursor:pointer}
+.add-btn:active{transform:scale(.97)}
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.78);z-index:200}
+.cart-box{position:absolute;right:0;top:0;width:min(450px,100%);height:100%;background:#101010;border-left:1px solid #333;padding:22px;overflow:auto}
+.cart-head,.manager-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.close{background:none;color:#fff;border:1px solid #444;border-radius:7px;padding:7px 11px;cursor:pointer}
+.cart-item{border:1px solid #292929;border-radius:10px;padding:12px;margin-bottom:10px}
+.cart-item-top{display:flex;justify-content:space-between;gap:10px}.qty{display:flex;align-items:center;gap:10px;margin-top:10px}
+.qty button{width:30px;height:30px;border:0;border-radius:6px;cursor:pointer;font-weight:bold}
+.total{border-top:1px solid #333;margin-top:18px;padding-top:18px;font-size:21px;font-weight:bold}
+.checkout{margin-top:18px}.checkout input,.checkout textarea,.checkout select,.manager input,.manager textarea,.manager select{width:100%;margin-bottom:10px;padding:12px;border:1px solid #333;border-radius:8px;background:#080808;color:#fff;outline:none}
+.checkout textarea{height:80px;resize:none}.empty{color:#888;text-align:center;padding:35px 0}
+footer{margin-top:40px;padding:35px 20px;text-align:center;border-top:1px solid #222;color:#888;line-height:1.8}
+#adminOverlay,#slipModal{display:none;position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.85);padding:15px;overflow:auto}
+.manager{max-width:700px;margin:15px auto;background:#101010;border:1px solid #333;border-radius:14px;padding:20px}
+.manager h2{margin-bottom:6px}.manager-note{color:#999;font-size:13px;margin-bottom:18px;line-height:1.5}
+.manager-actions{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:18px}
+.manager-actions button{padding:11px;border:1px solid #444;border-radius:8px;background:#181818;color:#fff;cursor:pointer}
+.product-form{border-top:1px solid #333;padding-top:18px;margin-top:10px}.product-form label{display:block;font-size:13px;color:#aaa;margin:5px 0}
+.image-preview{width:100%;height:180px;border:1px dashed #444;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#777;margin-bottom:10px;overflow:hidden}
+.image-preview img{width:100%;height:100%;object-fit:contain}.admin-products{margin-top:25px}
+.admin-product{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid #292929}
+.admin-product img{width:55px;height:55px;object-fit:cover;border-radius:8px;background:#222}.admin-product-info{flex:1}
+.admin-product-info strong{display:block}.admin-product-info small{color:#999}
+.small-btn{padding:7px 9px;border:1px solid #444;border-radius:7px;background:#181818;color:#fff;cursor:pointer}
+.danger{border-color:#733;background:#351010}.admin-orders-section{margin-top:30px;border-top:1px solid #333;padding-top:20px}
+.admin-order-item{display:block;padding:15px;margin-bottom:12px;border:1px solid #292929;border-radius:10px;background:#0a0a0a}
+.order-status{display:inline-block;padding:3px 8px;border-radius:4px;font-size:12px;background:#333;color:#fff;margin-left:10px}
+.admin-order-info{margin-top:10px;font-size:14px;color:#ccc}.admin-order-items-list{margin-top:8px;padding-top:8px;border-top:1px solid #292929;font-size:13px;color:#999}
+.admin-order-actions{margin-top:12px;display:flex;gap:8px}
+#slipModal{z-index:400}.slip{max-width:430px;margin:20px auto;background:#fff;color:#111;padding:22px;border-radius:8px;font-family:Arial,sans-serif}
+.slip h2{text-align:center;letter-spacing:2px;margin-bottom:5px}.slip-center{text-align:center;color:#555;font-size:13px;margin-bottom:15px}
+.slip hr{border:0;border-top:1px dashed #999;margin:12px 0}.slip-row{display:flex;justify-content:space-between;gap:10px;margin:7px 0;font-size:14px}
+.slip-items{margin-top:8px}.slip-total{font-size:18px;font-weight:bold}.slip-actions{display:flex;gap:8px;margin-top:15px}
+.slip-actions button{flex:1;padding:11px;border:0;border-radius:8px;background:#111;color:#fff;font-weight:bold;cursor:pointer}
+@media(max-width:600px){.hero h1{font-size:35px}.categories{grid-template-columns:repeat(2,1fr)}.products{grid-template-columns:repeat(2,1fr);gap:10px}.product-img{height:150px}.product-info{padding:11px}.product-name{font-size:14px}.price{font-size:17px}.admin-product{align-items:flex-start}.admin-product .small-btn{padding:6px}}
+@media print{body>*{display:none!important}#slipModal{display:block!important;position:static!important;background:#fff!important;padding:0!important}.slip{margin:0 auto;box-shadow:none}.slip-actions{display:none}}
 </style>
 </head>
-
 <body>
 
 <header>
- <div class="logo">LTX STORE</div>
-
- <div class="header-buttons">
-  <button class="admin-btn" onclick="openAdmin()">
-   ⚙️ Manage
-  </button>
-
-  <button class="cart" onclick="openCart()">
-   🛒 Cart (<span id="cartCount">0</span>)
-  </button>
- </div>
+<div class="logo">LTX STORE</div>
+<div class="header-buttons">
+<button class="admin-btn" onclick="openAdmin()">⚙️ Manage</button>
+<button class="cart" onclick="openCart()">🛒 Cart (<span id="cartCount">0</span>)</button>
+</div>
 </header>
 
-<section class="hero">
- <h1>LTX STORE</h1>
- <p>Premium Products. Affordable Prices.</p>
-
- <a href="#products" class="shop-btn">
-  Shop Now
- </a>
-</section>
+<section class="hero"><h1>LTX STORE</h1><p>Premium Products. Affordable Prices.</p><a href="#products" class="shop-btn">Shop Now</a></section>
 
 <section class="section">
-
 <h2>Collections</h2>
-
 <div class="categories">
-
- <div class="category"
-  onclick="filterProducts('Perfumes')">
-  🌸<br>Perfumes
- </div>
-
- <div class="category"
-  onclick="filterProducts('Headphones')">
-  🎧<br>Headphones
- </div>
-
- <div class="category"
-  onclick="filterProducts('Watches')">
-  ⌚<br>Watches
- </div>
-
- <div class="category"
-  onclick="filterProducts('Keychains')">
-  🔑<br>Keychains
- </div>
-
+<div class="category" onclick="filterProducts('Perfumes')">🌸<br>Perfumes</div>
+<div class="category" onclick="filterProducts('Headphones')">🎧<br>Headphones</div>
+<div class="category" onclick="filterProducts('Watches')">⌚<br>Watches</div>
+<div class="category" onclick="filterProducts('Keychains')">🔑<br>Keychains</div>
 </div>
-
 <h2 id="products">Products</h2>
-
 <div class="products" id="productList"></div>
-
 </section>
 
-<footer>
-<p>© 2026 LTX STORE</p>
-<p>All Pakistan Delivery • Khanpur Free Delivery</p>
-<p>Order directly through WhatsApp</p>
-</footer>
+<footer><p>© 2026 LTX STORE</p><p>All Pakistan Delivery • Khanpur Free Delivery</p><p>Order directly through WhatsApp</p></footer>
 
-<!-- CART -->
-
-<div class="overlay"
- id="cartOverlay"
- onclick="closeOutside(event)">
-
- <div class="cart-box">
-
-  <div class="cart-head">
-   <h2>Your Cart</h2>
-   <button class="close"
-    onclick="closeCart()">✕</button>
-  </div>
-
-  <div id="cartItems"></div>
-
-  <div class="total">
-   Total: Rs.
-   <span id="cartTotal">0</span>
-  </div>
-
-  <div class="checkout">
-
-   <h3 style="margin:20px 0 12px">
-    Customer Details
-   </h3>
-
-   <input
-    id="customerName"
-    placeholder="Your Name">
-
-   <input
-    id="customerPhone"
-    placeholder="Phone Number">
-
-   <textarea
-    id="customerAddress"
-    placeholder="Complete Delivery Address">
-   </textarea>
-
-   <select id="delivery">
-    <option value="Khanpur — Free Delivery">
-     Khanpur — Free Delivery
-    </option>
-
-    <option value="Other City — Delivery Charges Apply">
-     Other City — Delivery Charges Apply
-    </option>
-   </select>
-
-   <button
-    class="order-btn"
-    onclick="placeOrder()">
-    📲 Order on WhatsApp
-   </button>
-
-  </div>
- </div>
+<div class="overlay" id="cartOverlay" onclick="closeOutside(event)">
+<div class="cart-box">
+<div class="cart-head"><h2>Your Cart</h2><button class="close" onclick="closeCart()">✕</button></div>
+<div id="cartItems"></div>
+<div class="total">Total: Rs. <span id="cartTotal">0</span></div>
+<div class="checkout">
+<h3 style="margin:20px 0 12px">Customer Details</h3>
+<input id="customerName" placeholder="Your Name">
+<input id="customerPhone" placeholder="Phone Number">
+<textarea id="customerAddress" placeholder="Complete Delivery Address"></textarea>
+<select id="delivery">
+<option value="Khanpur — Free Delivery">Khanpur — Free Delivery</option>
+<option value="Other City — Delivery Charges Apply">Other City — Delivery Charges Apply</option>
+</select>
+<button class="order-btn" onclick="placeOrder()">📲 Order on WhatsApp</button>
 </div>
-
-<!-- ADMIN -->
+</div>
+</div>
 
 <div id="adminOverlay">
-
- <div class="manager">
-
-  <div class="manager-head">
-
-   <div>
-    <h2>⚙️ LTX Store Manager</h2>
-
-    <div class="manager-note">
-     Add, edit or remove products directly
-     from your browser.
-    </div>
-   </div>
-
-   <button class="close"
-    onclick="closeAdmin()">✕</button>
-
-  </div>
-
-  <div class="manager-actions">
-
-   <button onclick="newProduct()">
-    ➕ Add Product
-   </button>
-
-   <button onclick="exportProducts()">
-    📤 Export Backup
-   </button>
-
-   <button
-    onclick="document.getElementById('importFile').click()">
-    📥 Import Backup
-   </button>
-
-   <button onclick="changePin()">
-    🔐 Change PIN
-   </button>
-
-  </div>
-
-  <input
-   id="importFile"
-   type="file"
-   accept=".json"
-   style="display:none"
-   onchange="importProducts(event)">
-
-  <div class="product-form">
-
-   <h3 id="formTitle">
-    Add New Product
-   </h3>
-
-   <input
-    type="hidden"
-    id="editProductId">
-
-   <label>Product Name</label>
-
-   <input
-    id="productName"
-    placeholder="Example: Blue Perfume">
-
-   <label>Price (PKR)</label>
-
-   <input
-    id="productPrice"
-    type="number"
-    placeholder="500">
-
-   <label>Category</label>
-
-   <select id="productCategory">
-    <option value="Perfumes">Perfumes</option>
-    <option value="Headphones">Headphones</option>
-    <option value="Watches">Watches</option>
-    <option value="Keychains">Keychains</option>
-    <option value="Other">Other</option>
-   </select>
-
-   <label>Description</label>
-
-   <textarea
-    id="productDescription"
-    placeholder="Short product description"
-    style="height:75px;resize:none">
-   </textarea>
-
-   <label>Product Image</label>
-
-   <div
-    class="image-preview"
-    id="imagePreview">
-    Image preview
-   </div>
-
-   <input
-    id="productImage"
-    type="file"
-    accept="image/*"
-    onchange="previewImage(event)">
-
-   <button
-    class="save-btn"
-    style="margin-top:10px"
-    onclick="saveProduct()">
-    💾 Save Product
-   </button>
-
-  </div>
-
-  <div class="admin-products">
-
-   <h3 style="margin-bottom:12px">
-    Your Products
-   </h3>
-
-   <div id="adminProductList"></div>
-
-  </div>
-
-  <div class="admin-orders-section">
-
-   <h3 style="margin-bottom:12px">
-    📦 Customer Orders
-   </h3>
-
-   <div id="adminOrdersList"></div>
-
-  </div>
-
- </div>
+<div class="manager">
+<div class="manager-head">
+<div><h2>⚙️ LTX Store Manager</h2><div class="manager-note">Add, edit or remove products directly from your browser.</div></div>
+<button class="close" onclick="closeAdmin()">✕</button>
+</div>
+<div class="manager-actions">
+<button onclick="newProduct()">➕ Add Product</button>
+<button onclick="exportProducts()">📤 Export Backup</button>
+<button onclick="document.getElementById('importFile').click()">📥 Import Backup</button>
+<button onclick="changePin()">🔐 Change PIN</button>
+</div>
+<input id="importFile" type="file" accept=".json" style="display:none" onchange="importProducts(event)">
+<div class="product-form">
+<h3 id="formTitle">Add New Product</h3>
+<input type="hidden" id="editProductId">
+<label>Product Name</label><input id="productName" placeholder="Example: Blue Perfume">
+<label>Price (PKR)</label><input id="productPrice" type="number" placeholder="500">
+<label>Category</label>
+<select id="productCategory"><option value="Perfumes">Perfumes</option><option value="Headphones">Headphones</option><option value="Watches">Watches</option><option value="Keychains">Keychains</option><option value="Other">Other</option></select>
+<label>Description</label><textarea id="productDescription" placeholder="Short product description" style="height:75px;resize:none"></textarea>
+<label>Product Image</label><div class="image-preview" id="imagePreview">Image preview</div>
+<input id="productImage" type="file" accept="image/*" onchange="previewImage(event)">
+<button class="save-btn" style="margin-top:10px" onclick="saveProduct()">💾 Save Product</button>
+</div>
+<div class="admin-products"><h3 style="margin-bottom:12px">Your Products</h3><div id="adminProductList"></div></div>
+<div class="admin-orders-section"><h3 style="margin-bottom:12px">📦 Customer Orders</h3><div id="adminOrdersList"></div></div>
+</div>
 </div>
 
-<!-- ORDER SLIP -->
-
 <div id="slipModal">
-
- <div class="slip">
-
-  <h2>LTX STORE</h2>
-
-  <div class="slip-center">
-   CUSTOMER ORDER SLIP
-  </div>
-
-  <div class="slip-row">
-   <strong>Order ID</strong>
-   <span id="slipId"></span>
-  </div>
-
-  <div class="slip-row">
-   <strong>Date</strong>
-   <span id="slipDate"></span>
-  </div>
-
-  <hr>
-
-  <div class="slip-row">
-   <strong>Name</strong>
-   <span id="slipName"></span>
-  </div>
-
-  <div class="slip-row">
-   <strong>Phone</strong>
-   <span id="slipPhone"></span>
-  </div>
-
-  <div class="slip-row">
-   <strong>Address</strong>
-   <span id="slipAddress"></span>
-  </div>
-
-  <div class="slip-row">
-   <strong>Delivery</strong>
-   <span id="slipDelivery"></span>
-  </div>
-
-  <hr>
-
-  <strong>ORDER ITEMS</strong>
-
-  <div
-   class="slip-items"
-   id="slipItems">
-  </div>
-
-  <hr>
-
-  <div class="slip-row slip-total">
-   <span>TOTAL</span>
-
-   <span>
-    Rs.
-    <span id="slipTotal"></span>
-   </span>
-  </div>
-
-  <div
-   class="slip-center"
-   style="margin-top:16px;margin-bottom:0">
-
-   Thank you for shopping with LTX STORE
-
-  </div>
-
-  <div class="slip-actions">
-
-   <button onclick="window.print()">
-    🖨️ Print / Save PDF
-   </button>
-
-   <button onclick="closeSlip()">
-    Close
-   </button>
-
-  </div>
-
- </div>
+<div class="slip">
+<h2>LTX STORE</h2><div class="slip-center">CUSTOMER ORDER SLIP</div>
+<div class="slip-row"><strong>Order ID</strong><span id="slipId"></span></div>
+<div class="slip-row"><strong>Date</strong><span id="slipDate"></span></div><hr>
+<div class="slip-row"><strong>Name</strong><span id="slipName"></span></div>
+<div class="slip-row"><strong>Phone</strong><span id="slipPhone"></span></div>
+<div class="slip-row"><strong>Address</strong><span id="slipAddress"></span></div>
+<div class="slip-row"><strong>Delivery</strong><span id="slipDelivery"></span></div><hr>
+<strong>ORDER ITEMS</strong><div class="slip-items" id="slipItems"></div><hr>
+<div class="slip-row slip-total"><span>TOTAL</span><span>Rs. <span id="slipTotal"></span></span></div>
+<div class="slip-center" style="margin-top:16px;margin-bottom:0">Thank you for shopping with LTX STORE</div>
+<div class="slip-actions"><button onclick="window.print()">🖨️ Print / Save PDF</button><button onclick="closeSlip()">Close</button></div>
+</div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <script>
+const SUPABASE_URL="https://zsutkpsiefziotuwgkwq.supabase.co";
+const SUPABASE_KEY="sb_publishable_KfkaZZnDim3BlRxVUXd2wQ_WN84Duhb";
+const supabaseClient=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 
-/* =========================
-   PRODUCTS
-========================= */
-
-const SUPABASE_URL = "https://zsutkpsiefziotuwgkwq.supabase.co";
-const SUPABASE_KEY = "sb_publishable_KfkaZZnDim3BlRxVUXd2wQ_WN84Duhb";
-
-const supabaseClient = supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_KEY
-);
-
-const defaultProducts = [
- {
-  id:1,
-  name:"Zarar For Men by J.Dot",
-  price:300,
-  category:"Perfumes",
-  description:"Premium perfume for men.",
-  image:""
- },
-
- {
-  id:2,
-  name:"Cute Bear Keychain",
-  price:300,
-  category:"Keychains",
-  description:"Cute keychain for everyday use.",
-  image:""
- },
-
- {
-  id:3,
-  name:"Premium Wired Earphones",
-  price:650,
-  category:"Headphones",
-  description:"Clear sound wired earphones.",
-  image:""
- },
-
- {
-  id:4,
-  name:"Classic Watch",
-  price:1200,
-  category:"Watches",
-  description:"Classic stylish watch.",
-  image:""
- }
-
+const defaultProducts=[
+{id:1,name:"Zarar For Men by J.Dot",price:300,category:"Perfumes",description:"Premium perfume for men.",image:""},
+{id:2,name:"Cute Bear Keychain",price:300,category:"Keychains",description:"Cute keychain for everyday use.",image:""},
+{id:3,name:"Premium Wired Earphones",price:650,category:"Headphones",description:"Clear sound wired earphones.",image:""},
+{id:4,name:"Classic Watch",price:1200,category:"Watches",description:"Classic stylish watch.",image:""}
 ];
 
-let products =
- JSON.parse(
-  localStorage.getItem("ltxProducts")
- ) || defaultProducts;
+let products=JSON.parse(localStorage.getItem("ltxProducts"))||defaultProducts;
+let cart=JSON.parse(localStorage.getItem("ltxCart"))||[];
+let selectedImage="";
 
-let cart =
- JSON.parse(
-  localStorage.getItem("ltxCart")
- ) || [];
-
-let selectedImage = "";
-
-/* =========================
-   DISPLAY PRODUCTS
-========================= */
+function escapeHtml(text){
+return String(text??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
+}
 
 function renderProducts(list=products){
-
- const container =
-  document.getElementById("productList");
-
- if(!list.length){
-
-  container.innerHTML =
-   '<div class="empty">No products found.</div>';
-
-  return;
- }
-
- container.innerHTML =
-  list.map(p => `
-
-   <div class="product">
-
-    <div class="product-img">
-
-     ${
-      p.image
-      ? `<img src="${p.image}"
-          alt="${escapeHtml(p.name)}">`
-      : `<span>📦<br>No Image</span>`
-     }
-
-    </div>
-
-    <div class="product-info">
-
-     <div class="product-name">
-      ${escapeHtml(p.name)}
-     </div>
-
-     <div class="product-desc">
-      ${escapeHtml(p.description || "")}
-     </div>
-
-     <div class="price">
-      Rs. ${Number(p.price).toLocaleString()}
-     </div>
-
-     <button
-      class="add-btn"
-      onclick="addToCart(${p.id})">
-
-      Add to Cart
-
-     </button>
-
-    </div>
-
-   </div>
-
-  `).join("");
+const container=document.getElementById("productList");
+if(!list.length){container.innerHTML='<div class="empty">No products found.</div>';return;}
+container.innerHTML=list.map(p=>`
+<div class="product">
+<div class="product-img">${p.image?`<img src="${p.image}" alt="${escapeHtml(p.name)}">`:`<span>📦<br>No Image</span>`}</div>
+<div class="product-info">
+<div class="product-name">${escapeHtml(p.name)}</div>
+<div class="product-desc">${escapeHtml(p.description||"")}</div>
+<div class="price">Rs. ${Number(p.price).toLocaleString()}</div>
+<button class="add-btn" onclick="addToCart(${JSON.stringify(p.id)})">Add to Cart</button>
+</div>
+</div>`).join("");
 }
 
 function filterProducts(category){
-
- const filtered =
-  products.filter(
-   p => p.category === category
-  );
-
- renderProducts(filtered);
-
- document
-  .getElementById("products")
-  .scrollIntoView({
-   behavior:"smooth"
-  });
+renderProducts(products.filter(p=>p.category===category));
+document.getElementById("products").scrollIntoView({behavior:"smooth"});
 }
-
-/* =========================
-   CART
-========================= */
 
 function addToCart(id){
-
- const product =
-  products.find(
-   p => p.id === id
-  );
-
- if(!product) return;
-
- const existing =
-  cart.find(
-   item => item.id === id
-  );
-
- if(existing){
-
-  existing.qty++;
-
- }else{
-
-  cart.push({
-   ...product,
-   qty:1
-  });
-
- }
-
- saveCart();
-
- alert(
-  product.name +
-  " added to cart 🛒"
- );
+const product=products.find(p=>String(p.id)===String(id));
+if(!product)return;
+const existing=cart.find(item=>String(item.id)===String(id));
+if(existing)existing.qty++;else cart.push({...product,qty:1});
+saveCart();
+alert(product.name+" added to cart 🛒");
 }
 
-function saveCart(){
-
- localStorage.setItem(
-  "ltxCart",
-  JSON.stringify(cart)
- );
-
- updateCart();
-}
+function saveCart(){localStorage.setItem("ltxCart",JSON.stringify(cart));updateCart();}
 
 function updateCart(){
-
- const count =
-  cart.reduce(
-   (sum,item) =>
-    sum + item.qty,
-   0
-  );
-
- document
-  .getElementById("cartCount")
-  .textContent = count;
-
- const items =
-  document.getElementById("cartItems");
-
- if(!cart.length){
-
-  items.innerHTML =
-   '<div class="empty">Your cart is empty 🛒</div>';
-
- }else{
-
-  items.innerHTML =
-   cart.map(item => `
-
-    <div class="cart-item">
-
-     <div class="cart-item-top">
-
-      <strong>
-       ${escapeHtml(item.name)}
-      </strong>
-
-      <span>
-       Rs.
-       ${(item.price * item.qty)
-        .toLocaleString()}
-      </span>
-
-     </div>
-
-     <div class="qty">
-
-      <button
-       onclick="changeQty(${item.id},-1)">
-       ➖
-      </button>
-
-      <span>
-       ${item.qty}
-      </span>
-
-      <button
-       onclick="changeQty(${item.id},1)">
-       ➕
-      </button>
-
-      <button
-       onclick="removeItem(${item.id})"
-       style="
-        margin-left:auto;
-        background:#222;
-        color:#fff">
-       Remove
-      </button>
-
-     </div>
-
-    </div>
-
-   `).join("");
- }
-
- const total =
-  cart.reduce(
-   (sum,item) =>
-    sum + item.price * item.qty,
-   0
-  );
-
- document
-  .getElementById("cartTotal")
-  .textContent =
-   total.toLocaleString();
+const count=cart.reduce((sum,item)=>sum+Number(item.qty||0),0);
+document.getElementById("cartCount").textContent=count;
+const items=document.getElementById("cartItems");
+if(!cart.length)items.innerHTML='<div class="empty">Your cart is empty 🛒</div>';
+else items.innerHTML=cart.map(item=>`
+<div class="cart-item">
+<div class="cart-item-top"><strong>${escapeHtml(item.name)}</strong><span>Rs. ${(Number(item.price)*Number(item.qty)).toLocaleString()}</span></div>
+<div class="qty">
+<button onclick="changeQty(${JSON.stringify(item.id)},-1)">➖</button><span>${item.qty}</span>
+<button onclick="changeQty(${JSON.stringify(item.id)},1)">➕</button>
+<button onclick="removeItem(${JSON.stringify(item.id)})" style="margin-left:auto;background:#222;color:#fff">Remove</button>
+</div>
+</div>`).join("");
+const total=cart.reduce((sum,item)=>sum+Number(item.price)*Number(item.qty),0);
+document.getElementById("cartTotal").textContent=total.toLocaleString();
 }
 
 function changeQty(id,amount){
-
- const item =
-  cart.find(
-   x => x.id === id
-  );
-
- if(!item) return;
-
- item.qty += amount;
-
- if(item.qty <= 0){
-
-  cart =
-   cart.filter(
-    x => x.id !== id
-   );
- }
-
- saveCart();
+const item=cart.find(x=>String(x.id)===String(id));if(!item)return;
+item.qty+=amount;if(item.qty<=0)cart=cart.filter(x=>String(x.id)!==String(id));saveCart();
 }
-
-function removeItem(id){
-
- cart =
-  cart.filter(
-   x => x.id !== id
-  );
-
- saveCart();
-}
-
-function openCart(){
-
- document
-  .getElementById("cartOverlay")
-  .style.display = "block";
-
- updateCart();
-}
-
-function closeCart(){
-
- document
-  .getElementById("cartOverlay")
-  .style.display = "none";
-}
-
-function closeOutside(e){
-
- if(e.target.id === "cartOverlay"){
-
-  closeCart();
-
- }
-}
-
-/* =========================
-   ADMIN
-========================= */
+function removeItem(id){cart=cart.filter(x=>String(x.id)!==String(id));saveCart();}
+function openCart(){document.getElementById("cartOverlay").style.display="block";updateCart();}
+function closeCart(){document.getElementById("cartOverlay").style.display="none";}
+function closeOutside(e){if(e.target.id==="cartOverlay")closeCart();}
 
 function openAdmin(){
-
- const savedPin =
-  localStorage.getItem("ltxAdminPin")
-  || "1234";
-
- const entered =
-  prompt(
-   "Enter LTX Store Manager PIN:"
-  );
-
- if(entered !== savedPin){
-
-  if(entered !== null){
-
-   alert("Wrong PIN.");
-
-  }
-
-  return;
- }
-
- document
-  .getElementById("adminOverlay")
-  .style.display = "block";
-
- renderAdminProducts();
- loadAdminOrders();
+const savedPin=localStorage.getItem("ltxAdminPin")||"1234";
+const entered=prompt("Enter LTX Store Manager PIN:");
+if(entered!==savedPin){if(entered!==null)alert("Wrong PIN.");return;}
+document.getElementById("adminOverlay").style.display="block";
+renderAdminProducts();
+loadAdminOrders();
 }
-
-function closeAdmin(){
-
- document
-  .getElementById("adminOverlay")
-  .style.display = "none";
-}
+function closeAdmin(){document.getElementById("adminOverlay").style.display="none";}
 
 function changePin(){
-
- const current =
-  localStorage.getItem("ltxAdminPin")
-  || "1234";
-
- const oldPin =
-  prompt("Enter current PIN:");
-
- if(oldPin !== current){
-
-  alert("Wrong current PIN.");
-
-  return;
- }
-
- const newPin =
-  prompt("Enter new PIN:");
-
- if(!newPin){
-
-  alert("PIN not changed.");
-
-  return;
- }
-
- localStorage.setItem(
-  "ltxAdminPin",
-  newPin
- );
-
- alert(
-  "PIN changed successfully."
- );
+const current=localStorage.getItem("ltxAdminPin")||"1234";
+const oldPin=prompt("Enter current PIN:");
+if(oldPin!==current){alert("Wrong current PIN.");return;}
+const newPin=prompt("Enter new PIN:");
+if(!newPin){alert("PIN not changed.");return;}
+localStorage.setItem("ltxAdminPin",newPin);alert("PIN changed successfully.");
 }
 
 function newProduct(){
-
- document
-  .getElementById("formTitle")
-  .textContent =
-   "Add New Product";
-
- document
-  .getElementById("editProductId")
-  .value = "";
-
- document
-  .getElementById("productName")
-  .value = "";
-
- document
-  .getElementById("productPrice")
-  .value = "";
-
- document
-  .getElementById("productCategory")
-  .value =
-   "Perfumes";
-
- document
-  .getElementById("productDescription")
-  .value = "";
-
- selectedImage = "";
-
- document
-  .getElementById("imagePreview")
-  .innerHTML =
-   "Image preview";
+document.getElementById("formTitle").textContent="Add New Product";
+document.getElementById("editProductId").value="";
+document.getElementById("productName").value="";
+document.getElementById("productPrice").value="";
+document.getElementById("productCategory").value="Perfumes";
+document.getElementById("productDescription").value="";
+document.getElementById("productImage").value="";
+selectedImage="";
+document.getElementById("imagePreview").innerHTML="Image preview";
 }
 
 function previewImage(event){
-
- const file =
-  event.target.files[0];
-
- if(!file) return;
-
- const reader =
-  new FileReader();
-
- reader.onload =
-  function(e){
-
-   selectedImage =
-    e.target.result;
-
-   document
-    .getElementById("imagePreview")
-    .innerHTML =
-     `<img
-      src="${selectedImage}"
-      alt="Preview">`;
-  };
-
- reader.readAsDataURL(file);
+const file=event.target.files[0];if(!file)return;
+const reader=new FileReader();
+reader.onload=e=>{selectedImage=e.target.result;document.getElementById("imagePreview").innerHTML=`<img src="${selectedImage}" alt="Preview">`;};
+reader.readAsDataURL(file);
 }
 
 function saveProduct(){
-
- const name =
-  document
-   .getElementById("productName")
-   .value.trim();
-
- const price =
-  Number(
-   document
-    .getElementById("productPrice")
-    .value
-  );
-
- const category =
-  document
-   .getElementById("productCategory")
-   .value;
-
- const description =
-  document
-   .getElementById("productDescription")
-   .value.trim();
-
- const editId =
-  document
-   .getElementById("editProductId")
-   .value;
-
- if(!name){
-
-  alert(
-   "Please enter product name."
-  );
-
-  return;
- }
-
- if(!price || price < 0){
-
-  alert(
-   "Please enter a valid price."
-  );
-
-  return;
- }
-
- if(editId){
-
-  const product =
-   products.find(
-    p =>
-     String(p.id) ===
-     String(editId)
-   );
-
-  if(product){
-
-   product.name =
-    name;
-
-   product.price =
-    price;
-
-   product.category =
-    category;
-
-   product.description =
-    description;
-
-   if(selectedImage){
-
-    product.image =
-     selectedImage;
-   }
-  }
-
- }else{
-
-  products.push({
-   id:Date.now(),
-
-   name:name,
-
-   price:price,
-
-   category:category,
-
-   description:description,
-
-   image:selectedImage
-  });
- }
-
- localStorage.setItem(
-  "ltxProducts",
-  JSON.stringify(products)
- );
-
- renderProducts();
-
- renderAdminProducts();
-
- newProduct();
-
- alert(
-  "Product saved successfully ✅"
- );
+const name=document.getElementById("productName").value.trim();
+const price=Number(document.getElementById("productPrice").value);
+const category=document.getElementById("productCategory").value;
+const description=document.getElementById("productDescription").value.trim();
+const editId=document.getElementById("editProductId").value;
+if(!name){alert("Please enter product name.");return;}
+if(!Number.isFinite(price)||price<0){alert("Please enter a valid price.");return;}
+if(editId){
+const product=products.find(p=>String(p.id)===String(editId));
+if(product){Object.assign(product,{name,price,category,description});if(selectedImage)product.image=selectedImage;}
+}else products.push({id:crypto.randomUUID?crypto.randomUUID():Date.now(),name,price,category,description,image:selectedImage});
+localStorage.setItem("ltxProducts",JSON.stringify(products));
+renderProducts();renderAdminProducts();newProduct();alert("Product saved successfully ✅");
 }
 
 function renderAdminProducts(){
-
- const box =
-  document
-   .getElementById("adminProductList");
-
- if(!products.length){
-
-  box.innerHTML =
-   '<div class="empty">No products.</div>';
-
-  return;
- }
-
- box.innerHTML =
-  products.map(p => `
-
-   <div class="admin-product">
-
-    ${
-     p.image
-     ? `<img src="${p.image}" alt="">`
-     : `<div style="
-       width:55px;
-       height:55px;
-       border-radius:8px;
-       background:#222;
-       display:flex;
-       align-items:center;
-       justify-content:center">
-       📦
-      </div>`
-    }
-
-    <div class="admin-product-info">
-
-     <strong>
-      ${escapeHtml(p.name)}
-     </strong>
-
-     <small>
-      Rs.
-      ${Number(p.price).toLocaleString()}
-      •
-      ${escapeHtml(p.category)}
-     </small>
-
-    </div>
-
-    <button
-     class="small-btn"
-     onclick="editProduct(${p.id})">
-     Edit
-    </button>
-
-    <button
-     class="small-btn danger"
-     onclick="deleteProduct(${p.id})">
-     Delete
-    </button>
-
-   </div>
-
-  `).join("");
-
+const box=document.getElementById("adminProductList");
+if(!products.length){box.innerHTML='<div class="empty">No products.</div>';return;}
+box.innerHTML=products.map(p=>`
+<div class="admin-product">
+${p.image?`<img src="${p.image}" alt="">`:`<div style="width:55px;height:55px;border-radius:8px;background:#222;display:flex;align-items:center;justify-content:center">📦</div>`}
+<div class="admin-product-info"><strong>${escapeHtml(p.name)}</strong><small>Rs. ${Number(p.price).toLocaleString()} • ${escapeHtml(p.category)}</small></div>
+<button class="small-btn" onclick="editProduct(${JSON.stringify(p.id)})">Edit</button>
+<button class="small-btn danger" onclick="deleteProduct(${JSON.stringify(p.id)})">Delete</button>
+</div>`).join("");
 }
 
 function editProduct(id){
-
- const product = products.find(p => p.id === id);
-
- if(!product) return;
-
- document.getElementById("formTitle").textContent = "Edit Product";
- document.getElementById("editProductId").value = product.id;
- document.getElementById("productName").value = product.name;
- document.getElementById("productPrice").value = product.price;
- document.getElementById("productCategory").value = product.category;
- document.getElementById("productDescription").value =
-  product.description || "";
-
- selectedImage = product.image || "";
-
- document.getElementById("imagePreview").innerHTML =
-  product.image
-  ? `<img src="${product.image}" alt="Preview">`
-  : "Image preview";
-
- document.getElementById("adminOverlay").scrollTop = 0;
+const product=products.find(p=>String(p.id)===String(id));if(!product)return;
+document.getElementById("formTitle").textContent="Edit Product";
+document.getElementById("editProductId").value=product.id;
+document.getElementById("productName").value=product.name;
+document.getElementById("productPrice").value=product.price;
+document.getElementById("productCategory").value=product.category;
+document.getElementById("productDescription").value=product.description||"";
+document.getElementById("productImage").value="";
+selectedImage=product.image||"";
+document.getElementById("imagePreview").innerHTML=product.image?`<img src="${product.image}" alt="Preview">`:"Image preview";
+document.getElementById("adminOverlay").scrollTop=0;
 }
-
 
 function deleteProduct(id){
-
- const product = products.find(p => p.id === id);
-
- if(!product) return;
-
- if(!confirm('Delete "' + product.name + '"?')) return;
-
- products = products.filter(p => p.id !== id);
-
- localStorage.setItem(
-  "ltxProducts",
-  JSON.stringify(products)
- );
-
- renderProducts();
- renderAdminProducts();
-
- alert("Product deleted successfully ✅");
+const product=products.find(p=>String(p.id)===String(id));if(!product)return;
+if(!confirm('Delete "'+product.name+'"?'))return;
+products=products.filter(p=>String(p.id)!==String(id));
+localStorage.setItem("ltxProducts",JSON.stringify(products));
+renderProducts();renderAdminProducts();alert("Product deleted successfully ✅");
 }
-
 
 function exportProducts(){
-
- const data = JSON.stringify(products, null, 2);
-
- const blob = new Blob(
-  [data],
-  {type:"application/json"}
- );
-
- const url = URL.createObjectURL(blob);
-
- const a = document.createElement("a");
-
- a.href = url;
- a.download = "LTX-STORE-products-backup.json";
-
- document.body.appendChild(a);
- a.click();
- a.remove();
-
- URL.revokeObjectURL(url);
+const blob=new Blob([JSON.stringify(products,null,2)],{type:"application/json"});
+const url=URL.createObjectURL(blob);const a=document.createElement("a");
+a.href=url;a.download="LTX-STORE-products-backup.json";document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
 }
-
 
 function importProducts(event){
-
- const file = event.target.files[0];
-
- if(!file) return;
-
- const reader = new FileReader();
-
- reader.onload = function(e){
-
-  try{
-
-   const imported = JSON.parse(e.target.result);
-
-   if(!Array.isArray(imported)){
-    throw new Error("Invalid");
-   }
-
-   products = imported;
-
-   localStorage.setItem(
-    "ltxProducts",
-    JSON.stringify(products)
-   );
-
-   renderProducts();
-   renderAdminProducts();
-
-   alert("Products imported successfully ✅");
-
-  }catch(error){
-
-   alert("Invalid backup file ❌");
-
-  }
-
- };
-
- reader.readAsText(file);
-
- event.target.value = "";
+const file=event.target.files[0];if(!file)return;
+const reader=new FileReader();
+reader.onload=e=>{
+try{
+const imported=JSON.parse(e.target.result);if(!Array.isArray(imported))throw new Error("Invalid");
+products=imported;localStorage.setItem("ltxProducts",JSON.stringify(products));renderProducts();renderAdminProducts();alert("Products imported successfully ✅");
+}catch(error){alert("Invalid backup file ❌");}
+};
+reader.readAsText(file);event.target.value="";
 }
 
-/* =========================
-   ORDER + SLIP
-========================= */
-
+/* ORDER SYSTEM - MATCHES CURRENT DATABASE SCHEMA */
 async function placeOrder(){
-
- if(!cart.length){
-
-  alert("Please add a product to cart first.");
-  return;
- }
-
- const name =
-  document.getElementById("customerName").value.trim();
-
- const phone =
-  document.getElementById("customerPhone").value.trim();
-
- const address =
-  document.getElementById("customerAddress").value.trim();
-
- const delivery =
-  document.getElementById("delivery").value;
-
- if(!name || !phone || !address){
-
-  alert("Please fill all customer details.");
-  return;
- }
-
- const total =
-  cart.reduce(
-   (sum,item) => sum + Number(item.price) * item.qty,
-   0
-  );
-
- const orderId =
-  "LTX-" + Date.now().toString().slice(-7);
-
- const date =
-  new Date().toLocaleString("en-PK");
-
- try {
-
-  console.log("🔴 Starting order placement...");
-
-  /* CUSTOMER */
-
-  console.log("📝 Inserting customer...");
-  const { data: customer, error: customerError } =
-   await supabaseClient
-    .from("customers")
-    .insert({
-     name: name,
-     phone: phone,
-     address: address
-    })
-    .select("id")
-    .single();
-
-  if(customerError){
-   console.error("❌ Customer Error:", customerError);
-   throw customerError;
-  }
-
-  console.log("✅ Customer created:", customer);
-
-
-  /* ORDER */
-
-  console.log("📝 Inserting order...");
-  console.log("Payload:", {
-   customer_id: customer.id,
-   number: orderId,
-   total: total,
-   delivery: delivery
-  });
-
-  const { data: order, error: orderError } =
-   await supabaseClient
-    .from("orders")
-    .insert({
-     customer_id: customer.id,
-     order_number: orderId,
-     status: "pending"
-    })
-    .select("id, order_number")
-    .single();
-
-  if(orderError){
-   console.error("❌ Order Error:", orderError);
-   console.error("🔍 Full Error Details:", {
-    message: orderError.message,
-    status: orderError.status,
-    statusText: orderError.statusText,
-    details: orderError.details,
-    hint: orderError.hint
-   });
-   throw orderError;
-  }
-
-  console.log("✅ Order created:", order);
-
-
-  /* ORDER ITEMS */
-
-  console.log("📝 Inserting order items...");
-  for(const item of cart){
-
-   let { data: product, error: productError } =
-    await supabaseClient
-     .from("products")
-     .select("id")
-     .eq("name", item.name)
-     .maybeSingle();
-
-   if(productError){
-    console.error("❌ Product Query Error:", productError);
-    throw productError;
-   }
-
-
-   if(!product){
-
-    console.log("Product not found, creating new:", item.name);
-    const { data: newProduct, error: newProductError } =
-     await supabaseClient
-      .from("products")
-      .insert({
-       name: item.name,
-       description: item.description || "",
-       price: Number(item.price)
-      })
-      .select("id")
-      .single();
-
-    if(newProductError){
-     console.error("❌ New Product Error:", newProductError);
-     throw newProductError;
-    }
-
-    product = newProduct;
-    console.log("✅ Product created:", product);
-   }
-
-
-   const { error: itemError } =
-    await supabaseClient
-     .from("order_items")
-     .insert({
-      order_id: order.id,
-      product_id: product.id,
-      quantity: item.qty,
-      price: Number(item.price)
-     });
-
-   if(itemError){
-    console.error("❌ Order Item Error:", itemError);
-    throw itemError;
-   }
-
-   console.log("✅ Item added:", item.name);
-  }
-
-
-  console.log("✅ All data saved successfully!");
-
-  /* DISPLAY SLIP */
-
-  document.getElementById("slipId").textContent =
-   orderId;
-
-  document.getElementById("slipDate").textContent =
-   date;
-
-  document.getElementById("slipName").textContent =
-   name;
-
-  document.getElementById("slipPhone").textContent =
-   phone;
-
-  document.getElementById("slipAddress").textContent =
-   address;
-
-  document.getElementById("slipDelivery").textContent =
-   delivery;
-
-  document.getElementById("slipTotal").textContent =
-   total.toLocaleString();
-
-  document.getElementById("slipItems").innerHTML =
-   cart.map(item => `
-
-    <div class="slip-row">
-
-     <span>
-      ${escapeHtml(item.name)} × ${item.qty}
-     </span>
-
-     <span>
-      Rs. ${(Number(item.price) * item.qty).toLocaleString()}
-     </span>
-
-    </div>
-
-   `).join("");
-
-
-  /* WHATSAPP */
-
-  let message =
-   "🛍️ LTX STORE ORDER%0A%0A";
-
-  message +=
-   "📍 Order ID: " +
-   encodeURIComponent(orderId) +
-   "%0A";
-
-  message +=
-   "👤 Name: " +
-   encodeURIComponent(name) +
-   "%0A";
-
-  message +=
-   "☎️ Phone: " +
-   encodeURIComponent(phone) +
-   "%0A";
-
-  message +=
-   "📍 Address: " +
-   encodeURIComponent(address) +
-   "%0A";
-
-  message +=
-   "🚚 Delivery: " +
-   encodeURIComponent(delivery) +
-   "%0A%0A";
-
-  message +=
-   "ORDER ITEMS:%0A";
-
-  cart.forEach(item => {
-
-   message +=
-    "• " +
-    encodeURIComponent(item.name) +
-    " x" +
-    item.qty +
-    " = Rs. " +
-    (Number(item.price) * item.qty).toLocaleString() +
-    "%0A";
-
-  });
-
-  message +=
-   "%0A💰 TOTAL: Rs. " +
-   total.toLocaleString();
-
-
-  const whatsappNumber =
-   "923184734012";
-
-  window.open(
-   "https://wa.me/" +
-   whatsappNumber +
-   "?text=" +
-   message,
-   "_blank"
-  );
-
-  /* CLEAR CART */
-  cart = [];
-  saveCart();
-  closeCart();
-
-  /* SHOW SLIP */
-  document.getElementById("slipModal").style.display = "block";
-
-
- } catch(error) {
-
-  console.error("❌ Order Error:", error);
-
-  alert(
-   "Order save nahi ho saka. Browser console dekho details ke liye."
-  );
-
- }
+if(!cart.length){alert("Please add a product to cart first.");return;}
+const name=document.getElementById("customerName").value.trim();
+const phone=document.getElementById("customerPhone").value.trim();
+const address=document.getElementById("customerAddress").value.trim();
+const delivery=document.getElementById("delivery").value;
+if(!name||!phone||!address){alert("Please fill all customer details.");return;}
+
+const total=cart.reduce((sum,item)=>sum+Number(item.price)*Number(item.qty),0);
+const orderNumber="LTX-"+Date.now().toString().slice(-7);
+const date=new Date().toLocaleString("en-PK");
+
+try{
+/* 1. CUSTOMER */
+const {data:customer,error:customerError}=await supabaseClient
+.from("customers")
+.insert({name,phone,address})
+.select("id")
+.single();
+if(customerError)throw customerError;
+
+/* 2. ORDER: ONLY columns confirmed in the user's schema */
+const {data:order,error:orderError}=await supabaseClient
+.from("orders")
+.insert({
+customer_id:customer.id,
+order_number:orderNumber,
+status:"pending"
+})
+.select("id, order_number")
+.single();
+
+if(orderError){
+console.error("ORDER INSERT ERROR",orderError);
+throw orderError;
 }
 
-function closeSlip(){
+/* 3. ORDER ITEMS */
+for(const item of cart){
+let {data:product,error:productError}=await supabaseClient
+.from("products")
+.select("id")
+.eq("name",item.name)
+.maybeSingle();
 
- document.getElementById("slipModal").style.display =
-  "none";
+if(productError)throw productError;
+
+if(!product){
+const {data:newProduct,error:newProductError}=await supabaseClient
+.from("products")
+.insert({
+name:item.name,
+description:item.description||"",
+price:Number(item.price),
+stock:0
+})
+.select("id")
+.single();
+if(newProductError)throw newProductError;
+product=newProduct;
 }
 
+const {error:itemError}=await supabaseClient
+.from("order_items")
+.insert({
+order_id:order.id,
+product_id:product.id,
+quantity:Number(item.qty),
+price:Number(item.price)
+});
+if(itemError)throw itemError;
+}
 
-/* =========================
-   LOAD ADMIN ORDERS
-========================= */
+/* SLIP */
+showSlip({
+orderId:order.order_number||orderNumber,
+date,name,phone,address,delivery,total,
+items:cart
+});
 
+/* WHATSAPP */
+let message="🛍️ LTX STORE ORDER\n\n";
+message+="📍 Order ID: "+orderNumber+"\n";
+message+="👤 Name: "+name+"\n";
+message+="☎️ Phone: "+phone+"\n";
+message+="📍 Address: "+address+"\n";
+message+="🚚 Delivery: "+delivery+"\n\nORDER ITEMS:\n";
+cart.forEach(item=>{
+message+="• "+item.name+" x"+item.qty+" = Rs. "+(Number(item.price)*Number(item.qty)).toLocaleString()+"\n";
+});
+message+="\n💰 TOTAL: Rs. "+total.toLocaleString();
+
+window.open("https://wa.me/923184734012?text="+encodeURIComponent(message),"_blank");
+
+/* clear only after ALL database inserts succeed */
+cart=[];
+saveCart();
+document.getElementById("customerName").value="";
+document.getElementById("customerPhone").value="";
+document.getElementById("customerAddress").value="";
+closeCart();
+
+}catch(error){
+console.error("❌ ORDER SAVE ERROR:",error);
+alert("Order save nahi ho saka. Supabase error: "+(error.message||"Unknown error"));
+}
+}
+
+function showSlip(data){
+document.getElementById("slipId").textContent=data.orderId||"";
+document.getElementById("slipDate").textContent=data.date||"";
+document.getElementById("slipName").textContent=data.name||"";
+document.getElementById("slipPhone").textContent=data.phone||"";
+document.getElementById("slipAddress").textContent=data.address||"";
+document.getElementById("slipDelivery").textContent=data.delivery||"";
+document.getElementById("slipTotal").textContent=Number(data.total||0).toLocaleString();
+document.getElementById("slipItems").innerHTML=(data.items||[]).map(item=>`
+<div class="slip-row"><span>${escapeHtml(item.name)} × ${Number(item.qty)}</span><span>Rs. ${(Number(item.price)*Number(item.qty)).toLocaleString()}</span></div>`).join("");
+document.getElementById("slipModal").style.display="block";
+}
+
+function closeSlip(){document.getElementById("slipModal").style.display="none";}
+
+/* ADMIN ORDERS - MATCHES CURRENT SCHEMA */
 async function loadAdminOrders(){
+const box=document.getElementById("adminOrdersList");
+if(!box)return;
+box.innerHTML="Loading orders...";
 
- const box =
-  document.getElementById("adminOrdersList");
+const {data:orders,error}=await supabaseClient
+.from("orders")
+.select(`
+id,
+order_number,
+status,
+created_at,
+customers (
+name,
+phone,
+address
+),
+order_items (
+quantity,
+price,
+products (
+name
+)
+)
+`)
+.order("created_at",{ascending:false});
 
- if(!box) return;
-
- box.innerHTML =
-  "Loading orders...";
-
- const { data: orders, error } =
-  await supabaseClient
-   .from("orders")
-   .select(`
-    id,
-    number,
-    total,
-    delivery,
-    created_at,
-    customers (
-     name,
-     phone,
-     address
-    ),
-    order_items (
-     quantity,
-     price,
-     products (
-      name
-     )
-    )
-   `)
-   .order("created_at", {
-    ascending: false
-   });
-
- if(error){
-
-  console.error(
-   "Orders Error:",
-   error
-  );
-
-  box.innerHTML =
-   "❌ Orders load nahi ho sake.";
-
-  return;
- }
-
- if(!orders || orders.length === 0){
-
-  box.innerHTML =
-   '<div class="empty">No customer orders yet.</div>';
-
-  return;
- }
-
- box.innerHTML =
-  orders.map(order => {
-
-   const customer =
-    order.customers || {};
-
-   const items =
-    order.order_items || [];
-
-   const total =
-    Number(order.total) || 0;
-
-   const itemText =
-    items.map(item => `
-     <div style="margin:5px 0;color:#ccc">
-      ${escapeHtml(
-       item.products?.name || "Product"
-      )}
-      × ${Number(item.quantity || 0)}
-      – Rs. ${(
-       Number(item.price || 0) *
-       Number(item.quantity || 0)
-      ).toLocaleString()}
-     </div>
-    `).join("");
-
-   return `
-    <div class="admin-order-item">
-
-     <strong>
-      📦 ${escapeHtml(
-       order.number || ""
-      )}
-     </strong>
-
-     <div class="admin-order-info">
-      👤 ${escapeHtml(
-       customer.name || ""
-      )}<br>
-      ☎️ ${escapeHtml(
-       customer.phone || ""
-      )}<br>
-      📍 ${escapeHtml(
-       customer.address || ""
-      )}<br>
-      🚚 ${escapeHtml(
-       order.delivery || ""
-      )}<br>
-      📅 ${new Date(order.created_at).toLocaleString()}
-     </div>
-
-     <div class="admin-order-items-list">
-      ${itemText}
-      <div style="
-       margin-top:8px;
-       padding-top:8px;
-       border-top:1px solid #333;
-       font-weight:bold;
-       color:#fff">
-       TOTAL: Rs. ${total.toLocaleString()}
-      </div>
-     </div>
-
-     <div class="admin-order-actions">
-      <button
-       class="small-btn"
-       onclick="generateOrderSlip('${order.id}')">
-       🖨️ Generate Slip
-      </button>
-     </div>
-
-    </div>
-   `;
-
-  }).join("");
+if(error){
+console.error("ADMIN ORDERS ERROR:",error);
+box.innerHTML="❌ Orders load nahi ho sake.";
+return;
 }
 
+if(!orders||!orders.length){
+box.innerHTML='<div class="empty">No customer orders yet.</div>';
+return;
+}
+
+box.innerHTML=orders.map(order=>{
+const customer=order.customers||{};
+const items=order.order_items||[];
+const total=items.reduce((sum,item)=>sum+Number(item.price||0)*Number(item.quantity||0),0);
+const itemText=items.map(item=>`
+<div style="margin:5px 0;color:#ccc">
+${escapeHtml(item.products?.name||"Product")} × ${Number(item.quantity||0)}
+– Rs. ${(Number(item.price||0)*Number(item.quantity||0)).toLocaleString()}
+</div>`).join("");
+
+return `<div class="admin-order-item">
+<strong>📦 ${escapeHtml(order.order_number||"")}</strong>
+<span class="order-status">${escapeHtml(order.status||"")}</span>
+<div class="admin-order-info">
+👤 ${escapeHtml(customer.name||"")}<br>
+☎️ ${escapeHtml(customer.phone||"")}<br>
+📍 ${escapeHtml(customer.address||"")}<br>
+📅 ${order.created_at?new Date(order.created_at).toLocaleString():""}
+</div>
+<div class="admin-order-items-list">
+${itemText}
+<div style="margin-top:8px;padding-top:8px;border-top:1px solid #333;font-weight:bold;color:#fff">
+TOTAL: Rs. ${total.toLocaleString()}
+</div>
+</div>
+<div class="admin-order-actions">
+<button class="small-btn" onclick="generateOrderSlip('${order.id}')">🖨️ Generate Slip</button>
+</div>
+</div>`;
+}).join("");
+}
 
 async function generateOrderSlip(orderId){
+const {data:order,error}=await supabaseClient
+.from("orders")
+.select(`
+id,
+order_number,
+status,
+created_at,
+customers (
+name,
+phone,
+address
+),
+order_items (
+quantity,
+price,
+products (
+name
+)
+)
+`)
+.eq("id",orderId)
+.single();
 
- const { data: order, error } =
-  await supabaseClient
-   .from("orders")
-   .select(`
-    id,
-    number,
-    total,
-    delivery,
-    created_at,
-    customers (
-     name,
-     phone,
-     address
-    ),
-    order_items (
-     quantity,
-     price,
-     products (
-      name
-     )
-    )
-   `)
-   .eq("id", orderId)
-   .single();
-
- if(error){
-
-  console.error(
-   "Slip Error:",
-   error
-  );
-
-  alert(
-   "Order slip load nahi ho saki."
-  );
-
-  return;
- }
-
- const customer =
-  order.customers || {};
-
- const items =
-  order.order_items || [];
-
- document.getElementById("slipId").textContent =
-  order.number || "";
-
- document.getElementById("slipDate").textContent =
-  new Date(order.created_at)
-  .toLocaleString();
-
- document.getElementById("slipName").textContent =
-  customer.name || "";
-
- document.getElementById("slipPhone").textContent =
-  customer.phone || "";
-
- document.getElementById("slipAddress").textContent =
-  customer.address || "";
-
- document.getElementById("slipDelivery").textContent =
-  order.delivery || "";
-
- let slipTotal = 0;
-
- document.getElementById("slipItems").innerHTML =
-  items.map(item => {
-
-   const price =
-    Number(item.price || 0);
-
-   const qty =
-    Number(item.quantity || 0);
-
-   const lineTotal =
-    price * qty;
-
-   slipTotal += lineTotal;
-
-   return `
-    <div class="slip-row">
-
-     <span>
-      ${escapeHtml(
-       item.products?.name || "Product"
-      )} × ${qty}
-     </span>
-
-     <span>
-      Rs. ${lineTotal.toLocaleString()}
-     </span>
-
-    </div>
-   `;
-
-  }).join("");
-
- document.getElementById("slipTotal").textContent =
-  slipTotal.toLocaleString();
-
- document.getElementById("slipModal")
-  .style.display = "block";
+if(error){
+console.error("SLIP ERROR:",error);
+alert("Order slip load nahi ho saki.");
+return;
 }
 
+const customer=order.customers||{};
+const items=order.order_items||[];
+const total=items.reduce((sum,item)=>sum+Number(item.price||0)*Number(item.quantity||0),0);
 
-/* =========================
-   SECURITY / HTML
-========================= */
-
-function escapeHtml(text){
-
- return String(text ?? "")
-  .replace(/&/g,"&amp;")
-  .replace(/</g,"&lt;")
-  .replace(/>/g,"&gt;")
-  .replace(/"/g,"&quot;")
-  .replace(/'/g,"&#039;");
+/* Delivery is not stored in the current orders table schema.
+   Show a clear message instead of querying a non-existent column. */
+showSlip({
+orderId:order.order_number||"",
+date:order.created_at?new Date(order.created_at).toLocaleString():"",
+name:customer.name||"",
+phone:customer.phone||"",
+address:customer.address||"",
+delivery:"Delivery information not stored in database",
+total,
+items:items.map(item=>({
+name:item.products?.name||"Product",
+qty:Number(item.quantity||0),
+price:Number(item.price||0)
+}))
+});
 }
 
-
-/* =========================
-   START STORE
-========================= */
-
+/* START */
 renderProducts();
-
 updateCart();
-
 </script>
-
 </body>
 </html>
