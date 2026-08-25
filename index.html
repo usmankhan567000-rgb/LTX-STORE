@@ -437,6 +437,52 @@ footer{
  background:#351010;
 }
 
+/* ADMIN ORDERS */
+.admin-orders-section{
+ margin-top:30px;
+ border-top:1px solid #333;
+ padding-top:20px;
+}
+
+.admin-order-item{
+ display:block;
+ padding:15px;
+ margin-bottom:12px;
+ border:1px solid #292929;
+ border-radius:10px;
+ background:#0a0a0a;
+}
+
+.order-status{
+ display:inline-block;
+ padding:3px 8px;
+ border-radius:4px;
+ font-size:12px;
+ background:#333;
+ color:#fff;
+ margin-left:10px;
+}
+
+.admin-order-info{
+ margin-top:10px;
+ font-size:14px;
+ color:#ccc;
+}
+
+.admin-order-items-list{
+ margin-top:8px;
+ padding-top:8px;
+ border-top:1px solid #292929;
+ font-size:13px;
+ color:#999;
+}
+
+.admin-order-actions{
+ margin-top:12px;
+ display:flex;
+ gap:8px;
+}
+
 /* SLIP */
 #slipModal{
  z-index:400;
@@ -788,6 +834,16 @@ footer{
 
   </div>
 
+  <div class="admin-orders-section">
+
+   <h3 style="margin-bottom:12px">
+    📦 Customer Orders
+   </h3>
+
+   <div id="adminOrdersList"></div>
+
+  </div>
+
  </div>
 </div>
 
@@ -885,7 +941,7 @@ footer{
 /* =========================
    PRODUCTS
 ========================= */
- 
+
 const SUPABASE_URL = "https://zsutkpsiefziotuwgkwq.supabase.co";
 const SUPABASE_KEY = "sb_publishable_KfkaZZnDim3BlRxVUXd2wQ_WN84Duhb";
 
@@ -893,6 +949,7 @@ const supabaseClient = supabase.createClient(
   SUPABASE_URL,
   SUPABASE_KEY
 );
+
 const defaultProducts = [
  {
   id:1,
@@ -1117,7 +1174,7 @@ function updateCart(){
 
       <button
        onclick="changeQty(${item.id},-1)">
-       −
+       ➖
       </button>
 
       <span>
@@ -1126,7 +1183,7 @@ function updateCart(){
 
       <button
        onclick="changeQty(${item.id},1)">
-       +
+       ➕
       </button>
 
       <button
@@ -1246,7 +1303,7 @@ function openAdmin(){
   .style.display = "block";
 
  renderAdminProducts();
-   loadAdminOrders();
+ loadAdminOrders();
 }
 
 function closeAdmin(){
@@ -1323,10 +1380,6 @@ function newProduct(){
  selectedImage = "";
 
  document
-  .getElementById("productImage")
-  .value = "";
-
- document
   .getElementById("imagePreview")
   .innerHTML =
    "Image preview";
@@ -1352,8 +1405,8 @@ function previewImage(event){
     .getElementById("imagePreview")
     .innerHTML =
      `<img
-       src="${selectedImage}"
-       alt="Preview">`;
+      src="${selectedImage}"
+      alt="Preview">`;
   };
 
  reader.readAsDataURL(file);
@@ -1439,7 +1492,6 @@ function saveProduct(){
  }else{
 
   products.push({
-
    id:Date.now(),
 
    name:name,
@@ -1451,7 +1503,6 @@ function saveProduct(){
    description:description,
 
    image:selectedImage
-
   });
  }
 
@@ -1472,148 +1523,10 @@ function saveProduct(){
 }
 
 function renderAdminProducts(){
- async function loadAdminOrders(){
-
-  const box =
-    document.getElementById("adminOrderList");
-
-  if(!box) return;
-
-  box.innerHTML =
-    "Loading orders...";
-
-  const { data: orders, error } =
-    await supabaseClient
-      .from("orders")
-      .select(`
-        id,
-        order_number,
-        status,
-        created_at,
-        customers (
-          name,
-          phone,
-          address
-        ),
-        order_items (
-          quantity,
-          price,
-          products (
-            name
-          )
-        )
-      `)
-      .order("created_at", {
-        ascending: false
-      });
-
-  if(error){
-
-    console.error(
-      "Orders Error:",
-      error
-    );
-
-    box.innerHTML =
-      "Orders load nahi ho sake.";
-
-    return;
-  }
-
-  if(!orders || !orders.length){
-
-    box.innerHTML =
-      "No orders yet.";
-
-    return;
-  }
-
-  box.innerHTML =
-    orders.map(order => {
-
-      const customer =
-        order.customers || {};
-
-      const items =
-        order.order_items || [];
-
-      const total =
-        items.reduce(
-          (sum, item) =>
-            sum +
-            Number(item.price || 0) *
-            Number(item.quantity || 0),
-          0
-        );
-
-      return `
-        <div class="admin-order">
-
-          <div class="admin-order-top">
-
-            <div>
-
-              <strong>
-                ${escapeHtml(
-                  order.order_number || ""
-                )}
-              </strong>
-
-              <small>
-                ${escapeHtml(
-                  customer.name || ""
-                )}
-              </small>
-
-            </div>
-
-            <span class="order-status">
-              ${escapeHtml(
-                order.status || "new"
-              )}
-            </span>
-
-          </div>
-
-          <div class="admin-order-info">
-
-            <div>
-              📞 ${escapeHtml(
-                customer.phone || ""
-              )}
-            </div>
-
-            <div>
-              📍 ${escapeHtml(
-                customer.address || ""
-              )}
-            </div>
-
-            <div>
-              💰 Rs.
-              ${total.toLocaleString()}
-            </div>
-
-          </div>
-
-          <button
-            class="small-btn"
-            onclick='generateOrderSlip(${JSON.stringify(order)})'>
-            🧾 Generate Slip
-          </button>
-
-        </div>
-      `;
-
-    }).join("");
-}
- 
 
  const box =
   document
-   .getElementById(
-    "adminProductList"
-   );
+   .getElementById("adminProductList");
 
  if(!products.length){
 
@@ -1632,15 +1545,15 @@ function renderAdminProducts(){
      p.image
      ? `<img src="${p.image}" alt="">`
      : `<div style="
-          width:55px;
-          height:55px;
-          border-radius:8px;
-          background:#222;
-          display:flex;
-          align-items:center;
-          justify-content:center">
-          📦
-        </div>`
+       width:55px;
+       height:55px;
+       border-radius:8px;
+       background:#222;
+       display:flex;
+       align-items:center;
+       justify-content:center">
+       📦
+      </div>`
     }
 
     <div class="admin-product-info">
@@ -1675,6 +1588,7 @@ function renderAdminProducts(){
   `).join("");
 
 }
+
 function editProduct(id){
 
  const product = products.find(p => p.id === id);
@@ -1687,14 +1601,14 @@ function editProduct(id){
  document.getElementById("productPrice").value = product.price;
  document.getElementById("productCategory").value = product.category;
  document.getElementById("productDescription").value =
-   product.description || "";
+  product.description || "";
 
  selectedImage = product.image || "";
 
  document.getElementById("imagePreview").innerHTML =
-   product.image
-   ? `<img src="${product.image}" alt="Preview">`
-   : "Image preview";
+  product.image
+  ? `<img src="${product.image}" alt="Preview">`
+  : "Image preview";
 
  document.getElementById("adminOverlay").scrollTop = 0;
 }
@@ -1789,10 +1703,9 @@ function importProducts(event){
  event.target.value = "";
 }
 
-
-/* =====================================================
+/* =========================
    ORDER + SLIP
-   ===================================================== */
+========================= */
 
 async function placeOrder(){
 
@@ -1858,7 +1771,8 @@ async function placeOrder(){
     .insert({
      order_number: orderId,
      customer_id: customer.id,
-     status: "new"
+     status: "new",
+     delivery_type: delivery
     })
     .select("id")
     .single();
@@ -1902,18 +1816,18 @@ async function placeOrder(){
    const { error: itemError } =
     await supabaseClient
      .from("order_items")
-    .insert({
-  order_id: order.id,
-  product_id: product.id,
-  quantity: item.qty,
-  price: Number(item.price)
-});
+     .insert({
+      order_id: order.id,
+      product_id: product.id,
+      quantity: item.qty,
+      price: Number(item.price)
+     });
 
    if(itemError) throw itemError;
   }
 
 
-  /* SLIP */
+  /* DISPLAY SLIP */
 
   document.getElementById("slipId").textContent =
    orderId;
@@ -1960,7 +1874,7 @@ async function placeOrder(){
    "🛍️ LTX STORE ORDER%0A%0A";
 
   message +=
-   "🆔 Order ID: " +
+   "📍 Order ID: " +
    encodeURIComponent(orderId) +
    "%0A";
 
@@ -1970,7 +1884,7 @@ async function placeOrder(){
    "%0A";
 
   message +=
-   "📞 Phone: " +
+   "☎️ Phone: " +
    encodeURIComponent(phone) +
    "%0A";
 
@@ -2015,9 +1929,14 @@ async function placeOrder(){
    message,
    "_blank"
   );
-cart = [];
-saveCart();
 
+  /* CLEAR CART */
+  cart = [];
+  saveCart();
+  closeCart();
+
+  /* SHOW SLIP */
+  document.getElementById("slipModal").style.display = "block";
 
 
  } catch(error) {
@@ -2038,9 +1957,268 @@ function closeSlip(){
 }
 
 
-/* =====================================================
+/* =========================
+   LOAD ADMIN ORDERS
+========================= */
+
+async function loadAdminOrders(){
+
+ const box =
+  document.getElementById("adminOrdersList");
+
+ if(!box) return;
+
+ box.innerHTML =
+  "Loading orders...";
+
+ const { data: orders, error } =
+  await supabaseClient
+   .from("orders")
+   .select(`
+    id,
+    order_number,
+    status,
+    created_at,
+    delivery_type,
+    customers (
+     name,
+     phone,
+     address
+    ),
+    order_items (
+     quantity,
+     price,
+     products (
+      name
+     )
+    )
+   `)
+   .order("created_at", {
+    ascending: false
+   });
+
+ if(error){
+
+  console.error(
+   "Orders Error:",
+   error
+  );
+
+  box.innerHTML =
+   "❌ Orders load nahi ho sake.";
+
+  return;
+ }
+
+ if(!orders || orders.length === 0){
+
+  box.innerHTML =
+   '<div class="empty">No customer orders yet.</div>';
+
+  return;
+ }
+
+ box.innerHTML =
+  orders.map(order => {
+
+   const customer =
+    order.customers || {};
+
+   const items =
+    order.order_items || [];
+
+   const total =
+    items.reduce(
+     (sum, item) =>
+      sum +
+      Number(item.price || 0) *
+      Number(item.quantity || 0),
+     0
+    );
+
+   const itemText =
+    items.map(item => `
+     <div style="margin:5px 0;color:#ccc">
+      ${escapeHtml(
+       item.products?.name || "Product"
+      )}
+      × ${Number(item.quantity || 0)}
+      – Rs. ${(
+       Number(item.price || 0) *
+       Number(item.quantity || 0)
+      ).toLocaleString()}
+     </div>
+    `).join("");
+
+   return `
+    <div class="admin-order-item">
+
+     <strong>
+      📦 ${escapeHtml(
+       order.order_number || ""
+      )}
+     </strong>
+
+     <span class="order-status">
+      ${escapeHtml(
+       order.status || "new"
+      )}
+     </span>
+
+     <div class="admin-order-info">
+      👤 ${escapeHtml(
+       customer.name || ""
+      )}<br>
+      ☎️ ${escapeHtml(
+       customer.phone || ""
+      )}<br>
+      📍 ${escapeHtml(
+       customer.address || ""
+      )}<br>
+      🚚 ${escapeHtml(
+       order.delivery_type || ""
+      )}<br>
+      📅 ${new Date(order.created_at).toLocaleString()}
+     </div>
+
+     <div class="admin-order-items-list">
+      ${itemText}
+      <div style="
+       margin-top:8px;
+       padding-top:8px;
+       border-top:1px solid #333;
+       font-weight:bold;
+       color:#fff">
+       TOTAL: Rs. ${total.toLocaleString()}
+      </div>
+     </div>
+
+     <div class="admin-order-actions">
+      <button
+       class="small-btn"
+       onclick="generateOrderSlip('${order.id}')">
+       🖨️ Generate Slip
+      </button>
+     </div>
+
+    </div>
+   `;
+
+  }).join("");
+}
+
+
+async function generateOrderSlip(orderId){
+
+ const { data: order, error } =
+  await supabaseClient
+   .from("orders")
+   .select(`
+    id,
+    order_number,
+    created_at,
+    status,
+    delivery_type,
+    customers (
+     name,
+     phone,
+     address
+    ),
+    order_items (
+     quantity,
+     price,
+     products (
+      name
+     )
+    )
+   `)
+   .eq("id", orderId)
+   .single();
+
+ if(error){
+
+  console.error(
+   "Slip Error:",
+   error
+  );
+
+  alert(
+   "Order slip load nahi ho saki."
+  );
+
+  return;
+ }
+
+ const customer =
+  order.customers || {};
+
+ const items =
+  order.order_items || [];
+
+ document.getElementById("slipId").textContent =
+  order.order_number || "";
+
+ document.getElementById("slipDate").textContent =
+  new Date(order.created_at)
+  .toLocaleString();
+
+ document.getElementById("slipName").textContent =
+  customer.name || "";
+
+ document.getElementById("slipPhone").textContent =
+  customer.phone || "";
+
+ document.getElementById("slipAddress").textContent =
+  customer.address || "";
+
+ document.getElementById("slipDelivery").textContent =
+  order.delivery_type || "";
+
+ let total = 0;
+
+ document.getElementById("slipItems").innerHTML =
+  items.map(item => {
+
+   const price =
+    Number(item.price || 0);
+
+   const qty =
+    Number(item.quantity || 0);
+
+   const lineTotal =
+    price * qty;
+
+   total += lineTotal;
+
+   return `
+    <div class="slip-row">
+
+     <span>
+      ${escapeHtml(
+       item.products?.name || "Product"
+      )} × ${qty}
+     </span>
+
+     <span>
+      Rs. ${lineTotal.toLocaleString()}
+     </span>
+
+    </div>
+   `;
+
+  }).join("");
+
+ document.getElementById("slipTotal").textContent =
+  total.toLocaleString();
+
+ document.getElementById("slipModal")
+  .style.display = "block";
+}
+
+
+/* =========================
    SECURITY / HTML
-   ===================================================== */
+========================= */
 
 function escapeHtml(text){
 
@@ -2053,342 +2231,13 @@ function escapeHtml(text){
 }
 
 
-/* =====================================================
+/* =========================
    START STORE
-   ===================================================== */
+========================= */
 
 renderProducts();
 
 updateCart();
- /* =========================
-   CUSTOMER ORDERS PANEL
-========================= */
-
-function setupCustomerOrdersPanel(){
-
-  const productBox =
-    document.getElementById("adminProductList");
-
-  if(!productBox) return;
-
-  if(document.getElementById("adminOrderList"))
-    return;
-
-  const ordersSection =
-    document.createElement("div");
-
-  ordersSection.className =
-    "admin-products";
-
-  ordersSection.style.marginTop =
-    "30px";
-
-  ordersSection.innerHTML = `
-    <h3 style="margin-bottom:12px">
-      📦 Customer Orders
-    </h3>
-
-    <div id="adminOrderList">
-      Loading orders...
-    </div>
-  `;
-
-  productBox.parentElement.appendChild(
-    ordersSection
-  );
-}
-
-
-/* =========================
-   LOAD CUSTOMER ORDERS
-========================= */
-
-async function loadAdminOrders(){
-
-  setupCustomerOrdersPanel();
-
-  const box =
-    document.getElementById("adminOrderList");
-
-  if(!box) return;
-
-  box.innerHTML =
-    "Loading orders...";
-
-  const { data: orders, error } =
-    await supabaseClient
-      .from("orders")
-      .select(`
-        id,
-        order_number,
-        status,
-        created_at,
-        customers (
-          name,
-          phone,
-          address
-        ),
-        order_items (
-          quantity,
-          price,
-          products (
-            name
-          )
-        )
-      `)
-      .order("created_at", {
-        ascending:false
-      });
-
-  if(error){
-
-    console.error(
-      "Orders Error:",
-      error
-    );
-
-    box.innerHTML =
-      "❌ Orders load nahi ho sake.";
-
-    return;
-  }
-
-  if(!orders || orders.length === 0){
-
-    box.innerHTML =
-      '<div class="empty">No customer orders yet.</div>';
-
-    return;
-  }
-
-  box.innerHTML =
-    orders.map(order => {
-
-      const customer =
-        order.customers || {};
-
-      const items =
-        order.order_items || [];
-
-      const total =
-        items.reduce(
-          (sum,item) =>
-            sum +
-            Number(item.price || 0) *
-            Number(item.quantity || 0),
-          0
-        );
-
-      const itemText =
-        items.map(item => `
-          <div style="margin:5px 0;color:#ccc">
-            ${escapeHtml(
-              item.products?.name || "Product"
-            )}
-            × ${Number(item.quantity || 0)}
-            — Rs. ${(
-              Number(item.price || 0) *
-              Number(item.quantity || 0)
-            ).toLocaleString()}
-          </div>
-        `).join("");
-
-      return `
-        <div
-          class="admin-product"
-          style="
-            display:block;
-            padding:15px;
-            margin-bottom:12px;
-            border:1px solid #292929;
-            border-radius:10px;
-          "
-        >
-
-          <strong>
-            📦 ${escapeHtml(
-              order.order_number || ""
-            )}
-          </strong>
-
-          <small style="display:block;margin-top:7px">
-            👤 ${escapeHtml(
-              customer.name || ""
-            )}
-          </small>
-
-          <small style="display:block">
-            📞 ${escapeHtml(
-              customer.phone || ""
-            )}
-          </small>
-
-          <small style="display:block">
-            📍 ${escapeHtml(
-              customer.address || ""
-            )}
-          </small>
-
-          <div style="margin-top:12px">
-            <strong>Order Items</strong>
-
-            ${itemText}
-          </div>
-
-          <div
-            style="
-              margin-top:12px;
-              font-size:18px;
-              font-weight:bold;
-            "
-          >
-            TOTAL: Rs.
-            ${total.toLocaleString()}
-          </div>
-
-          <button
-            class="small-btn"
-            style="margin-top:12px;width:100%"
-            onclick="generateOrderSlip('${order.id}')"
-          >
-            🧾 Generate Slip
-          </button>
-
-        </div>
-      `;
-
-    }).join("");
-}
-
-
-/* =========================
-   GENERATE ORDER SLIP
-========================= */
-
-async function generateOrderSlip(orderId){
-
-  const { data: order, error } =
-    await supabaseClient
-      .from("orders")
-      .select(`
-        id,
-        order_number,
-        created_at,
-        status,
-        customers (
-          name,
-          phone,
-          address
-        ),
-        order_items (
-          quantity,
-          price,
-          products (
-            name
-          )
-        )
-      `)
-      .eq("id", orderId)
-      .single();
-
-  if(error){
-
-    console.error(
-      "Slip Error:",
-      error
-    );
-
-    alert(
-      "Order slip load nahi ho saki."
-    );
-
-    return;
-  }
-
-  const customer =
-    order.customers || {};
-
-  const items =
-    order.order_items || [];
-
-  document.getElementById("slipId").textContent =
-    order.order_number || "";
-
-  document.getElementById("slipDate").textContent =
-    new Date(order.created_at)
-      .toLocaleString();
-
-  document.getElementById("slipName").textContent =
-    customer.name || "";
-
-  document.getElementById("slipPhone").textContent =
-    customer.phone || "";
-
-  document.getElementById("slipAddress").textContent =
-    customer.address || "";
-
-  document.getElementById("slipDelivery").textContent =
-    customer.address || "";
-
-  let total = 0;
-
-  document.getElementById("slipItems").innerHTML =
-    items.map(item => {
-
-      const price =
-        Number(item.price || 0);
-
-      const qty =
-        Number(item.quantity || 0);
-
-      const lineTotal =
-        price * qty;
-
-      total += lineTotal;
-
-      return `
-        <div class="slip-row">
-          <span>
-            ${escapeHtml(
-              item.products?.name || "Product"
-            )}
-            × ${qty}
-          </span>
-
-          <span>
-            Rs. ${lineTotal.toLocaleString()}
-          </span>
-        </div>
-      `;
-
-    }).join("");
-
-  document.getElementById("slipTotal").textContent =
-    total.toLocaleString();
-
-  document.getElementById("slipModal")
-    .style.display = "block";
-}
-
-
-/* =========================
-   AUTO LOAD ORDERS
-========================= */
-
-const oldOpenAdmin =
-  window.openAdmin;
-
-window.openAdmin = function(){
-
-  if(typeof oldOpenAdmin === "function"){
-    oldOpenAdmin();
-  }
-
-  setTimeout(() => {
-    loadAdminOrders();
-  }, 300);
-
-};
 
 </script>
 
