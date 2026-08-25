@@ -2060,6 +2060,335 @@ function escapeHtml(text){
 renderProducts();
 
 updateCart();
+ /* =========================
+   CUSTOMER ORDERS PANEL
+========================= */
+
+function setupCustomerOrdersPanel(){
+
+  const productBox =
+    document.getElementById("adminProductList");
+
+  if(!productBox) return;
+
+  if(document.getElementById("adminOrderList"))
+    return;
+
+  const ordersSection =
+    document.createElement("div");
+
+  ordersSection.className =
+    "admin-products";
+
+  ordersSection.style.marginTop =
+    "30px";
+
+  ordersSection.innerHTML = `
+    <h3 style="margin-bottom:12px">
+      📦 Customer Orders
+    </h3>
+
+    <div id="adminOrderList">
+      Loading orders...
+    </div>
+  `;
+
+  productBox.parentElement.appendChild(
+    ordersSection
+  );
+}
+
+
+/* =========================
+   LOAD CUSTOMER ORDERS
+========================= */
+
+async function loadAdminOrders(){
+
+  setupCustomerOrdersPanel();
+
+  const box =
+    document.getElementById("adminOrderList");
+
+  if(!box) return;
+
+  box.innerHTML =
+    "Loading orders...";
+
+  const { data: orders, error } =
+    await supabaseClient
+      .from("orders")
+      .select(`
+        id,
+        order_number,
+        status,
+        created_at,
+        customers (
+          name,
+          phone,
+          address
+        ),
+        order_items (
+          quantity,
+          price,
+          products (
+            name
+          )
+        )
+      `)
+      .order("created_at", {
+        ascending:false
+      });
+
+  if(error){
+
+    console.error(
+      "Orders Error:",
+      error
+    );
+
+    box.innerHTML =
+      "❌ Orders load nahi ho sake.";
+
+    return;
+  }
+
+  if(!orders || orders.length === 0){
+
+    box.innerHTML =
+      '<div class="empty">No customer orders yet.</div>';
+
+    return;
+  }
+
+  box.innerHTML =
+    orders.map(order => {
+
+      const customer =
+        order.customers || {};
+
+      const items =
+        order.order_items || [];
+
+      const total =
+        items.reduce(
+          (sum,item) =>
+            sum +
+            Number(item.price || 0) *
+            Number(item.quantity || 0),
+          0
+        );
+
+      const itemText =
+        items.map(item => `
+          <div style="margin:5px 0;color:#ccc">
+            ${escapeHtml(
+              item.products?.name || "Product"
+            )}
+            × ${Number(item.quantity || 0)}
+            — Rs. ${(
+              Number(item.price || 0) *
+              Number(item.quantity || 0)
+            ).toLocaleString()}
+          </div>
+        `).join("");
+
+      return `
+        <div
+          class="admin-product"
+          style="
+            display:block;
+            padding:15px;
+            margin-bottom:12px;
+            border:1px solid #292929;
+            border-radius:10px;
+          "
+        >
+
+          <strong>
+            📦 ${escapeHtml(
+              order.order_number || ""
+            )}
+          </strong>
+
+          <small style="display:block;margin-top:7px">
+            👤 ${escapeHtml(
+              customer.name || ""
+            )}
+          </small>
+
+          <small style="display:block">
+            📞 ${escapeHtml(
+              customer.phone || ""
+            )}
+          </small>
+
+          <small style="display:block">
+            📍 ${escapeHtml(
+              customer.address || ""
+            )}
+          </small>
+
+          <div style="margin-top:12px">
+            <strong>Order Items</strong>
+
+            ${itemText}
+          </div>
+
+          <div
+            style="
+              margin-top:12px;
+              font-size:18px;
+              font-weight:bold;
+            "
+          >
+            TOTAL: Rs.
+            ${total.toLocaleString()}
+          </div>
+
+          <button
+            class="small-btn"
+            style="margin-top:12px;width:100%"
+            onclick="generateOrderSlip('${order.id}')"
+          >
+            🧾 Generate Slip
+          </button>
+
+        </div>
+      `;
+
+    }).join("");
+}
+
+
+/* =========================
+   GENERATE ORDER SLIP
+========================= */
+
+async function generateOrderSlip(orderId){
+
+  const { data: order, error } =
+    await supabaseClient
+      .from("orders")
+      .select(`
+        id,
+        order_number,
+        created_at,
+        status,
+        customers (
+          name,
+          phone,
+          address
+        ),
+        order_items (
+          quantity,
+          price,
+          products (
+            name
+          )
+        )
+      `)
+      .eq("id", orderId)
+      .single();
+
+  if(error){
+
+    console.error(
+      "Slip Error:",
+      error
+    );
+
+    alert(
+      "Order slip load nahi ho saki."
+    );
+
+    return;
+  }
+
+  const customer =
+    order.customers || {};
+
+  const items =
+    order.order_items || [];
+
+  document.getElementById("slipId").textContent =
+    order.order_number || "";
+
+  document.getElementById("slipDate").textContent =
+    new Date(order.created_at)
+      .toLocaleString();
+
+  document.getElementById("slipName").textContent =
+    customer.name || "";
+
+  document.getElementById("slipPhone").textContent =
+    customer.phone || "";
+
+  document.getElementById("slipAddress").textContent =
+    customer.address || "";
+
+  document.getElementById("slipDelivery").textContent =
+    customer.address || "";
+
+  let total = 0;
+
+  document.getElementById("slipItems").innerHTML =
+    items.map(item => {
+
+      const price =
+        Number(item.price || 0);
+
+      const qty =
+        Number(item.quantity || 0);
+
+      const lineTotal =
+        price * qty;
+
+      total += lineTotal;
+
+      return `
+        <div class="slip-row">
+          <span>
+            ${escapeHtml(
+              item.products?.name || "Product"
+            )}
+            × ${qty}
+          </span>
+
+          <span>
+            Rs. ${lineTotal.toLocaleString()}
+          </span>
+        </div>
+      `;
+
+    }).join("");
+
+  document.getElementById("slipTotal").textContent =
+    total.toLocaleString();
+
+  document.getElementById("slipModal")
+    .style.display = "block";
+}
+
+
+/* =========================
+   AUTO LOAD ORDERS
+========================= */
+
+const oldOpenAdmin =
+  window.openAdmin;
+
+window.openAdmin = function(){
+
+  if(typeof oldOpenAdmin === "function"){
+    oldOpenAdmin();
+  }
+
+  setTimeout(() => {
+    loadAdminOrders();
+  }, 300);
+
+};
 
 </script>
 
