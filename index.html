@@ -1747,8 +1747,11 @@ async function placeOrder(){
 
  try {
 
+  console.log("🔴 Starting order placement...");
+
   /* CUSTOMER */
 
+  console.log("📝 Inserting customer...");
   const { data: customer, error: customerError } =
    await supabaseClient
     .from("customers")
@@ -1760,28 +1763,54 @@ async function placeOrder(){
     .select("id")
     .single();
 
-  if(customerError) throw customerError;
+  if(customerError){
+   console.error("❌ Customer Error:", customerError);
+   throw customerError;
+  }
+
+  console.log("✅ Customer created:", customer);
 
 
   /* ORDER */
+
+  console.log("📝 Inserting order...");
+  console.log("Payload:", {
+   customer_id: customer.id,
+   number: orderId,
+   total: total,
+   delivery: delivery
+  });
 
   const { data: order, error: orderError } =
    await supabaseClient
     .from("orders")
     .insert({
-     order_number: orderId,
      customer_id: customer.id,
-     status: "new",
-     delivery_type: delivery
+     number: orderId,
+     total: total,
+     delivery: delivery
     })
     .select("id")
     .single();
 
-  if(orderError) throw orderError;
+  if(orderError){
+   console.error("❌ Order Error:", orderError);
+   console.error("🔍 Full Error Details:", {
+    message: orderError.message,
+    status: orderError.status,
+    statusText: orderError.statusText,
+    details: orderError.details,
+    hint: orderError.hint
+   });
+   throw orderError;
+  }
+
+  console.log("✅ Order created:", order);
 
 
   /* ORDER ITEMS */
 
+  console.log("📝 Inserting order items...");
   for(const item of cart){
 
    let { data: product, error: productError } =
@@ -1791,11 +1820,15 @@ async function placeOrder(){
      .eq("name", item.name)
      .maybeSingle();
 
-   if(productError) throw productError;
+   if(productError){
+    console.error("❌ Product Query Error:", productError);
+    throw productError;
+   }
 
 
    if(!product){
 
+    console.log("Product not found, creating new:", item.name);
     const { data: newProduct, error: newProductError } =
      await supabaseClient
       .from("products")
@@ -1807,9 +1840,13 @@ async function placeOrder(){
       .select("id")
       .single();
 
-    if(newProductError) throw newProductError;
+    if(newProductError){
+     console.error("❌ New Product Error:", newProductError);
+     throw newProductError;
+    }
 
     product = newProduct;
+    console.log("✅ Product created:", product);
    }
 
 
@@ -1823,9 +1860,16 @@ async function placeOrder(){
       price: Number(item.price)
      });
 
-   if(itemError) throw itemError;
+   if(itemError){
+    console.error("❌ Order Item Error:", itemError);
+    throw itemError;
+   }
+
+   console.log("✅ Item added:", item.name);
   }
 
+
+  console.log("✅ All data saved successfully!");
 
   /* DISPLAY SLIP */
 
@@ -1941,10 +1985,10 @@ async function placeOrder(){
 
  } catch(error) {
 
-  console.error("Order Error:", error);
+  console.error("❌ Order Error:", error);
 
   alert(
-   "Order save nahi ho saka. Supabase error check karo."
+   "Order save nahi ho saka. Browser console dekho details ke liye."
   );
 
  }
@@ -1976,10 +2020,10 @@ async function loadAdminOrders(){
    .from("orders")
    .select(`
     id,
-    order_number,
-    status,
+    number,
+    total,
+    delivery,
     created_at,
-    delivery_type,
     customers (
      name,
      phone,
@@ -2028,13 +2072,7 @@ async function loadAdminOrders(){
     order.order_items || [];
 
    const total =
-    items.reduce(
-     (sum, item) =>
-      sum +
-      Number(item.price || 0) *
-      Number(item.quantity || 0),
-     0
-    );
+    Number(order.total) || 0;
 
    const itemText =
     items.map(item => `
@@ -2055,15 +2093,9 @@ async function loadAdminOrders(){
 
      <strong>
       📦 ${escapeHtml(
-       order.order_number || ""
+       order.number || ""
       )}
      </strong>
-
-     <span class="order-status">
-      ${escapeHtml(
-       order.status || "new"
-      )}
-     </span>
 
      <div class="admin-order-info">
       👤 ${escapeHtml(
@@ -2076,7 +2108,7 @@ async function loadAdminOrders(){
        customer.address || ""
       )}<br>
       🚚 ${escapeHtml(
-       order.delivery_type || ""
+       order.delivery || ""
       )}<br>
       📅 ${new Date(order.created_at).toLocaleString()}
      </div>
@@ -2115,10 +2147,10 @@ async function generateOrderSlip(orderId){
    .from("orders")
    .select(`
     id,
-    order_number,
+    number,
+    total,
+    delivery,
     created_at,
-    status,
-    delivery_type,
     customers (
      name,
      phone,
@@ -2156,7 +2188,7 @@ async function generateOrderSlip(orderId){
   order.order_items || [];
 
  document.getElementById("slipId").textContent =
-  order.order_number || "";
+  order.number || "";
 
  document.getElementById("slipDate").textContent =
   new Date(order.created_at)
@@ -2172,9 +2204,9 @@ async function generateOrderSlip(orderId){
   customer.address || "";
 
  document.getElementById("slipDelivery").textContent =
-  order.delivery_type || "";
+  order.delivery || "";
 
- let total = 0;
+ let slipTotal = 0;
 
  document.getElementById("slipItems").innerHTML =
   items.map(item => {
@@ -2188,7 +2220,7 @@ async function generateOrderSlip(orderId){
    const lineTotal =
     price * qty;
 
-   total += lineTotal;
+   slipTotal += lineTotal;
 
    return `
     <div class="slip-row">
@@ -2209,7 +2241,7 @@ async function generateOrderSlip(orderId){
   }).join("");
 
  document.getElementById("slipTotal").textContent =
-  total.toLocaleString();
+  slipTotal.toLocaleString();
 
  document.getElementById("slipModal")
   .style.display = "block";
