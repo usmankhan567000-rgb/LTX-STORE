@@ -1246,6 +1246,7 @@ function openAdmin(){
   .style.display = "block";
 
  renderAdminProducts();
+   loadAdminOrders();
 }
 
 function closeAdmin(){
@@ -1471,6 +1472,142 @@ function saveProduct(){
 }
 
 function renderAdminProducts(){
+ async function loadAdminOrders(){
+
+  const box =
+    document.getElementById("adminOrderList");
+
+  if(!box) return;
+
+  box.innerHTML =
+    "Loading orders...";
+
+  const { data: orders, error } =
+    await supabaseClient
+      .from("orders")
+      .select(`
+        id,
+        order_number,
+        status,
+        created_at,
+        customers (
+          name,
+          phone,
+          address
+        ),
+        order_items (
+          quantity,
+          price,
+          products (
+            name
+          )
+        )
+      `)
+      .order("created_at", {
+        ascending: false
+      });
+
+  if(error){
+
+    console.error(
+      "Orders Error:",
+      error
+    );
+
+    box.innerHTML =
+      "Orders load nahi ho sake.";
+
+    return;
+  }
+
+  if(!orders || !orders.length){
+
+    box.innerHTML =
+      "No orders yet.";
+
+    return;
+  }
+
+  box.innerHTML =
+    orders.map(order => {
+
+      const customer =
+        order.customers || {};
+
+      const items =
+        order.order_items || [];
+
+      const total =
+        items.reduce(
+          (sum, item) =>
+            sum +
+            Number(item.price || 0) *
+            Number(item.quantity || 0),
+          0
+        );
+
+      return `
+        <div class="admin-order">
+
+          <div class="admin-order-top">
+
+            <div>
+
+              <strong>
+                ${escapeHtml(
+                  order.order_number || ""
+                )}
+              </strong>
+
+              <small>
+                ${escapeHtml(
+                  customer.name || ""
+                )}
+              </small>
+
+            </div>
+
+            <span class="order-status">
+              ${escapeHtml(
+                order.status || "new"
+              )}
+            </span>
+
+          </div>
+
+          <div class="admin-order-info">
+
+            <div>
+              📞 ${escapeHtml(
+                customer.phone || ""
+              )}
+            </div>
+
+            <div>
+              📍 ${escapeHtml(
+                customer.address || ""
+              )}
+            </div>
+
+            <div>
+              💰 Rs.
+              ${total.toLocaleString()}
+            </div>
+
+          </div>
+
+          <button
+            class="small-btn"
+            onclick='generateOrderSlip(${JSON.stringify(order)})'>
+            🧾 Generate Slip
+          </button>
+
+        </div>
+      `;
+
+    }).join("");
+}
+ 
 
  const box =
   document
@@ -1878,12 +2015,9 @@ async function placeOrder(){
    message,
    "_blank"
   );
+cart = [];
+saveCart();
 
-
-  /* SHOW SLIP */
-
-  document.getElementById("slipModal").style.display =
-   "block";
 
 
  } catch(error) {
