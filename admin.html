@@ -1,1 +1,1620 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>LTX Store — Admin Panel</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#0f1115;
+    color:#fff;
+}
+
+button,
+select,
+input{
+    font:inherit;
+}
+
+.hidden{
+    display:none!important;
+}
+
+/* LOGIN */
+
+#loginScreen{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.loginBox{
+    width:100%;
+    max-width:400px;
+    background:#191c23;
+    border:1px solid #30343d;
+    border-radius:18px;
+    padding:30px;
+    box-shadow:0 15px 50px rgba(0,0,0,.4);
+}
+
+.logoTitle{
+    text-align:center;
+    font-size:30px;
+    font-weight:800;
+    margin-bottom:5px;
+}
+
+.loginSubtitle{
+    text-align:center;
+    color:#9da3ae;
+    margin-bottom:25px;
+}
+
+.inputGroup{
+    margin-bottom:15px;
+}
+
+.inputGroup label{
+    display:block;
+    margin-bottom:7px;
+    color:#cbd0d8;
+    font-size:14px;
+}
+
+.inputGroup input{
+    width:100%;
+    padding:13px;
+    border-radius:10px;
+    border:1px solid #343944;
+    background:#101218;
+    color:#fff;
+    outline:none;
+}
+
+.inputGroup input:focus{
+    border-color:#7c3aed;
+}
+
+.primaryBtn{
+    width:100%;
+    border:0;
+    padding:13px;
+    border-radius:10px;
+    background:#7c3aed;
+    color:white;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.primaryBtn:hover{
+    opacity:.9;
+}
+
+#errorMessage{
+    color:#ff6b6b;
+    text-align:center;
+    margin-top:15px;
+}
+
+/* ADMIN */
+
+#adminPanel{
+    min-height:100vh;
+}
+
+header{
+    padding:18px 22px;
+    background:#17191f;
+    border-bottom:1px solid #292d35;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+}
+
+.headerTitle{
+    font-size:24px;
+    font-weight:800;
+}
+
+.headerSub{
+    color:#9298a4;
+    font-size:13px;
+    margin-top:3px;
+}
+
+.logoutBtn{
+    background:#272b33;
+    color:#fff;
+    border:1px solid #3b404a;
+    padding:10px 14px;
+    border-radius:9px;
+    cursor:pointer;
+}
+
+.container{
+    max-width:1200px;
+    margin:auto;
+    padding:22px;
+}
+
+/* STATS */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:14px;
+    margin-bottom:25px;
+}
+
+.stat{
+    background:#191c23;
+    border:1px solid #2b2f37;
+    border-radius:14px;
+    padding:18px;
+}
+
+.statTitle{
+    color:#969ca7;
+    font-size:13px;
+}
+
+.statNumber{
+    font-size:28px;
+    font-weight:800;
+    margin-top:6px;
+}
+
+/* TOOLBAR */
+
+.toolbar{
+    display:flex;
+    gap:10px;
+    margin-bottom:18px;
+    flex-wrap:wrap;
+}
+
+.toolbar input{
+    flex:1;
+    min-width:220px;
+    background:#191c23;
+    color:white;
+    border:1px solid #30343d;
+    padding:12px;
+    border-radius:10px;
+}
+
+.actionBtn{
+    border:1px solid #363b45;
+    background:#191c23;
+    color:#fff;
+    padding:11px 15px;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+.actionBtn:hover{
+    background:#242831;
+}
+
+/* ORDER */
+
+.orders{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+.orderCard{
+    background:#191c23;
+    border:1px solid #2d3139;
+    border-radius:16px;
+    padding:18px;
+}
+
+.orderTop{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:15px;
+    margin-bottom:15px;
+}
+
+.orderNumber{
+    font-size:18px;
+    font-weight:800;
+}
+
+.orderDate{
+    color:#8f96a2;
+    font-size:12px;
+    margin-top:4px;
+}
+
+.statusBadge{
+    padding:7px 11px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:700;
+}
+
+.pending{
+    background:#6b4b00;
+    color:#ffd76a;
+}
+
+.packaging{
+    background:#123f66;
+    color:#69b9ff;
+}
+
+.ontheway{
+    background:#641f27;
+    color:#ff818c;
+}
+
+.delivered{
+    background:#e9e9e9;
+    color:#111;
+}
+
+.customerInfo{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+    margin-bottom:15px;
+}
+
+.infoBox{
+    background:#111319;
+    border-radius:10px;
+    padding:12px;
+}
+
+.infoLabel{
+    color:#858c98;
+    font-size:11px;
+    margin-bottom:4px;
+}
+
+.infoValue{
+    word-break:break-word;
+}
+
+.orderItems{
+    background:#111319;
+    border-radius:10px;
+    padding:13px;
+    margin-bottom:15px;
+}
+
+.itemRow{
+    display:flex;
+    justify-content:space-between;
+    padding:7px 0;
+    border-bottom:1px solid #252932;
+}
+
+.itemRow:last-child{
+    border-bottom:0;
+}
+
+.orderBottom{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.total{
+    font-size:20px;
+    font-weight:800;
+}
+
+.statusSelect{
+    background:#111319;
+    color:#fff;
+    border:1px solid #363b45;
+    padding:10px;
+    border-radius:9px;
+}
+
+.slipBtn{
+    background:#fff;
+    color:#111;
+    border:0;
+    padding:10px 15px;
+    border-radius:9px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.empty{
+    text-align:center;
+    padding:50px 20px;
+    color:#858c98;
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .customerInfo{
+        grid-template-columns:1fr;
+    }
+
+    header{
+        align-items:flex-start;
+    }
+
+    .orderTop{
+        flex-direction:column;
+    }
+
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= LOGIN ================= -->
+
+<section id="loginScreen">
+
+    <div class="loginBox">
+
+        <div class="logoTitle">LTX STORE</div>
+
+        <div class="loginSubtitle">
+            Admin Panel
+        </div>
+
+        <form id="loginForm">
+
+            <div class="inputGroup">
+                <label>Email</label>
+                <input
+                    id="adminEmail"
+                    type="email"
+                    autocomplete="username"
+                    required
+                    placeholder="Admin email">
+            </div>
+
+            <div class="inputGroup">
+                <label>Password</label>
+                <input
+                    id="adminPassword"
+                    type="password"
+                    autocomplete="current-password"
+                    required
+                    placeholder="Password">
+            </div>
+
+            <button class="primaryBtn" type="submit">
+                Login to Admin
+            </button>
+
+            <div id="errorMessage"></div>
+
+        </form>
+
+    </div>
+
+</section>
+
+
+<!-- ================= ADMIN ================= -->
+
+<section id="adminPanel" class="hidden">
+
+<header>
+
+    <div>
+        <div class="headerTitle">
+            LTX STORE — ADMIN
+        </div>
+
+        <div class="headerSub">
+            Customer Orders & Status
+        </div>
+    </div>
+
+    <button
+        id="logoutBtn"
+        class="logoutBtn">
+        Logout
+    </button>
+
+</header>
+
+
+<div class="container">
+
+    <!-- STATS -->
+
+    <div class="stats">
+
+        <div class="stat">
+            <div class="statTitle">Total Orders</div>
+            <div id="totalOrders" class="statNumber">0</div>
+        </div>
+
+        <div class="stat">
+            <div class="statTitle">Pending</div>
+            <div id="pendingOrders" class="statNumber">0</div>
+        </div>
+
+        <div class="stat">
+            <div class="statTitle">Packaging</div>
+            <div id="packagingOrders" class="statNumber">0</div>
+        </div>
+
+        <div class="stat">
+            <div class="statTitle">Delivered</div>
+            <div id="deliveredOrders" class="statNumber">0</div>
+        </div>
+
+    </div>
+
+
+    <!-- TOOLBAR -->
+
+    <div class="toolbar">
+
+        <input
+            id="searchInput"
+            type="search"
+            placeholder="Search order, customer, phone...">
+
+        <button
+            id="refreshBtn"
+            class="actionBtn">
+            🔄 Refresh
+        </button>
+
+    </div>
+
+
+    <!-- ORDERS -->
+
+    <div id="ordersContainer" class="orders">
+
+        <div class="empty">
+            Loading orders...
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<script>
+
+/* =====================================================
+   SUPABASE
+   ===================================================== */
+
+/*
+   IMPORTANT:
+   Yahan wahi SAME Supabase URL aur ANON KEY lagao
+   jo tumhari working index.html mein already use ho rahi hai.
+*/
+
+const SUPABASE_URL = "https://zsutkpsiefziotuwgkwq.supabase.co/rest/v1/";
+const SUPABASE_ANON_KEY = "sb_publishable_KfkaZZnDim3BlRxVUXd2wQ_WN84Duhb";
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_ANON_KEY
+    );
+
+
+/* =====================================================
+   ELEMENTS
+   ===================================================== */
+
+const loginScreen =
+    document.getElementById("loginScreen");
+
+const adminPanel =
+    document.getElementById("adminPanel");
+
+const loginForm =
+    document.getElementById("loginForm");
+
+const errorMessage =
+    document.getElementById("errorMessage");
+
+const ordersContainer =
+    document.getElementById("ordersContainer");
+
+const searchInput =
+    document.getElementById("searchInput");
+
+
+/* =====================================================
+   LOGIN
+   ===================================================== */
+
+loginForm.addEventListener("submit", async function(e){
+
+    e.preventDefault();
+
+    errorMessage.textContent = "";
+
+    const email =
+        document.getElementById("adminEmail").value.trim();
+
+    const password =
+        document.getElementById("adminPassword").value;
+
+    const { data, error } =
+        await supabaseClient.auth.signInWithPassword({
+            email,
+            password
+        });
+
+    if(error){
+
+        errorMessage.textContent =
+            error.message || "Login failed.";
+
+        return;
+    }
+
+    showAdmin();
+
+});
+
+
+/* =====================================================
+   CHECK SESSION
+   ===================================================== */
+
+async function checkSession(){
+
+    const {
+        data: {
+            session
+        }
+    } = await supabaseClient.auth.getSession();
+
+    if(session){
+
+        showAdmin();
+
+    }else{
+
+        showLogin();
+
+    }
+
+}
+
+
+/* =====================================================
+   SHOW LOGIN
+   ===================================================== */
+
+function showLogin(){
+
+    loginScreen.classList.remove("hidden");
+
+    adminPanel.classList.add("hidden");
+
+}
+
+
+/* =====================================================
+   SHOW ADMIN
+   ===================================================== */
+
+function showAdmin(){
+
+    loginScreen.classList.add("hidden");
+
+    adminPanel.classList.remove("hidden");
+
+    loadOrders();
+
+}
+
+
+/* =====================================================
+   LOGOUT
+   ===================================================== */
+
+document
+.getElementById("logoutBtn")
+.addEventListener("click", async function(){
+
+    await supabaseClient.auth.signOut();
+
+    showLogin();
+
+});
+
+
+/* =====================================================
+   LOAD ORDERS
+   ===================================================== */
+
+async function loadOrders(){
+
+    ordersContainer.innerHTML =
+        `<div class="empty">Loading orders...</div>`;
+
+    /*
+       IMPORTANT:
+       "orders" table ka naam tumhari existing
+       website ke according hona chahiye.
+    */
+
+    const {
+        data,
+        error
+    } = await supabaseClient
+        .from("orders")
+        .select("*")
+        .order("created_at", {
+            ascending:false
+        });
+
+    if(error){
+
+        ordersContainer.innerHTML = `
+            <div class="empty">
+                Unable to load orders.<br><br>
+                ${escapeHtml(error.message)}
+            </div>
+        `;
+
+        return;
+    }
+
+    const orders = data || [];
+
+    updateStats(orders);
+
+    renderOrders(orders);
+
+}
+
+
+/* =====================================================
+   STATS
+   ===================================================== */
+
+function updateStats(orders){
+
+    document.getElementById("totalOrders")
+        .textContent = orders.length;
+
+    document.getElementById("pendingOrders")
+        .textContent =
+            orders.filter(o =>
+                normalizeStatus(o.status) === "pending"
+            ).length;
+
+    document.getElementById("packagingOrders")
+        .textContent =
+            orders.filter(o =>
+                normalizeStatus(o.status) === "packaging"
+            ).length;
+
+    document.getElementById("deliveredOrders")
+        .textContent =
+            orders.filter(o =>
+                normalizeStatus(o.status) === "delivered"
+            ).length;
+
+}
+
+
+/* =====================================================
+   NORMALIZE STATUS
+   ===================================================== */
+
+function normalizeStatus(status){
+
+    if(!status) return "pending";
+
+    return String(status)
+        .toLowerCase()
+        .replace(/\s+/g,"")
+        .replace(/_/g,"");
+
+}
+
+
+/* =====================================================
+   STATUS CLASS
+   ===================================================== */
+
+function statusClass(status){
+
+    const s = normalizeStatus(status);
+
+    if(s === "packaging")
+        return "packaging";
+
+    if(
+        s === "ontheway" ||
+        s === "shipping" ||
+        s === "shipped"
+    )
+        return "ontheway";
+
+    if(s === "delivered")
+        return "delivered";
+
+    return "pending";
+
+}
+
+
+/* =====================================================
+   STATUS TEXT
+   ===================================================== */
+
+function statusText(status){
+
+    const s = normalizeStatus(status);
+
+    if(s === "packaging")
+        return "Packaging";
+
+    if(
+        s === "ontheway" ||
+        s === "shipping" ||
+        s === "shipped"
+    )
+        return "On the Way";
+
+    if(s === "delivered")
+        return "Delivered";
+
+    return "Pending";
+
+}
+
+
+/* =====================================================
+   RENDER ORDERS
+   ===================================================== */
+
+function renderOrders(orders){
+
+    if(!orders.length){
+
+        ordersContainer.innerHTML =
+            `<div class="empty">No orders found.</div>`;
+
+        return;
+    }
+
+    ordersContainer.innerHTML =
+        orders.map(order => createOrderCard(order))
+        .join("");
+
+}
+
+
+/* =====================================================
+   CREATE ORDER CARD
+   ===================================================== */
+
+function createOrderCard(order){
+
+    const orderNumber =
+        order.order_number ||
+        order.orderNumber ||
+        order.id ||
+        "Unknown";
+
+    const customerName =
+        order.name ||
+        order.customer_name ||
+        order.customerName ||
+        "Not provided";
+
+    const phone =
+        order.phone ||
+        order.customer_phone ||
+        "Not provided";
+
+    const address =
+        order.address ||
+        order.customer_address ||
+        "Not provided";
+
+    const delivery =
+        order.delivery ||
+        order.delivery_method ||
+        "Not provided";
+
+    const total =
+        order.total ??
+        order.total_amount ??
+        order.amount ??
+        0;
+
+    const status =
+        order.status || "pending";
+
+    const items =
+        parseItems(order.items);
+
+    const date =
+        order.created_at
+            ? new Date(order.created_at)
+                .toLocaleString()
+            : "Unknown";
+
+
+    return `
+
+    <div
+        class="orderCard"
+        data-search="${escapeHtml(
+            (
+                orderNumber + " " +
+                customerName + " " +
+                phone
+            ).toLowerCase()
+        )}">
+
+        <div class="orderTop">
+
+            <div>
+
+                <div class="orderNumber">
+                    📦 ${escapeHtml(orderNumber)}
+                </div>
+
+                <div class="orderDate">
+                    ${escapeHtml(date)}
+                </div>
+
+            </div>
+
+            <div class="statusBadge ${statusClass(status)}">
+                ${statusText(status)}
+            </div>
+
+        </div>
+
+
+        <div class="customerInfo">
+
+            <div class="infoBox">
+                <div class="infoLabel">CUSTOMER</div>
+                <div class="infoValue">
+                    ${escapeHtml(customerName)}
+                </div>
+            </div>
+
+            <div class="infoBox">
+                <div class="infoLabel">CONTACT</div>
+                <div class="infoValue">
+                    ${escapeHtml(phone)}
+                </div>
+            </div>
+
+            <div class="infoBox">
+                <div class="infoLabel">ADDRESS</div>
+                <div class="infoValue">
+                    ${escapeHtml(address)}
+                </div>
+            </div>
+
+            <div class="infoBox">
+                <div class="infoLabel">DELIVERY</div>
+                <div class="infoValue">
+                    ${escapeHtml(delivery)}
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="orderItems">
+
+            ${
+                items.length
+                ? items.map(item => `
+
+                    <div class="itemRow">
+
+                        <span>
+                            ${escapeHtml(
+                                item.name ||
+                                item.title ||
+                                "Product"
+                            )}
+                            ×
+                            ${escapeHtml(
+                                item.quantity ||
+                                item.qty ||
+                                1
+                            )}
+                        </span>
+
+                        <span>
+                            Rs.
+                            ${escapeHtml(
+                                item.price ||
+                                ""
+                            )}
+                        </span>
+
+                    </div>
+
+                `).join("")
+                : `
+                    <div class="itemRow">
+                        <span>Order items</span>
+                        <span>See order</span>
+                    </div>
+                `
+            }
+
+        </div>
+
+
+        <div class="orderBottom">
+
+            <div class="total">
+                Rs. ${escapeHtml(total)}
+            </div>
+
+
+            <select
+                class="statusSelect"
+                onchange="changeStatus(
+                    '${escapeJs(order.id)}',
+                    this.value
+                )">
+
+                <option
+                    value="pending"
+                    ${normalizeStatus(status)==="pending" ? "selected":""}>
+                    🟠 Pending
+                </option>
+
+                <option
+                    value="packaging"
+                    ${normalizeStatus(status)==="packaging" ? "selected":""}>
+                    🔵 Packaging
+                </option>
+
+                <option
+                    value="on_the_way"
+                    ${
+                        ["ontheway","shipping","shipped"]
+                        .includes(normalizeStatus(status))
+                        ? "selected":""
+                    }>
+                    🔴 On the Way
+                </option>
+
+                <option
+                    value="delivered"
+                    ${normalizeStatus(status)==="delivered" ? "selected":""}>
+                    ⚪ Delivered
+                </option>
+
+            </select>
+
+
+            <button
+                class="slipBtn"
+                onclick="generateSlip('${escapeJs(order.id)}')">
+
+                🖨️ Generate Slip
+
+            </button>
+
+        </div>
+
+    </div>
+
+    `;
+
+}
+
+
+/* =====================================================
+   CHANGE STATUS
+   ===================================================== */
+
+async function changeStatus(id,status){
+
+    if(!id) return;
+
+    const {
+        error
+    } = await supabaseClient
+        .from("orders")
+        .update({
+            status:status
+        })
+        .eq("id",id);
+
+    if(error){
+
+        alert(
+            "Status update failed:\n" +
+            error.message
+        );
+
+        await loadOrders();
+
+        return;
+    }
+
+    await loadOrders();
+
+}
+
+
+/* =====================================================
+   GENERATE SLIP
+   ===================================================== */
+
+async function generateSlip(id){
+
+    const {
+        data: order,
+        error
+    } = await supabaseClient
+        .from("orders")
+        .select("*")
+        .eq("id",id)
+        .single();
+
+    if(error){
+
+        alert(
+            "Unable to load order:\n" +
+            error.message
+        );
+
+        return;
+    }
+
+    createSlip(order);
+
+}
+
+
+/* =====================================================
+   SLIP
+   ===================================================== */
+
+function createSlip(order){
+
+    const orderNumber =
+        order.order_number ||
+        order.orderNumber ||
+        order.id ||
+        "LTX-ORDER";
+
+    const name =
+        order.name ||
+        order.customer_name ||
+        "Customer";
+
+    const phone =
+        order.phone ||
+        order.customer_phone ||
+        "";
+
+    const address =
+        order.address ||
+        order.customer_address ||
+        "";
+
+    const delivery =
+        order.delivery ||
+        order.delivery_method ||
+        "";
+
+    const total =
+        order.total ??
+        order.total_amount ??
+        0;
+
+    const items =
+        parseItems(order.items);
+
+
+    const slipWindow =
+        window.open(
+            "",
+            "_blank",
+            "width=850,height=1000"
+        );
+
+    if(!slipWindow){
+
+        alert(
+            "Popup blocked. Please allow popups for this site."
+        );
+
+        return;
+    }
+
+
+    slipWindow.document.write(`
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>LTX Shipment — ${escapeHtml(orderNumber)}</title>
+
+<style>
+
+body{
+    margin:0;
+    padding:30px;
+    background:#eee;
+    font-family:Arial,sans-serif;
+}
+
+.slip{
+    max-width:760px;
+    margin:auto;
+    background:#fff;
+    color:#111;
+    padding:30px;
+    border:2px solid #111;
+}
+
+.header{
+    text-align:center;
+    border-bottom:2px solid #111;
+    padding-bottom:18px;
+    margin-bottom:18px;
+}
+
+.store{
+    font-size:34px;
+    font-weight:900;
+}
+
+.subtitle{
+    font-size:13px;
+    margin-top:5px;
+}
+
+.section{
+    border:1px solid #222;
+    margin-top:15px;
+}
+
+.sectionTitle{
+    background:#111;
+    color:#fff;
+    padding:8px 12px;
+    font-weight:bold;
+}
+
+.row{
+    display:flex;
+    gap:15px;
+    padding:9px 12px;
+    border-bottom:1px solid #ddd;
+}
+
+.row:last-child{
+    border-bottom:0;
+}
+
+.label{
+    width:150px;
+    font-weight:bold;
+}
+
+.value{
+    flex:1;
+}
+
+.items{
+    padding:12px;
+}
+
+.item{
+    display:flex;
+    justify-content:space-between;
+    padding:8px 0;
+    border-bottom:1px solid #ddd;
+}
+
+.total{
+    font-size:22px;
+    font-weight:bold;
+    text-align:right;
+    padding-top:15px;
+}
+
+.barcode{
+    text-align:center;
+    margin-top:25px;
+    font-family:"Courier New",monospace;
+    font-size:25px;
+    letter-spacing:4px;
+}
+
+.qr{
+    text-align:center;
+    margin-top:20px;
+}
+
+.footer{
+    text-align:center;
+    margin-top:25px;
+    font-size:12px;
+}
+
+.printBtn{
+    display:block;
+    margin:20px auto;
+    padding:12px 25px;
+    border:0;
+    background:#111;
+    color:#fff;
+    cursor:pointer;
+}
+
+@media print{
+
+    body{
+        background:#fff;
+        padding:0;
+    }
+
+    .slip{
+        border:0;
+        max-width:none;
+    }
+
+    .printBtn{
+        display:none;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<button
+    class="printBtn"
+    onclick="window.print()">
+    🖨️ Print / Save PDF
+</button>
+
+<div class="slip">
+
+    <div class="header">
+
+        <div class="store">
+            LTX
+        </div>
+
+        <div class="subtitle">
+            SHIPMENT / CONSIGNMENT INFORMATION
+        </div>
+
+    </div>
+
+
+    <div class="section">
+
+        <div class="sectionTitle">
+            CUSTOMER INFORMATION
+        </div>
+
+        <div class="row">
+            <div class="label">Name</div>
+            <div class="value">
+                ${escapeHtml(name)}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="label">Contact</div>
+            <div class="value">
+                ${escapeHtml(phone)}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="label">Address</div>
+            <div class="value">
+                ${escapeHtml(address)}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="label">Delivery</div>
+            <div class="value">
+                ${escapeHtml(delivery)}
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="section">
+
+        <div class="sectionTitle">
+            SHIPMENT INFORMATION
+        </div>
+
+        <div class="row">
+            <div class="label">Order / Consignment</div>
+            <div class="value">
+                ${escapeHtml(orderNumber)}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="label">Shipper</div>
+            <div class="value">
+                LTX STORE
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="section">
+
+        <div class="sectionTitle">
+            ORDER INFORMATION
+        </div>
+
+        <div class="items">
+
+            ${
+                items.length
+                ? items.map(item => `
+
+                    <div class="item">
+
+                        <span>
+                            ${escapeHtml(
+                                item.name ||
+                                item.title ||
+                                "Product"
+                            )}
+                            ×
+                            ${escapeHtml(
+                                item.quantity ||
+                                item.qty ||
+                                1
+                            )}
+                        </span>
+
+                        <span>
+                            Rs.
+                            ${escapeHtml(
+                                item.price ||
+                                ""
+                            )}
+                        </span>
+
+                    </div>
+
+                `).join("")
+                : "<div>No item details available.</div>"
+            }
+
+            <div class="total">
+                TOTAL: Rs. ${escapeHtml(total)}
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="barcode">
+        * ${escapeHtml(orderNumber)} *
+    </div>
+
+
+    <div class="qr">
+
+        <div
+            style="
+                display:inline-block;
+                padding:15px;
+                border:3px solid #111;
+                font-weight:bold;
+            ">
+
+            QR<br>
+            ${escapeHtml(orderNumber)}
+
+        </div>
+
+    </div>
+
+
+    <div class="footer">
+
+        LTX STORE<br>
+        Thank you for your order.
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
+
+    `);
+
+    slipWindow.document.close();
+
+}
+
+
+/* =====================================================
+   SEARCH
+   ===================================================== */
+
+searchInput.addEventListener(
+    "input",
+    function(){
+
+        const query =
+            this.value
+                .trim()
+                .toLowerCase();
+
+        document
+            .querySelectorAll(".orderCard")
+            .forEach(card => {
+
+                const text =
+                    card.dataset.search || "";
+
+                card.style.display =
+                    !query || text.includes(query)
+                    ? ""
+                    : "none";
+
+            });
+
+    }
+);
+
+
+/* =====================================================
+   REFRESH
+   ===================================================== */
+
+document
+.getElementById("refreshBtn")
+.addEventListener(
+    "click",
+    loadOrders
+);
+
+
+/* =====================================================
+   PARSE ITEMS
+   ===================================================== */
+
+function parseItems(items){
+
+    if(!items)
+        return [];
+
+    if(Array.isArray(items))
+        return items;
+
+    if(typeof items === "object")
+        return [items];
+
+    if(typeof items === "string"){
+
+        try{
+
+            const parsed =
+                JSON.parse(items);
+
+            return Array.isArray(parsed)
+                ? parsed
+                : [parsed];
+
+        }catch(e){
+
+            return [];
+
+        }
+
+    }
+
+    return [];
+
+}
+
+
+/* =====================================================
+   ESCAPE HTML
+   ===================================================== */
+
+function escapeHtml(value){
+
+    return String(value ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+/* =====================================================
+   ESCAPE JS
+   ===================================================== */
+
+function escapeJs(value){
+
+    return String(value ?? "")
+        .replace(/\\/g,"\\\\")
+        .replace(/'/g,"\\'")
+        .replace(/"/g,'\\"')
+        .replace(/\n/g,"\\n")
+        .replace(/\r/g,"\\r");
+
+}
+
+
+/* =====================================================
+   START
+   ===================================================== */
+
+checkSession();
+
+</script>
+
+</body>
+</html>
